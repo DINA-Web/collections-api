@@ -4,8 +4,6 @@ codecov:
 comment:
   layout: header, changes, diff
 
-token: 2e9679cc-6cb5-4835-a539-4544d67ca529
-
 coverage:
   ignore:
   - se.nrm.dina.datamodel
