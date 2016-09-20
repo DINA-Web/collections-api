@@ -116,7 +116,7 @@
                 <executions>
                     <execution>
                         <configuration>
-                            <mainClass>se.nrm.dina.document.convertor.Main</mainClass>
+                            <mainClass>se.nrm.dina.keycloak.admin.Main</mainClass>
                         </configuration>
                         <goals>
                             <goal>one-jar</goal>
