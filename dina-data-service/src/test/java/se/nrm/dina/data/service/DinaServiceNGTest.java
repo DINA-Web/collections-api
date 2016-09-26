@@ -50,6 +50,8 @@ public class DinaServiceNGTest {
     private final String entity = "TestEntity"; 
     private TestEntityCollection list;
     private TestEntity testEntity;
+    
+    private final static String currentVersion = "v1";
 
     public DinaServiceNGTest() {
     }
@@ -92,7 +94,7 @@ public class DinaServiceNGTest {
  
         when(logic.findAll(entity, 0, 0, "asc", orders)).thenReturn(list.getTestEntities());
 
-        MockHttpRequest request = MockHttpRequest.get("/v0/TestEntity?offset=0&limit=0&orderby=version");
+        MockHttpRequest request = MockHttpRequest.get(currentVersion + "/TestEntity?offset=0&limit=0&orderby=version");
         response = new MockHttpResponse();
 
         dispatcher.invoke(request, response);
@@ -239,7 +241,7 @@ public class DinaServiceNGTest {
     public void testGetEntityCount() throws Exception {
         System.out.println("getEntityCount");
 
-        MockHttpRequest request = MockHttpRequest.get("/v0/TestEntity/count");
+        MockHttpRequest request = MockHttpRequest.get(currentVersion + "/TestEntity/count");
         response = new MockHttpResponse();
 
         when(logic.findEntityCount(entity)).thenReturn(10);
@@ -260,7 +262,7 @@ public class DinaServiceNGTest {
     public void testGetEntityCountFailure() throws Exception {
         System.out.println("getEntityCount");
 
-        MockHttpRequest request = MockHttpRequest.get("/v0/TestEntity/count");
+        MockHttpRequest request = MockHttpRequest.get(currentVersion + "/TestEntity/count");
         response = new MockHttpResponse();
 
         when(logic.findEntityCount(entity)).thenThrow(new DinaException("error", 400));
@@ -280,7 +282,7 @@ public class DinaServiceNGTest {
     public void testCreateNewEntity() throws Exception {
         System.out.println("createNewEntity");
 
-        MockHttpRequest request = MockHttpRequest.post("/v0/TestEntity");
+        MockHttpRequest request = MockHttpRequest.post(currentVersion + "/TestEntity");
         request.accept(MediaType.APPLICATION_JSON);
         request.contentType(MediaType.APPLICATION_JSON_TYPE);
 
@@ -307,7 +309,7 @@ public class DinaServiceNGTest {
     public void testCreateNewEntityFailure() throws Exception {
         System.out.println("createNewEntity");
 
-        MockHttpRequest request = MockHttpRequest.post("/v0/TestEntity");
+        MockHttpRequest request = MockHttpRequest.post(currentVersion + "/TestEntity");
         request.accept(MediaType.APPLICATION_JSON);
         request.contentType(MediaType.APPLICATION_JSON_TYPE);
 
@@ -334,7 +336,7 @@ public class DinaServiceNGTest {
     public void testUpdateEntity() throws Exception {
         System.out.println("updateEntity");
 
-        MockHttpRequest request = MockHttpRequest.put("/v0/TestEntity");
+        MockHttpRequest request = MockHttpRequest.put(currentVersion + "/TestEntity");
         request.accept(MediaType.APPLICATION_JSON);
         request.contentType(MediaType.APPLICATION_JSON_TYPE);
 
@@ -361,7 +363,7 @@ public class DinaServiceNGTest {
     public void testUpdateEntityFailure() throws Exception {
         System.out.println("updateEntity");
 
-        MockHttpRequest request = MockHttpRequest.put("/v0/TestEntity");
+        MockHttpRequest request = MockHttpRequest.put(currentVersion + "/TestEntity");
         request.accept(MediaType.APPLICATION_JSON);
         request.contentType(MediaType.APPLICATION_JSON_TYPE);
 
@@ -388,7 +390,7 @@ public class DinaServiceNGTest {
     public void testDeleteEntityById() throws Exception {
         System.out.println("deleteEntityById");
 
-        MockHttpRequest request = MockHttpRequest.delete("/v0/TestEntity/20");
+        MockHttpRequest request = MockHttpRequest.delete(currentVersion + "/TestEntity/20");
         request.accept(MediaType.APPLICATION_JSON);
         request.contentType(MediaType.APPLICATION_JSON_TYPE);
 
@@ -408,7 +410,7 @@ public class DinaServiceNGTest {
     public void testDeleteEntityByIdFailure() throws Exception {
         System.out.println("deleteEntityById");
 
-        MockHttpRequest request = MockHttpRequest.delete("/v0/TestEntity/20");
+        MockHttpRequest request = MockHttpRequest.delete(currentVersion + "/TestEntity/20");
         request.accept(MediaType.APPLICATION_JSON);
         request.contentType(MediaType.APPLICATION_JSON_TYPE);
 
