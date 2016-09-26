@@ -51,7 +51,7 @@ import se.nrm.dina.logic.DinaDataLogic;
  *
  * @author idali
  */
-@Path("/v0")
+@Path("/v1")
 @Consumes({MediaType.APPLICATION_JSON+";charset=UTF-8"})
 @Produces({MediaType.APPLICATION_JSON + ";charset=UTF-8"})
 @Stateless
