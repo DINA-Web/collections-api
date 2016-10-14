@@ -12,11 +12,7 @@ import java.util.Scanner;
  * @author idali
  */
 public class Main {
-                                                      
-//    private static final String KEYLOAK_AUTH_PATH = "https://beta-sso.dina-web.net/auth";
-//    private static final String TSV_PATH = "/Users/idali/Desktop/keycloakAdmin/users 2.tsv";
-//    /Users/idali/keycloak_admin_test/users.tsv
-
+                                                       
     public static void main(String[] args) {
       
         String serviceUrl;
@@ -35,9 +31,7 @@ public class Main {
             serviceUrl = scanner.next();
             
             System.out.print("Enter tsv file path: "); 
-            tsvPath = scanner.next(); 
-//            System.out.println("You need specify keycloak url and tsv file path");
-//            System.exit(0);
+            tsvPath = scanner.next();  
         }  
         new AdminClient().uploadUser(serviceUrl, tsvPath);
     }
