@@ -5,6 +5,7 @@
  */
 package se.nrm.dina.datamodel.impl;
  
+import com.fasterxml.jackson.annotation.JsonProperty;
 import se.nrm.dina.datamodel.BaseEntity;
 import java.util.Date;
 import java.util.List;
@@ -177,10 +178,12 @@ public class Storage extends BaseEntity {
 //    }
     
     @Override
+    @JsonProperty("entity-id")
     public int getEntityId() {
         return storageID;
     }
 
+    @JsonProperty("storage-id")
     public Integer getStorageID() {
         return storageID;
     }
@@ -198,6 +201,7 @@ public class Storage extends BaseEntity {
         this.abbrev = abbrev;
     }
 
+    @JsonProperty("full-name")
     public String getFullName() {
         return fullName;
     }
@@ -206,6 +210,7 @@ public class Storage extends BaseEntity {
         this.fullName = fullName;
     }
 
+    @JsonProperty("highest-child-node-number")
     public Integer getHighestChildNodeNumber() {
         return highestChildNodeNumber;
     }
@@ -214,6 +219,7 @@ public class Storage extends BaseEntity {
         this.highestChildNodeNumber = highestChildNodeNumber;
     }
 
+    @JsonProperty("is-accepted")
     public Boolean getIsAccepted() {
         return isAccepted;
     }
@@ -234,6 +240,7 @@ public class Storage extends BaseEntity {
         return nodeNumber;
     }
 
+    @JsonProperty("node-number")
     public void setNodeNumber(Integer nodeNumber) {
         this.nodeNumber = nodeNumber;
     }
@@ -254,6 +261,7 @@ public class Storage extends BaseEntity {
         this.number2 = number2;
     }
 
+    @JsonProperty("rank-id")
     public int getRankID() {
         return rankID;
     }
@@ -286,6 +294,7 @@ public class Storage extends BaseEntity {
         this.text2 = text2;
     }
 
+    @JsonProperty("timestamp-version")
     public Date getTimestampVersion() {
         return timestampVersion;
     }
@@ -331,6 +340,7 @@ public class Storage extends BaseEntity {
     }
 
     @XmlIDREF 
+    @JsonProperty("accepted-id")
     public Storage getAcceptedID() {
         return acceptedID;
     }
@@ -340,6 +350,7 @@ public class Storage extends BaseEntity {
     }
 
     @XmlIDREF 
+    @JsonProperty("storage-tree-def-item-id")
     public Storagetreedefitem getStorageTreeDefItemID() {
         return storageTreeDefItemID;
     }
@@ -349,6 +360,7 @@ public class Storage extends BaseEntity {
     }
 
     @XmlIDREF 
+    @JsonProperty("modified-by-agent-id")
     public Agent getModifiedByAgentID() {
         return modifiedByAgentID;
     }
@@ -358,6 +370,7 @@ public class Storage extends BaseEntity {
     }
 
     @XmlIDREF 
+    @JsonProperty("storage-tree-def-id")
     public Storagetreedef getStorageTreeDefID() {
         return storageTreeDefID;
     }
@@ -367,6 +380,7 @@ public class Storage extends BaseEntity {
     }
 
     @XmlIDREF 
+    @JsonProperty("created-by-agent-id")
     public Agent getCreatedByAgentID() {
         return createdByAgentID;
     }
@@ -385,6 +399,7 @@ public class Storage extends BaseEntity {
     }
 
     @XmlIDREF 
+    @JsonProperty("parent-id")
     public Storage getParentID() {
         return parentID;
     }

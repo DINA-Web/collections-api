@@ -5,6 +5,7 @@
  */
 package se.nrm.dina.datamodel.impl;
  
+import com.fasterxml.jackson.annotation.JsonProperty;
 import se.nrm.dina.datamodel.BaseEntity;
 import java.util.Date;
 import java.util.List;
@@ -218,10 +219,12 @@ public class Collectingevent extends BaseEntity {
 //    }
 
     @Override
+    @JsonProperty("entity-id")
     public int getEntityId() {
         return collectingEventID;
     }
     
+    @JsonProperty("collecting-event-id")
     public Integer getCollectingEventID() {
         return collectingEventID;
     }
@@ -230,7 +233,7 @@ public class Collectingevent extends BaseEntity {
         this.collectingEventID = collectingEventID;
     }
  
-
+    @JsonProperty("end-date")
     public Date getEndDate() {
         return endDate;
     }
@@ -239,6 +242,7 @@ public class Collectingevent extends BaseEntity {
         this.endDate = endDate;
     }
 
+    @JsonProperty("end-date-precision")
     public Short getEndDatePrecision() {
         return endDatePrecision;
     }
@@ -247,6 +251,7 @@ public class Collectingevent extends BaseEntity {
         this.endDatePrecision = endDatePrecision;
     }
 
+    @JsonProperty("end-date-verbatim")
     public String getEndDateVerbatim() {
         return endDateVerbatim;
     }
@@ -255,6 +260,7 @@ public class Collectingevent extends BaseEntity {
         this.endDateVerbatim = endDateVerbatim;
     }
 
+    @JsonProperty("end-time")
     public Short getEndTime() {
         return endTime;
     }
@@ -262,7 +268,7 @@ public class Collectingevent extends BaseEntity {
     public void setEndTime(Short endTime) {
         this.endTime = endTime;
     }
-
+ 
     public String getMethod() {
         return method;
     }
@@ -279,6 +285,7 @@ public class Collectingevent extends BaseEntity {
         this.remarks = remarks;
     }
 
+    @JsonProperty("start-date")
     public Date getStartDate() {
         return startDate;
     }
@@ -287,6 +294,7 @@ public class Collectingevent extends BaseEntity {
         this.startDate = startDate;
     }
 
+    @JsonProperty("start-date-precision")
     public Short getStartDatePrecision() {
         return startDatePrecision;
     }
@@ -295,6 +303,7 @@ public class Collectingevent extends BaseEntity {
         this.startDatePrecision = startDatePrecision;
     }
 
+    @JsonProperty("start-date-verbatim")
     public String getStartDateVerbatim() {
         return startDateVerbatim;
     }
@@ -303,6 +312,7 @@ public class Collectingevent extends BaseEntity {
         this.startDateVerbatim = startDateVerbatim;
     }
 
+    @JsonProperty("start-time")
     public Short getStartTime() {
         return startTime;
     }
@@ -311,6 +321,7 @@ public class Collectingevent extends BaseEntity {
         this.startTime = startTime;
     }
 
+    @JsonProperty("station-field-number")
     public String getStationFieldNumber() {
         return stationFieldNumber;
     }
@@ -319,6 +330,7 @@ public class Collectingevent extends BaseEntity {
         this.stationFieldNumber = stationFieldNumber;
     }
 
+    @JsonProperty("verbatim-date")
     public String getVerbatimDate() {
         return verbatimDate;
     }
@@ -327,6 +339,7 @@ public class Collectingevent extends BaseEntity {
         this.verbatimDate = verbatimDate;
     }
 
+    @JsonProperty("verbatim-locality")
     public String getVerbatimLocality() {
         return verbatimLocality;
     }
@@ -343,6 +356,7 @@ public class Collectingevent extends BaseEntity {
         this.visibility = visibility;
     }
 
+    @JsonProperty("s-gr-status")
     public Short getSGRStatus() {
         return sGRStatus;
     }
@@ -375,6 +389,7 @@ public class Collectingevent extends BaseEntity {
         this.integer2 = integer2;
     }
 
+    @JsonProperty("reserved-integer3")
     public Integer getReservedInteger3() {
         return reservedInteger3;
     }
@@ -383,6 +398,7 @@ public class Collectingevent extends BaseEntity {
         this.reservedInteger3 = reservedInteger3;
     }
 
+    @JsonProperty("reserved-integer4")
     public Integer getReservedInteger4() {
         return reservedInteger4;
     }
@@ -391,6 +407,7 @@ public class Collectingevent extends BaseEntity {
         this.reservedInteger4 = reservedInteger4;
     }
 
+    @JsonProperty("reserved-text1")
     public String getReservedText1() {
         return reservedText1;
     }
@@ -399,6 +416,7 @@ public class Collectingevent extends BaseEntity {
         this.reservedText1 = reservedText1;
     }
 
+    @JsonProperty("reserved-text2")
     public String getReservedText2() {
         return reservedText2;
     }
@@ -443,6 +461,7 @@ public class Collectingevent extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("discipline-id")
     public Discipline getDisciplineID() {
         return disciplineID;
     }
@@ -452,6 +471,7 @@ public class Collectingevent extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("modified-by-agent-id")
     public Agent getModifiedByAgentID() {
         return modifiedByAgentID;
     }
@@ -461,6 +481,7 @@ public class Collectingevent extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("collecting-trip-id")
     public Collectingtrip getCollectingTripID() {
         return collectingTripID;
     }
@@ -470,6 +491,7 @@ public class Collectingevent extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("created-by-agent-id")
     public Agent getCreatedByAgentID() {
         return createdByAgentID;
     }
@@ -479,6 +501,7 @@ public class Collectingevent extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("visibility-set-by-id")
     public Specifyuser getVisibilitySetByID() {
         return visibilitySetByID;
     }
@@ -488,6 +511,7 @@ public class Collectingevent extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("paleo-context-id")
     public Paleocontext getPaleoContextID() {
         return paleoContextID;
     }
@@ -497,6 +521,7 @@ public class Collectingevent extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("locality-id")
     public Locality getLocalityID() {
         return localityID;
     }
@@ -506,6 +531,7 @@ public class Collectingevent extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("collecting-event-attribute-id")
     public Collectingeventattribute getCollectingEventAttributeID() {
         return collectingEventAttributeID;
     }

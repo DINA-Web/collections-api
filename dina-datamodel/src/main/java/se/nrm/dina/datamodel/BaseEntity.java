@@ -5,6 +5,7 @@
  */
 package se.nrm.dina.datamodel;
   
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -48,6 +49,7 @@ public abstract class BaseEntity implements Serializable, EntityBean {
         this.version = version;
     }
 
+    @JsonProperty("timestamp-created")
     public Date getTimestampCreated() {
         return timestampCreated;
     }
@@ -56,6 +58,7 @@ public abstract class BaseEntity implements Serializable, EntityBean {
         this.timestampCreated = timestampCreated;
     }
 
+    @JsonProperty("timestamp-modified")
     public Date getTimestampModified() {
         return timestampModified;
     }

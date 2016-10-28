@@ -5,6 +5,7 @@
  */
 package se.nrm.dina.datamodel.impl;
  
+import com.fasterxml.jackson.annotation.JsonProperty;
 import se.nrm.dina.datamodel.BaseEntity;
 import java.util.Date;
 import java.util.List;
@@ -1190,7 +1191,7 @@ public class Agent extends BaseEntity {
 
     public Agent(Integer agentID, Date timestampCreated, short agentType) {
         this.agentID = agentID;
-        this.timestampCreated = timestampCreated;
+//        this.timestampCreated = timestampCreated;
         this.agentType = agentType;
     }
  
@@ -1209,10 +1210,12 @@ public class Agent extends BaseEntity {
 
     @XmlTransient 
     @Override
+    @JsonProperty("entity-id")
     public int getEntityId() {
         return agentID;
     }
      
+    @JsonProperty("agent-id")
     public Integer getAgentID() {
         return agentID;
     }
@@ -1221,7 +1224,7 @@ public class Agent extends BaseEntity {
         this.agentID = agentID;
     }
 
-    
+    @XmlTransient
     public String getAbbreviation() {
         return abbreviation;
     }
@@ -1229,7 +1232,8 @@ public class Agent extends BaseEntity {
     public void setAbbreviation(String abbreviation) {
         this.abbreviation = abbreviation;
     }
-
+ 
+    @JsonProperty("agent-type")
     public short getAgentType() {
         return agentType;
     }
@@ -1238,6 +1242,8 @@ public class Agent extends BaseEntity {
         this.agentType = agentType;
     }
 
+    @XmlTransient
+    @JsonProperty("date-of-birth")
     public Date getDateOfBirth() {
         return dateOfBirth;
     }
@@ -1246,6 +1252,8 @@ public class Agent extends BaseEntity {
         this.dateOfBirth = dateOfBirth;
     }
 
+    @XmlTransient
+    @JsonProperty("date-of-birth-precision")
     public Short getDateOfBirthPrecision() {
         return dateOfBirthPrecision;
     }
@@ -1254,6 +1262,8 @@ public class Agent extends BaseEntity {
         this.dateOfBirthPrecision = dateOfBirthPrecision;
     }
 
+    @XmlTransient
+    @JsonProperty("date-of-death")
     public Date getDateOfDeath() {
         return dateOfDeath;
     }
@@ -1262,6 +1272,8 @@ public class Agent extends BaseEntity {
         this.dateOfDeath = dateOfDeath;
     }
 
+    @XmlTransient
+    @JsonProperty("date-of-death-precision")
     public Short getDateOfDeathPrecision() {
         return dateOfDeathPrecision;
     }
@@ -1278,6 +1290,7 @@ public class Agent extends BaseEntity {
         this.email = email;
     }
 
+    @JsonProperty("first-name")
     public String getFirstName() {
         return firstName;
     }
@@ -1302,6 +1315,7 @@ public class Agent extends BaseEntity {
         this.initials = initials;
     }
 
+    @XmlTransient
     public String getInterests() {
         return interests;
     }
@@ -1310,6 +1324,8 @@ public class Agent extends BaseEntity {
         this.interests = interests;
     }
 
+    @XmlTransient
+    @JsonProperty("job-title")
     public String getJobTitle() {
         return jobTitle;
     }
@@ -1318,6 +1334,7 @@ public class Agent extends BaseEntity {
         this.jobTitle = jobTitle;
     }
 
+    @JsonProperty("last-name")
     public String getLastName() {
         return lastName;
     }
@@ -1326,6 +1343,7 @@ public class Agent extends BaseEntity {
         this.lastName = lastName;
     }
 
+    @JsonProperty("middle-initial")
     public String getMiddleInitial() {
         return middleInitial;
     }
@@ -1334,6 +1352,7 @@ public class Agent extends BaseEntity {
         this.middleInitial = middleInitial;
     }
 
+    @XmlTransient
     public String getRemarks() {
         return remarks;
     }
@@ -1342,6 +1361,7 @@ public class Agent extends BaseEntity {
         this.remarks = remarks;
     }
 
+    @XmlTransient
     public String getTitle() {
         return title;
     }
@@ -1350,6 +1370,8 @@ public class Agent extends BaseEntity {
         this.title = title;
     }
 
+    @XmlTransient
+    @JsonProperty("date-type")
     public Short getDateType() {
         return dateType;
     }
@@ -1358,6 +1380,7 @@ public class Agent extends BaseEntity {
         this.dateType = dateType;
     }
 
+    @XmlTransient
     public String getUrl() {
         return url;
     }
@@ -1366,6 +1389,7 @@ public class Agent extends BaseEntity {
         this.url = url;
     }
 
+    @XmlTransient
     public String getSuffix() {
         return suffix;
     }
@@ -1375,6 +1399,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("containers")
     public List<Container> getContainerList() {
         return containerList;
     }
@@ -1384,6 +1409,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("containers1")
     public List<Container> getContainerList1() {
         return containerList1;
     }
@@ -1393,6 +1419,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("gifts")
     public List<Gift> getGiftList() {
         return giftList;
     }
@@ -1402,6 +1429,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("gifts1")
     public List<Gift> getGiftList1() {
         return giftList1;
     }
@@ -1411,6 +1439,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("geologictimeperiodtreedefs")
     public List<Geologictimeperiodtreedef> getGeologictimeperiodtreedefList() {
         return geologictimeperiodtreedefList;
     }
@@ -1420,6 +1449,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("geologictimeperiodtreedefs1")
     public List<Geologictimeperiodtreedef> getGeologictimeperiodtreedefList1() {
         return geologictimeperiodtreedefList1;
     }
@@ -1429,6 +1459,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("collectingeventattachments")
     public List<Collectingeventattachment> getCollectingeventattachmentList() {
         return collectingeventattachmentList;
     }
@@ -1438,6 +1469,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("collectingeventattachments1")
     public List<Collectingeventattachment> getCollectingeventattachmentList1() {
         return collectingeventattachmentList1;
     }
@@ -1447,6 +1479,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("taxontreedefs")
     public List<Taxontreedef> getTaxontreedefList() {
         return taxontreedefList;
     }
@@ -1456,6 +1489,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("taxontreedefs1")
     public List<Taxontreedef> getTaxontreedefList1() {
         return taxontreedefList1;
     }
@@ -1465,6 +1499,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("preparationattachments")
     public List<Preparationattachment> getPreparationattachmentList() {
         return preparationattachmentList;
     }
@@ -1474,6 +1509,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("preparationattachments1")
     public List<Preparationattachment> getPreparationattachmentList1() {
         return preparationattachmentList1;
     }
@@ -1483,6 +1519,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("determinations")
     public List<Determination> getDeterminationList() {
         return determinationList;
     }
@@ -1492,6 +1529,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("determinations1")
     public List<Determination> getDeterminationList1() {
         return determinationList1;
     }
@@ -1501,6 +1539,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("determinations2")
     public List<Determination> getDeterminationList2() {
         return determinationList2;
     }
@@ -1510,6 +1549,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("disciplines")
     public List<Discipline> getDisciplineList() {
         return disciplineList;
     }
@@ -1519,6 +1559,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("disciplines1")
     public List<Discipline> getDisciplineList1() {
         return disciplineList1;
     }
@@ -1528,6 +1569,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("spfieldvaluedefaults")
     public List<Spfieldvaluedefault> getSpfieldvaluedefaultList() {
         return spfieldvaluedefaultList;
     }
@@ -1537,6 +1579,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("spfieldvaluedefaults1")
     public List<Spfieldvaluedefault> getSpfieldvaluedefaultList1() {
         return spfieldvaluedefaultList1;
     }
@@ -1546,6 +1589,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("exsiccataitems")
     public List<Exsiccataitem> getExsiccataitemList() {
         return exsiccataitemList;
     }
@@ -1555,6 +1599,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("exsiccataitems1")
     public List<Exsiccataitem> getExsiccataitemList1() {
         return exsiccataitemList1;
     }
@@ -1564,6 +1609,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("preparations")
     public List<Preparation> getPreparationList() {
         return preparationList;
     }
@@ -1573,6 +1619,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("preparations1")
     public List<Preparation> getPreparationList1() {
         return preparationList1;
     }
@@ -1582,6 +1629,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("preparations2")
     public List<Preparation> getPreparationList2() {
         return preparationList2;
     }
@@ -1591,6 +1639,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("divisions")
     public List<Division> getDivisionList() {
         return divisionList;
     }
@@ -1600,6 +1649,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("divisions1")
     public List<Division> getDivisionList1() {
         return divisionList1;
     }
@@ -1609,6 +1659,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("sptasksemaphores")
     public List<Sptasksemaphore> getSptasksemaphoreList() {
         return sptasksemaphoreList;
     }
@@ -1618,6 +1669,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("sptasksemaphores1")
     public List<Sptasksemaphore> getSptasksemaphoreList1() {
         return sptasksemaphoreList1;
     }
@@ -1627,6 +1679,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("repositoryagreementattachments")
     public List<Repositoryagreementattachment> getRepositoryagreementattachmentList() {
         return repositoryagreementattachmentList;
     }
@@ -1636,6 +1689,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("repositoryagreementattachments1")
     public List<Repositoryagreementattachment> getRepositoryagreementattachmentList1() {
         return repositoryagreementattachmentList1;
     }
@@ -1645,6 +1699,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("geographys")
     public List<Geography> getGeographyList() {
         return geographyList;
     }
@@ -1654,6 +1709,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("geographys1")
     public List<Geography> getGeographyList1() {
         return geographyList1;
     }
@@ -1663,6 +1719,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("agentattachments")
     public List<Agentattachment> getAgentattachmentList() {
         return agentattachmentList;
     }
@@ -1672,6 +1729,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("agentattachments1")
     public List<Agentattachment> getAgentattachmentList1() {
         return agentattachmentList1;
     }
@@ -1681,6 +1739,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("agentattachments2")
     public List<Agentattachment> getAgentattachmentList2() {
         return agentattachmentList2;
     }
@@ -1690,6 +1749,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("picklistitems")
     public List<Picklistitem> getPicklistitemList() {
         return picklistitemList;
     }
@@ -1699,6 +1759,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("picklistitems1")
     public List<Picklistitem> getPicklistitemList1() {
         return picklistitemList1;
     }
@@ -1708,6 +1769,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("permitattachments")
     public List<Permitattachment> getPermitattachmentList() {
         return permitattachmentList;
     }
@@ -1717,6 +1779,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("permitattachments1")
     public List<Permitattachment> getPermitattachmentList1() {
         return permitattachmentList1;
     }
@@ -1726,6 +1789,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("collectingtrips")
     public List<Collectingtrip> getCollectingtripList() {
         return collectingtripList;
     }
@@ -1735,6 +1799,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("collectingtrips1")
     public List<Collectingtrip> getCollectingtripList1() {
         return collectingtripList1;
     }
@@ -1744,6 +1809,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("geocoorddetails")
     public List<Geocoorddetail> getGeocoorddetailList() {
         return geocoorddetailList;
     }
@@ -1753,6 +1819,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("geocoorddetails1")
     public List<Geocoorddetail> getGeocoorddetailList1() {
         return geocoorddetailList1;
     }
@@ -1762,6 +1829,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("geocoorddetails2")
     public List<Geocoorddetail> getGeocoorddetailList2() {
         return geocoorddetailList2;
     }
@@ -1771,6 +1839,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("dnasequencingruns")
     public List<Dnasequencingrun> getDnasequencingrunList() {
         return dnasequencingrunList;
     }
@@ -1780,6 +1849,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("dnasequencingruns1")
     public List<Dnasequencingrun> getDnasequencingrunList1() {
         return dnasequencingrunList1;
     }
@@ -1789,6 +1859,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("dnasequencingruns2")
     public List<Dnasequencingrun> getDnasequencingrunList2() {
         return dnasequencingrunList2;
     }
@@ -1798,6 +1869,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("dnasequencingruns3")
     public List<Dnasequencingrun> getDnasequencingrunList3() {
         return dnasequencingrunList3;
     }
@@ -1807,6 +1879,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("preptypes")
     public List<Preptype> getPreptypeList() {
         return preptypeList;
     }
@@ -1816,6 +1889,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("preptypes1")
     public List<Preptype> getPreptypeList1() {
         return preptypeList1;
     }
@@ -1825,6 +1899,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("conservdescriptions")
     public List<Conservdescription> getConservdescriptionList() {
         return conservdescriptionList;
     }
@@ -1834,6 +1909,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("conservdescriptions1")
     public List<Conservdescription> getConservdescriptionList1() {
         return conservdescriptionList1;
     }
@@ -1843,6 +1919,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("localitys")
     public List<Locality> getLocalityList() {
         return localityList;
     }
@@ -1852,6 +1929,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("localitys1")
     public List<Locality> getLocalityList1() {
         return localityList1;
     }
@@ -1861,6 +1939,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("accessionattachments")
     public List<Accessionattachment> getAccessionattachmentList() {
         return accessionattachmentList;
     }
@@ -1870,6 +1949,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("accessionattachments1")
     public List<Accessionattachment> getAccessionattachmentList1() {
         return accessionattachmentList1;
     }
@@ -1879,6 +1959,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("exchangeouts")
     public List<Exchangeout> getExchangeoutList() {
         return exchangeoutList;
     }
@@ -1888,6 +1969,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("exchangeouts1")
     public List<Exchangeout> getExchangeoutList1() {
         return exchangeoutList1;
     }
@@ -1897,6 +1979,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("exchangeouts2")
     public List<Exchangeout> getExchangeoutList2() {
         return exchangeoutList2;
     }
@@ -1906,6 +1989,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("exchangeouts3")
     public List<Exchangeout> getExchangeoutList3() {
         return exchangeoutList3;
     }
@@ -1915,6 +1999,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("borrowmaterials")
     public List<Borrowmaterial> getBorrowmaterialList() {
         return borrowmaterialList;
     }
@@ -1924,6 +2009,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("borrowmaterials1")
     public List<Borrowmaterial> getBorrowmaterialList1() {
         return borrowmaterialList1;
     }
@@ -1933,6 +2019,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("dnasequenceattachments")
     public List<Dnasequenceattachment> getDnasequenceattachmentList() {
         return dnasequenceattachmentList;
     }
@@ -1942,6 +2029,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("dnasequenceattachments1")
     public List<Dnasequenceattachment> getDnasequenceattachmentList1() {
         return dnasequenceattachmentList1;
     }
@@ -1951,6 +2039,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("agentvariants")
     public List<Agentvariant> getAgentvariantList() {
         return agentvariantList;
     }
@@ -1960,6 +2049,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("agentvariants1")
     public List<Agentvariant> getAgentvariantList1() {
         return agentvariantList1;
     }
@@ -1969,6 +2059,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("agentvariants2")
     public List<Agentvariant> getAgentvariantList2() {
         return agentvariantList2;
     }
@@ -1978,6 +2069,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("localitycitations")
     public List<Localitycitation> getLocalitycitationList() {
         return localitycitationList;
     }
@@ -1987,6 +2079,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("localitycitations1")
     public List<Localitycitation> getLocalitycitationList1() {
         return localitycitationList1;
     }
@@ -1996,6 +2089,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("fieldnotebookpagesets")
     public List<Fieldnotebookpageset> getFieldnotebookpagesetList() {
         return fieldnotebookpagesetList;
     }
@@ -2005,6 +2099,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("fieldnotebookpagesets1")
     public List<Fieldnotebookpageset> getFieldnotebookpagesetList1() {
         return fieldnotebookpagesetList1;
     }
@@ -2014,6 +2109,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("fieldnotebookpagesets2")
     public List<Fieldnotebookpageset> getFieldnotebookpagesetList2() {
         return fieldnotebookpagesetList2;
     }
@@ -2023,6 +2119,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("paleocontexts")
     public List<Paleocontext> getPaleocontextList() {
         return paleocontextList;
     }
@@ -2032,6 +2129,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("paleocontexts1")
     public List<Paleocontext> getPaleocontextList1() {
         return paleocontextList1;
     }
@@ -2041,6 +2139,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("collectionobjectattributes")
     public List<Collectionobjectattribute> getCollectionobjectattributeList() {
         return collectionobjectattributeList;
     }
@@ -2050,6 +2149,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("collectionobjectattributes1")
     public List<Collectionobjectattribute> getCollectionobjectattributeList1() {
         return collectionobjectattributeList1;
     }
@@ -2059,6 +2159,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("collectionobjectattachments")
     public List<Collectionobjectattachment> getCollectionobjectattachmentList() {
         return collectionobjectattachmentList;
     }
@@ -2068,6 +2169,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("collectionobjectattachments1")
     public List<Collectionobjectattachment> getCollectionobjectattachmentList1() {
         return collectionobjectattachmentList1;
     }
@@ -2077,6 +2179,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("storageattachments")
     public List<Storageattachment> getStorageattachmentList() {
         return storageattachmentList;
     }
@@ -2086,6 +2189,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("storageattachments1")
     public List<Storageattachment> getStorageattachmentList1() {
         return storageattachmentList1;
     }
@@ -2095,6 +2199,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("exsiccatas")
     public List<Exsiccata> getExsiccataList() {
         return exsiccataList;
     }
@@ -2104,6 +2209,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("exsiccatas1")
     public List<Exsiccata> getExsiccataList1() {
         return exsiccataList1;
     }
@@ -2113,6 +2219,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("attachmentmetadatas")
     public List<Attachmentmetadata> getAttachmentmetadataList() {
         return attachmentmetadataList;
     }
@@ -2122,6 +2229,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("attachmentmetadatas1")
     public List<Attachmentmetadata> getAttachmentmetadataList1() {
         return attachmentmetadataList1;
     }
@@ -2131,6 +2239,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("loanreturnpreparations")
     public List<Loanreturnpreparation> getLoanreturnpreparationList() {
         return loanreturnpreparationList;
     }
@@ -2140,6 +2249,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("loanreturnpreparations1")
     public List<Loanreturnpreparation> getLoanreturnpreparationList1() {
         return loanreturnpreparationList1;
     }
@@ -2149,6 +2259,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("loanreturnpreparations2")
     public List<Loanreturnpreparation> getLoanreturnpreparationList2() {
         return loanreturnpreparationList2;
     }
@@ -2158,6 +2269,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("localitynamealiass")
     public List<Localitynamealias> getLocalitynamealiasList() {
         return localitynamealiasList;
     }
@@ -2167,6 +2279,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("localitynamealiass1")
     public List<Localitynamealias> getLocalitynamealiasList1() {
         return localitynamealiasList1;
     }
@@ -2176,6 +2289,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("recordsets")
     public List<Recordset> getRecordsetList() {
         return recordsetList;
     }
@@ -2185,6 +2299,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("recordsets1")
     public List<Recordset> getRecordsetList1() {
         return recordsetList1;
     }
@@ -2194,6 +2309,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("spappresources")
     public List<Spappresource> getSpappresourceList() {
         return spappresourceList;
     }
@@ -2203,6 +2319,7 @@ public class Agent extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("spappresources1")
     public List<Spappresource> getSpappresourceList1() {
         return spappresourceList1;
     }
@@ -2895,6 +3012,7 @@ public class Agent extends BaseEntity {
         this.institutionTCID = institutionTCID;
     }
  
+    @XmlTransient
     public Division getDivisionID() {
         return divisionID;
     }

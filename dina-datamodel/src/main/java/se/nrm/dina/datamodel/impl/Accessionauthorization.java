@@ -79,7 +79,7 @@ public class Accessionauthorization extends BaseEntity {
 
     public Accessionauthorization(Integer accessionAuthorizationID, Date timestampCreated) {
         this.accessionAuthorizationID = accessionAuthorizationID;
-        this.timestampCreated = timestampCreated;
+//        this.timestampCreated = timestampCreated;
     }
 
     @XmlID 

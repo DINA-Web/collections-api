@@ -5,6 +5,7 @@
  */
 package se.nrm.dina.datamodel.impl;
  
+import com.fasterxml.jackson.annotation.JsonProperty;
 import se.nrm.dina.datamodel.BaseEntity;
 import java.util.Date;
 import java.util.List;
@@ -237,10 +238,12 @@ public class Attachment extends BaseEntity {
 //    }
     
     @Override
+    @JsonProperty("entity-id")
     public int getEntityId() {
         return attachmentID;
     }
     
+    @JsonProperty("attachment-id")
     public Integer getAttachmentID() {
         return attachmentID;
     }
@@ -248,10 +251,8 @@ public class Attachment extends BaseEntity {
     public void setAttachmentID(Integer attachmentID) {
         this.attachmentID = attachmentID;
     }
-
-
-  
-
+ 
+    @JsonProperty("attachment-location")
     public String getAttachmentLocation() {
         return attachmentLocation;
     }
@@ -260,6 +261,7 @@ public class Attachment extends BaseEntity {
         this.attachmentLocation = attachmentLocation;
     }
 
+    @JsonProperty("copyright-date")
     public String getCopyrightDate() {
         return copyrightDate;
     }
@@ -268,6 +270,7 @@ public class Attachment extends BaseEntity {
         this.copyrightDate = copyrightDate;
     }
 
+    @JsonProperty("copyright-holder")
     public String getCopyrightHolder() {
         return copyrightHolder;
     }
@@ -284,6 +287,7 @@ public class Attachment extends BaseEntity {
         this.credit = credit;
     }
 
+    @JsonProperty("date-imaged")
     public String getDateImaged() {
         return dateImaged;
     }
@@ -292,6 +296,7 @@ public class Attachment extends BaseEntity {
         this.dateImaged = dateImaged;
     }
 
+    @JsonProperty("file-created-date")
     public Date getFileCreatedDate() {
         return fileCreatedDate;
     }
@@ -308,6 +313,7 @@ public class Attachment extends BaseEntity {
         this.license = license;
     }
 
+    @JsonProperty("mime-type")
     public String getMimeType() {
         return mimeType;
     }
@@ -316,6 +322,7 @@ public class Attachment extends BaseEntity {
         this.mimeType = mimeType;
     }
 
+    @JsonProperty("orig-filename")
     public String getOrigFilename() {
         return origFilename;
     }
@@ -340,6 +347,7 @@ public class Attachment extends BaseEntity {
         this.title = title;
     }
 
+    @JsonProperty("table-id")
     public Short getTableID() {
         return tableID;
     }
@@ -348,6 +356,7 @@ public class Attachment extends BaseEntity {
         this.tableID = tableID;
     }
 
+    @JsonProperty("scope-id")
     public Integer getScopeID() {
         return scopeID;
     }
@@ -356,6 +365,7 @@ public class Attachment extends BaseEntity {
         this.scopeID = scopeID;
     }
 
+    @JsonProperty("scope-type")
     public Short getScopeType() {
         return scopeType;
     }
@@ -380,6 +390,7 @@ public class Attachment extends BaseEntity {
         this.visibility = visibility;
     }
 
+    @JsonProperty("attachment-image-attributed-id")
     public Integer getAttachmentImageAttributeID() {
         return attachmentImageAttributeID;
     }
@@ -551,6 +562,7 @@ public class Attachment extends BaseEntity {
     }
     
     @XmlIDREF
+    @JsonProperty("modified-by-agent-id")
     public Agent getModifiedByAgentID() {
         return modifiedByAgentID;
     }
@@ -560,6 +572,7 @@ public class Attachment extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("created-by-agent-id")
     public Agent getCreatedByAgentID() {
         return createdByAgentID;
     }
@@ -569,6 +582,7 @@ public class Attachment extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("visibility-set-by-id")
     public Specifyuser getVisibilitySetByID() {
         return visibilitySetByID;
     }
@@ -595,6 +609,7 @@ public class Attachment extends BaseEntity {
         this.loanattachmentList = loanattachmentList;
     }
 
+    @JsonProperty("is-public")
     public boolean getIsPublic() {
         return isPublic;
     }

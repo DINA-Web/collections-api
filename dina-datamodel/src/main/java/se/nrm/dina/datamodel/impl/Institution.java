@@ -5,6 +5,7 @@
  */
 package se.nrm.dina.datamodel.impl;
  
+import com.fasterxml.jackson.annotation.JsonProperty;
 import se.nrm.dina.datamodel.BaseEntity;
 import java.util.Date;
 import java.util.List;
@@ -240,10 +241,12 @@ public class Institution extends BaseEntity {
 //    }
     
     @Override
+    @JsonProperty("entity-id")
     public int getEntityId() {
         return institutionId;
     }
 
+    @JsonProperty("user-group-scope-id")
     public Integer getUserGroupScopeId() {
         return userGroupScopeId;
     }
@@ -252,6 +255,7 @@ public class Institution extends BaseEntity {
         this.userGroupScopeId = userGroupScopeId;
     }
  
+    @JsonProperty("alt-name")
     public String getAltName() {
         return altName;
     }
@@ -292,6 +296,7 @@ public class Institution extends BaseEntity {
         this.disclaimer = disclaimer;
     }
 
+    @JsonProperty("has-been-asked")
     public Boolean getHasBeenAsked() {
         return hasBeenAsked;
     }
@@ -300,6 +305,7 @@ public class Institution extends BaseEntity {
         this.hasBeenAsked = hasBeenAsked;
     }
 
+    @JsonProperty("icon-uri")
     public String getIconURI() {
         return iconURI;
     }
@@ -308,6 +314,7 @@ public class Institution extends BaseEntity {
         this.iconURI = iconURI;
     }
 
+    @JsonProperty("institution-id")
     public Integer getInstitutionId() {
         return institutionId;
     }
@@ -324,6 +331,7 @@ public class Institution extends BaseEntity {
         this.ipr = ipr;
     }
 
+    @JsonProperty("is-accessions-global")
     public boolean getIsAccessionsGlobal() {
         return isAccessionsGlobal;
     }
@@ -332,6 +340,7 @@ public class Institution extends BaseEntity {
         this.isAccessionsGlobal = isAccessionsGlobal;
     }
 
+    @JsonProperty("is-anonymous")
     public Boolean getIsAnonymous() {
         return isAnonymous;
     }
@@ -340,6 +349,7 @@ public class Institution extends BaseEntity {
         this.isAnonymous = isAnonymous;
     }
 
+    @JsonProperty("is-security-on")
     public boolean getIsSecurityOn() {
         return isSecurityOn;
     }
@@ -348,6 +358,7 @@ public class Institution extends BaseEntity {
         this.isSecurityOn = isSecurityOn;
     }
 
+    @JsonProperty("is-server-based")
     public boolean getIsServerBased() {
         return isServerBased;
     }
@@ -356,6 +367,7 @@ public class Institution extends BaseEntity {
         this.isServerBased = isServerBased;
     }
 
+    @JsonProperty("is-single-geography-tree")
     public Boolean getIsSingleGeographyTree() {
         return isSingleGeographyTree;
     }
@@ -364,6 +376,7 @@ public class Institution extends BaseEntity {
         this.isSingleGeographyTree = isSingleGeographyTree;
     }
 
+    @JsonProperty("is-sharing-localities")
     public Boolean getIsSharingLocalities() {
         return isSharingLocalities;
     }
@@ -380,6 +393,7 @@ public class Institution extends BaseEntity {
         this.license = license;
     }
 
+    @JsonProperty("lsid-authority")
     public String getLsidAuthority() {
         return lsidAuthority;
     }
@@ -396,6 +410,7 @@ public class Institution extends BaseEntity {
         this.name = name;
     }
 
+    @JsonProperty("reg-number")
     public String getRegNumber() {
         return regNumber;
     }
@@ -412,6 +427,7 @@ public class Institution extends BaseEntity {
         this.remarks = remarks;
     }
 
+    @JsonProperty("term-of-use")
     public String getTermsOfUse() {
         return termsOfUse;
     }
@@ -428,6 +444,7 @@ public class Institution extends BaseEntity {
         this.uri = uri;
     }
 
+    @JsonProperty("current-managed-rel-version")
     public String getCurrentManagedRelVersion() {
         return currentManagedRelVersion;
     }
@@ -436,6 +453,7 @@ public class Institution extends BaseEntity {
         this.currentManagedRelVersion = currentManagedRelVersion;
     }
 
+    @JsonProperty("current-managed-schema-version")
     public String getCurrentManagedSchemaVersion() {
         return currentManagedSchemaVersion;
     }
@@ -444,6 +462,7 @@ public class Institution extends BaseEntity {
         this.currentManagedSchemaVersion = currentManagedSchemaVersion;
     }
 
+    @JsonProperty("is-release-managed-globally")
     public Boolean getIsReleaseManagedGlobally() {
         return isReleaseManagedGlobally;
     }
@@ -452,6 +471,7 @@ public class Institution extends BaseEntity {
         this.isReleaseManagedGlobally = isReleaseManagedGlobally;
     }
 
+    @JsonProperty("minimum-pwd-length")
     public Short getMinimumPwdLength() {
         return minimumPwdLength;
     }
@@ -505,6 +525,7 @@ public class Institution extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("storage-tree-def-id")
     public Storagetreedef getStorageTreeDefID() {
         return storageTreeDefID;
     }
@@ -514,6 +535,7 @@ public class Institution extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("address-id")
     public Address getAddressID() {
         return addressID;
     }
@@ -523,6 +545,7 @@ public class Institution extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("modified-by-agent-id")
     public Agent getModifiedByAgentID() {
         return modifiedByAgentID;
     }
@@ -532,6 +555,7 @@ public class Institution extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("created-by-agent-id")
     public Agent getCreatedByAgentID() {
         return createdByAgentID;
     }

@@ -5,6 +5,7 @@
  */
 package se.nrm.dina.datamodel.impl;
  
+import com.fasterxml.jackson.annotation.JsonProperty;
 import se.nrm.dina.datamodel.BaseEntity;
 import java.util.Date;
 import java.util.List;
@@ -215,10 +216,12 @@ public class Discipline extends BaseEntity {
 //    }
 
     @Override
+    @JsonProperty("entity-id")
     public int getEntityId() {
         return userGroupScopeId;
     }
     
+    @JsonProperty("user-group-scope-id")
     public Integer getUserGroupScopeId() {
         return userGroupScopeId;
     }
@@ -227,6 +230,7 @@ public class Discipline extends BaseEntity {
         this.userGroupScopeId = userGroupScopeId;
     }
  
+    @JsonProperty("discipline-id")
     public Integer getDisciplineId() {
         return disciplineId;
     }
@@ -243,6 +247,7 @@ public class Discipline extends BaseEntity {
         this.name = name;
     }
 
+    @JsonProperty("reg-number")
     public String getRegNumber() {
         return regNumber;
     }
@@ -259,6 +264,7 @@ public class Discipline extends BaseEntity {
         this.type = type;
     }
 
+    @JsonProperty("is-paleo-context-embedded")
     public Boolean getIsPaleoContextEmbedded() {
         return isPaleoContextEmbedded;
     }
@@ -267,6 +273,7 @@ public class Discipline extends BaseEntity {
         this.isPaleoContextEmbedded = isPaleoContextEmbedded;
     }
 
+    @JsonProperty("paleo-context-child-table")
     public String getPaleoContextChildTable() {
         return paleoContextChildTable;
     }
@@ -294,6 +301,7 @@ public class Discipline extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("litho-strat-tree-def-id")
     public Lithostrattreedef getLithoStratTreeDefID() {
         return lithoStratTreeDefID;
     }
@@ -303,6 +311,7 @@ public class Discipline extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("division-id")
     public Division getDivisionID() {
         return divisionID;
     }
@@ -312,6 +321,7 @@ public class Discipline extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("geologic-time-period-tree-def-id")
     public Geologictimeperiodtreedef getGeologicTimePeriodTreeDefID() {
         return geologicTimePeriodTreeDefID;
     }
@@ -321,6 +331,7 @@ public class Discipline extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("geopraphy-tree-def-id")
     public Geographytreedef getGeographyTreeDefID() {
         return geographyTreeDefID;
     }
@@ -330,6 +341,7 @@ public class Discipline extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("data-type-id")
     public Datatype getDataTypeID() {
         return dataTypeID;
     }
@@ -339,6 +351,7 @@ public class Discipline extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("taxon-tree-def-id")
     public Taxontreedef getTaxonTreeDefID() {
         return taxonTreeDefID;
     }
@@ -348,6 +361,7 @@ public class Discipline extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("modified-by-agent-id")
     public Agent getModifiedByAgentID() {
         return modifiedByAgentID;
     }
@@ -357,6 +371,7 @@ public class Discipline extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("created-by-agent-id")
     public Agent getCreatedByAgentID() {
         return createdByAgentID;
     }

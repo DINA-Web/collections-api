@@ -152,7 +152,7 @@ public class Project extends BaseEntity {
 
     public Project(Integer projectID, Date timestampCreated, int collectionMemberID) {
         this.projectID = projectID;
-        this.timestampCreated = timestampCreated;
+//        this.timestampCreated = timestampCreated;
         this.collectionMemberID = collectionMemberID;
     }
 

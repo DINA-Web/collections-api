@@ -5,6 +5,7 @@
  */
 package se.nrm.dina.datamodel.impl;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import se.nrm.dina.datamodel.BaseEntity;
 import java.util.Date;
 import java.util.List;
@@ -210,10 +211,12 @@ public class Determination extends BaseEntity {
     
     @XmlTransient
     @Override
+    @JsonProperty("entity-id")
     public int getEntityId() {
         return determinationID;
     }
 
+    @JsonProperty("determination-id")
     public Integer getDeterminationID() {
         return determinationID;
     }
@@ -222,7 +225,7 @@ public class Determination extends BaseEntity {
         this.determinationID = determinationID;
     }
  
-
+    @JsonProperty("collection-member-id")
     public int getCollectionMemberID() {
         return collectionMemberID;
     }
@@ -230,7 +233,7 @@ public class Determination extends BaseEntity {
     public void setCollectionMemberID(int collectionMemberID) {
         this.collectionMemberID = collectionMemberID;
     }
-
+ 
     public String getAddendum() {
         return addendum;
     }
@@ -239,6 +242,7 @@ public class Determination extends BaseEntity {
         this.addendum = addendum;
     }
 
+    @JsonProperty("alternate-name")
     public String getAlternateName() {
         return alternateName;
     }
@@ -255,6 +259,7 @@ public class Determination extends BaseEntity {
         this.confidence = confidence;
     }
 
+    @JsonProperty("determined-date")
     public Date getDeterminedDate() {
         return determinedDate;
     }
@@ -263,6 +268,7 @@ public class Determination extends BaseEntity {
         this.determinedDate = determinedDate;
     }
 
+    @JsonProperty("determined-date-precision")
     public Short getDeterminedDatePrecision() {
         return determinedDatePrecision;
     }
@@ -271,6 +277,7 @@ public class Determination extends BaseEntity {
         this.determinedDatePrecision = determinedDatePrecision;
     }
 
+    @JsonProperty("feature-or-basis")
     public String getFeatureOrBasis() {
         return featureOrBasis;
     }
@@ -279,6 +286,7 @@ public class Determination extends BaseEntity {
         this.featureOrBasis = featureOrBasis;
     }
 
+    @JsonProperty("is-current")
     public boolean getIsCurrent() {
         return isCurrent;
     }
@@ -295,6 +303,7 @@ public class Determination extends BaseEntity {
         this.method = method;
     }
 
+    @JsonProperty("name-usage")
     public String getNameUsage() {
         return nameUsage;
     }
@@ -327,7 +336,7 @@ public class Determination extends BaseEntity {
         this.qualifier = qualifier;
     }
  
-
+    @JsonProperty("sub-sp-qualifier")
     public String getSubSpQualifier() {
         return subSpQualifier;
     }
@@ -336,6 +345,7 @@ public class Determination extends BaseEntity {
         this.subSpQualifier = subSpQualifier;
     }
 
+    @JsonProperty("var-qualifier")
     public String getVarQualifier() {
         return varQualifier;
     }
@@ -368,6 +378,7 @@ public class Determination extends BaseEntity {
         this.text2 = text2;
     }
 
+    @JsonProperty("type-status-name")
     public String getTypeStatusName() {
         return typeStatusName;
     }
@@ -376,6 +387,7 @@ public class Determination extends BaseEntity {
         this.typeStatusName = typeStatusName;
     }
 
+    @JsonProperty("yes-no1")
     public Boolean getYesNo1() {
         return yesNo1;
     }
@@ -384,6 +396,7 @@ public class Determination extends BaseEntity {
         this.yesNo1 = yesNo1;
     }
 
+    @JsonProperty("yes-no2")
     public Boolean getYesNo2() {
         return yesNo2;
     }
@@ -401,6 +414,7 @@ public class Determination extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("taxon-id")
     public Taxon getTaxonID() {
         return taxonID;
     }
@@ -410,6 +424,7 @@ public class Determination extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("preferred-taxon-id")
     public Taxon getPreferredTaxonID() {
         return preferredTaxonID;
     }
@@ -419,6 +434,7 @@ public class Determination extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("modified-by-agent-id")
     public Agent getModifiedByAgentID() {
         return modifiedByAgentID;
     }
@@ -429,6 +445,7 @@ public class Determination extends BaseEntity {
  
 
     @XmlTransient
+    @JsonProperty("collection-object-id")
     public Collectionobject getCollectionObjectID() {
         return collectionObjectID;
     }
@@ -438,6 +455,7 @@ public class Determination extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("create-by-agent-id")
     public Agent getCreatedByAgentID() {
         return createdByAgentID;
     }
@@ -447,6 +465,7 @@ public class Determination extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("determiner-id")
     public Agent getDeterminerID() {
         return determinerID;
     }

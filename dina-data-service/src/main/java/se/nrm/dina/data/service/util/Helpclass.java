@@ -8,6 +8,7 @@ package se.nrm.dina.data.service.util;
 import java.util.ArrayList;
 import java.util.List;   
 import javax.servlet.http.HttpServletRequest; 
+import org.codehaus.jettison.json.JSONObject;
 import se.nrm.dina.data.service.vo.EntityCount;
 import se.nrm.dina.data.service.vo.EntityWrapper;
 import se.nrm.dina.data.service.vo.MetadataBean;
@@ -46,18 +47,17 @@ public class Helpclass {
     public EntityWrapper buildEntityWrapper(List<EntityBean> entityBeans, MetadataBean meta, int statusCode) {
         if(entityBeans != null) {
             meta.setResultCount(entityBeans.size());
-        }  
+        }
         meta.setStatusCode(statusCode);
-        
-        if(entityBeans != null) {
+
+        if (entityBeans != null) {
             List<ResultWrapper> list = new ArrayList<>();
             entityBeans.stream()
                     .forEach(e -> {
-                        ResultWrapper wrapper = new ResultWrapper(e.getEntityId(), e.getClass().getSimpleName(), e);
+                        ResultWrapper wrapper = new ResultWrapper(e.getEntityId(), e.getClass().getSimpleName().toLowerCase(), e);
                         list.add(wrapper);
                     });
-             
-            
+
             return new EntityWrapper(meta, list);
         } else {
             return new EntityWrapper(meta, entityBeans);
@@ -70,7 +70,9 @@ public class Helpclass {
             meta.setResultCount(1);
         } 
         if(entityBean != null) {
-            ResultWrapper wrapper = new ResultWrapper(entityBean.getEntityId(), entityBean.getClass().getSimpleName(), entityBean);
+            ResultWrapper wrapper = null;
+//            ResultWrapper wrapper = new ResultWrapper(entityBean.getEntityId(), entityBean.getClass().getSimpleName().toLowerCase(), entityBean);
+//            ResultWrapper wrapper = new ResultWrapper(entityBean.getEntityId(), entityBean);
             return new EntityWrapper(meta, wrapper);
         } else {
             return new EntityWrapper(meta, entityBean);

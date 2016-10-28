@@ -5,6 +5,7 @@
  */
 package se.nrm.dina.datamodel.impl;
  
+import com.fasterxml.jackson.annotation.JsonProperty;
 import se.nrm.dina.datamodel.BaseEntity;
 import java.util.Date;
 import java.util.List;
@@ -150,10 +151,12 @@ public class Picklist extends BaseEntity {
 //    }
     
     @Override
+    @JsonProperty("entity-id")
     public int getEntityId() {
         return pickListID;
     }
     
+    @JsonProperty("pick-list-id")
     public Integer getPickListID() {
         return pickListID;
     }
@@ -162,6 +165,7 @@ public class Picklist extends BaseEntity {
         this.pickListID = pickListID;
     }
   
+    @JsonProperty("field-name")
     public String getFieldName() {
         return fieldName;
     }
@@ -170,6 +174,7 @@ public class Picklist extends BaseEntity {
         this.fieldName = fieldName;
     }
 
+    @JsonProperty("filter-field-name")
     public String getFilterFieldName() {
         return filterFieldName;
     }
@@ -178,6 +183,7 @@ public class Picklist extends BaseEntity {
         this.filterFieldName = filterFieldName;
     }
 
+    @JsonProperty("filter-value")
     public String getFilterValue() {
         return filterValue;
     }
@@ -194,6 +200,7 @@ public class Picklist extends BaseEntity {
         this.formatter = formatter;
     }
 
+    @JsonProperty("is-system")
     public boolean getIsSystem() {
         return isSystem;
     }
@@ -210,6 +217,7 @@ public class Picklist extends BaseEntity {
         this.name = name;
     }
 
+    @JsonProperty("read-only")
     public boolean getReadOnly() {
         return readOnly;
     }
@@ -218,6 +226,7 @@ public class Picklist extends BaseEntity {
         this.readOnly = readOnly;
     }
 
+    @JsonProperty("size-limit")
     public Integer getSizeLimit() {
         return sizeLimit;
     }
@@ -226,6 +235,7 @@ public class Picklist extends BaseEntity {
         this.sizeLimit = sizeLimit;
     }
 
+    @JsonProperty("sort-type")
     public Short getSortType() {
         return sortType;
     }
@@ -234,6 +244,7 @@ public class Picklist extends BaseEntity {
         this.sortType = sortType;
     }
 
+    @JsonProperty("table-name")
     public String getTableName() {
         return tableName;
     }
@@ -260,6 +271,7 @@ public class Picklist extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("modified-by-agent-id")
     public Agent getModifiedByAgentID() {
         return modifiedByAgentID;
     }
@@ -269,6 +281,7 @@ public class Picklist extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("created-by-agent-id")
     public Agent getCreatedByAgentID() {
         return createdByAgentID;
     }
@@ -278,6 +291,7 @@ public class Picklist extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("collection-id")
     public Collection getCollectionID() {
         return collectionID;
     }

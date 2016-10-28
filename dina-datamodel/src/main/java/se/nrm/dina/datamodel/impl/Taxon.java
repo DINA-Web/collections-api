@@ -5,6 +5,7 @@
  */
 package se.nrm.dina.datamodel.impl;
  
+import com.fasterxml.jackson.annotation.JsonProperty;
 import se.nrm.dina.datamodel.BaseEntity;
 import java.util.Date;
 import java.util.List;
@@ -349,10 +350,11 @@ public class Taxon extends BaseEntity {
 //    }
     
     @Override
+    @JsonProperty("entity-id")
     public int getEntityId() {
         return taxonID;
     }
-
+ 
     public String getAuthor() {
         return author;
     }
@@ -361,6 +363,7 @@ public class Taxon extends BaseEntity {
         this.author = author;
     }
 
+    @JsonProperty("cites-status")
     public String getCitesStatus() {
         return citesStatus;
     }
@@ -369,6 +372,7 @@ public class Taxon extends BaseEntity {
         this.citesStatus = citesStatus;
     }
 
+    @JsonProperty("c-ol-status")
     public String getCOLStatus() {
         return cOLStatus;
     }
@@ -377,6 +381,7 @@ public class Taxon extends BaseEntity {
         this.cOLStatus = cOLStatus;
     }
 
+    @JsonProperty("common-name")
     public String getCommonName() {
         return commonName;
     }
@@ -385,6 +390,7 @@ public class Taxon extends BaseEntity {
         this.commonName = commonName;
     }
 
+    @JsonProperty("cultivar-name")
     public String getCultivarName() {
         return cultivarName;
     }
@@ -393,6 +399,7 @@ public class Taxon extends BaseEntity {
         this.cultivarName = cultivarName;
     }
 
+    @JsonProperty("environmental-protection-status")
     public String getEnvironmentalProtectionStatus() {
         return environmentalProtectionStatus;
     }
@@ -401,6 +408,7 @@ public class Taxon extends BaseEntity {
         this.environmentalProtectionStatus = environmentalProtectionStatus;
     }
 
+    @JsonProperty("esa-status")
     public String getEsaStatus() {
         return esaStatus;
     }
@@ -409,6 +417,7 @@ public class Taxon extends BaseEntity {
         this.esaStatus = esaStatus;
     }
 
+    @JsonProperty("full-name")
     public String getFullName() {
         return fullName;
     }
@@ -417,6 +426,7 @@ public class Taxon extends BaseEntity {
         this.fullName = fullName;
     }
 
+    @JsonProperty("group-number")
     public String getGroupNumber() {
         return groupNumber;
     }
@@ -433,6 +443,7 @@ public class Taxon extends BaseEntity {
         this.guid = guid;
     }
 
+    @JsonProperty("highest-child-node-number")
     public Integer getHighestChildNodeNumber() {
         return highestChildNodeNumber;
     }
@@ -441,6 +452,7 @@ public class Taxon extends BaseEntity {
         this.highestChildNodeNumber = highestChildNodeNumber;
     }
 
+    @JsonProperty("is-accepted")
     public Boolean getIsAccepted() {
         return isAccepted;
     }
@@ -449,6 +461,7 @@ public class Taxon extends BaseEntity {
         this.isAccepted = isAccepted;
     }
 
+    @JsonProperty("is-hybrid")
     public Boolean getIsHybrid() {
         return isHybrid;
     }
@@ -457,6 +470,7 @@ public class Taxon extends BaseEntity {
         this.isHybrid = isHybrid;
     }
 
+    @JsonProperty("is-number")
     public String getIsisNumber() {
         return isisNumber;
     }
@@ -465,6 +479,7 @@ public class Taxon extends BaseEntity {
         this.isisNumber = isisNumber;
     }
 
+    @JsonProperty("label-format")
     public String getLabelFormat() {
         return labelFormat;
     }
@@ -481,6 +496,7 @@ public class Taxon extends BaseEntity {
         this.name = name;
     }
 
+    @JsonProperty("ncbi-taxon-number")
     public String getNcbiTaxonNumber() {
         return ncbiTaxonNumber;
     }
@@ -489,6 +505,7 @@ public class Taxon extends BaseEntity {
         this.ncbiTaxonNumber = ncbiTaxonNumber;
     }
 
+    @JsonProperty("node-number")
     public Integer getNodeNumber() {
         return nodeNumber;
     }
@@ -513,6 +530,7 @@ public class Taxon extends BaseEntity {
         this.number2 = number2;
     }
 
+    @JsonProperty("rank-id")
     public int getRankID() {
         return rankID;
     }
@@ -537,6 +555,7 @@ public class Taxon extends BaseEntity {
         this.source = source;
     }
 
+    @JsonProperty("taxonomic-serial-number")
     public String getTaxonomicSerialNumber() {
         return taxonomicSerialNumber;
     }
@@ -561,6 +580,7 @@ public class Taxon extends BaseEntity {
         this.text2 = text2;
     }
 
+    @JsonProperty("unit-ind1")
     public String getUnitInd1() {
         return unitInd1;
     }
@@ -569,6 +589,7 @@ public class Taxon extends BaseEntity {
         this.unitInd1 = unitInd1;
     }
 
+    @JsonProperty("unit-ind2")
     public String getUnitInd2() {
         return unitInd2;
     }
@@ -577,6 +598,7 @@ public class Taxon extends BaseEntity {
         this.unitInd2 = unitInd2;
     }
 
+    @JsonProperty("unit-ind3")
     public String getUnitInd3() {
         return unitInd3;
     }
@@ -585,6 +607,7 @@ public class Taxon extends BaseEntity {
         this.unitInd3 = unitInd3;
     }
 
+    @JsonProperty("unit-ind4")
     public String getUnitInd4() {
         return unitInd4;
     }
@@ -593,6 +616,7 @@ public class Taxon extends BaseEntity {
         this.unitInd4 = unitInd4;
     }
 
+    @JsonProperty("unit-name1")
     public String getUnitName1() {
         return unitName1;
     }
@@ -601,6 +625,7 @@ public class Taxon extends BaseEntity {
         this.unitName1 = unitName1;
     }
 
+    @JsonProperty("unit-name2")
     public String getUnitName2() {
         return unitName2;
     }
@@ -609,6 +634,7 @@ public class Taxon extends BaseEntity {
         this.unitName2 = unitName2;
     }
 
+    @JsonProperty("unit-name3")
     public String getUnitName3() {
         return unitName3;
     }
@@ -617,6 +643,7 @@ public class Taxon extends BaseEntity {
         this.unitName3 = unitName3;
     }
 
+    @JsonProperty("unit-name4")
     public String getUnitName4() {
         return unitName4;
     }
@@ -625,6 +652,7 @@ public class Taxon extends BaseEntity {
         this.unitName4 = unitName4;
     }
 
+    @JsonProperty("usfws-code")
     public String getUsfwsCode() {
         return usfwsCode;
     }
@@ -689,6 +717,7 @@ public class Taxon extends BaseEntity {
         this.text5 = text5;
     }
 
+    @JsonProperty("yes-no1")
     public Boolean getYesNo1() {
         return yesNo1;
     }
@@ -697,6 +726,7 @@ public class Taxon extends BaseEntity {
         this.yesNo1 = yesNo1;
     }
 
+    @JsonProperty("yes-no2")
     public Boolean getYesNo2() {
         return yesNo2;
     }
@@ -705,6 +735,7 @@ public class Taxon extends BaseEntity {
         this.yesNo2 = yesNo2;
     }
 
+    @JsonProperty("yes-no3")
     public Boolean getYesNo3() {
         return yesNo3;
     }
@@ -750,6 +781,7 @@ public class Taxon extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("accepted-id")
     public Taxon getAcceptedID() {
         return acceptedID;
     }
@@ -759,6 +791,7 @@ public class Taxon extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("modified-by-agent-id")
     public Agent getModifiedByAgentID() {
         return modifiedByAgentID;
     }
@@ -777,6 +810,7 @@ public class Taxon extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("hybrid-parent1-id")
     public Taxon getHybridParent1ID() {
         return hybridParent1ID;
     }
@@ -795,6 +829,7 @@ public class Taxon extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("hybrid-parent2-id")
     public Taxon getHybridParent2ID() {
         return hybridParent2ID;
     }
@@ -804,6 +839,7 @@ public class Taxon extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("created-by-agent-id")
     public Agent getCreatedByAgentID() {
         return createdByAgentID;
     }
@@ -813,6 +849,7 @@ public class Taxon extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("visibility-set-by-id")
     public Specifyuser getVisibilitySetByID() {
         return visibilitySetByID;
     }
@@ -822,6 +859,7 @@ public class Taxon extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("taxon-tree-def-item-id")
     public Taxontreedefitem getTaxonTreeDefItemID() {
         return taxonTreeDefItemID;
     }
@@ -840,6 +878,7 @@ public class Taxon extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("parent-id")
     public Taxon getParentID() {
         return parentID;
     }
@@ -849,6 +888,7 @@ public class Taxon extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("taxon-tree-def-id")
     public Taxontreedef getTaxonTreeDefID() {
         return taxonTreeDefID;
     }

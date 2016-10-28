@@ -5,6 +5,7 @@
  */
 package se.nrm.dina.datamodel.impl;
  
+import com.fasterxml.jackson.annotation.JsonProperty;
 import se.nrm.dina.datamodel.BaseEntity;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -208,10 +209,12 @@ public class Geography extends BaseEntity {
 //    }
     
     @Override
+    @JsonProperty("entity-id")
     public int getEntityId() {
         return geographyID;
     }
     
+    @JsonProperty("geography-id")
     public Integer getGeographyID() {
         return geographyID;
     }
@@ -229,6 +232,7 @@ public class Geography extends BaseEntity {
         this.abbrev = abbrev;
     }
 
+    @JsonProperty("centroid-lat")
     public BigDecimal getCentroidLat() {
         return centroidLat;
     }
@@ -237,6 +241,7 @@ public class Geography extends BaseEntity {
         this.centroidLat = centroidLat;
     }
 
+    @JsonProperty("centroid-lon")
     public BigDecimal getCentroidLon() {
         return centroidLon;
     }
@@ -245,6 +250,7 @@ public class Geography extends BaseEntity {
         this.centroidLon = centroidLon;
     }
 
+    @JsonProperty("common-name")
     public String getCommonName() {
         return commonName;
     }
@@ -253,6 +259,7 @@ public class Geography extends BaseEntity {
         this.commonName = commonName;
     }
 
+    @JsonProperty("full-name")
     public String getFullName() {
         return fullName;
     }
@@ -261,6 +268,7 @@ public class Geography extends BaseEntity {
         this.fullName = fullName;
     }
 
+    @JsonProperty("geography-code")
     public String getGeographyCode() {
         return geographyCode;
     }
@@ -285,6 +293,7 @@ public class Geography extends BaseEntity {
         this.guid = guid;
     }
 
+    @JsonProperty("highest-child-node-number")
     public Integer getHighestChildNodeNumber() {
         return highestChildNodeNumber;
     }
@@ -293,6 +302,7 @@ public class Geography extends BaseEntity {
         this.highestChildNodeNumber = highestChildNodeNumber;
     }
 
+    @JsonProperty("is-accepted")
     public Boolean getIsAccepted() {
         return isAccepted;
     }
@@ -301,6 +311,7 @@ public class Geography extends BaseEntity {
         this.isAccepted = isAccepted;
     }
 
+    @JsonProperty("is-current")
     public Boolean getIsCurrent() {
         return isCurrent;
     }
@@ -317,6 +328,7 @@ public class Geography extends BaseEntity {
         this.name = name;
     }
 
+    @JsonProperty("node-number")
     public Integer getNodeNumber() {
         return nodeNumber;
     }
@@ -341,6 +353,7 @@ public class Geography extends BaseEntity {
         this.number2 = number2;
     }
 
+    @JsonProperty("rank-id")
     public int getRankID() {
         return rankID;
     }
@@ -373,6 +386,7 @@ public class Geography extends BaseEntity {
         this.text2 = text2;
     }
 
+    @JsonProperty("timestamp-version")
     public Date getTimestampVersion() {
         return timestampVersion;
     }
@@ -382,6 +396,7 @@ public class Geography extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("modified-by-agent-id")
     public Agent getModifiedByAgentID() {
         return modifiedByAgentID;
     }
@@ -391,6 +406,7 @@ public class Geography extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("created-by-agent-id")
     public Agent getCreatedByAgentID() {
         return createdByAgentID;
     }
@@ -409,6 +425,7 @@ public class Geography extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("parent-id")
     public Geography getParentID() {
         return parentID;
     }
@@ -418,6 +435,7 @@ public class Geography extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("geography-tree-def-id")
     public Geographytreedef getGeographyTreeDefID() {
         return geographyTreeDefID;
     }
@@ -427,6 +445,7 @@ public class Geography extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("geography-tree-def-item-id")
     public Geographytreedefitem getGeographyTreeDefItemID() {
         return geographyTreeDefItemID;
     }
@@ -445,6 +464,7 @@ public class Geography extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("accepted-id")
     public Geography getAcceptedID() {
         return acceptedID;
     }

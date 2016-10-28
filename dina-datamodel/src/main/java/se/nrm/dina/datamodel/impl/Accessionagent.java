@@ -89,7 +89,7 @@ public class Accessionagent extends BaseEntity {
 
     public Accessionagent(Integer accessionAgentID, Date timestampCreated, String role) {
         this.accessionAgentID = accessionAgentID;
-        this.timestampCreated = timestampCreated;
+//        this.timestampCreated = timestampCreated;
         this.role = role;
     }
 

@@ -5,6 +5,7 @@
  */
 package se.nrm.dina.datamodel.impl;
  
+import com.fasterxml.jackson.annotation.JsonProperty;
 import se.nrm.dina.datamodel.BaseEntity;
 import java.util.Date;
 import java.util.List;
@@ -110,10 +111,12 @@ public class Preptype extends BaseEntity {
 //    }
     
     @Override
+    @JsonProperty("entity-id")
     public int getEntityId() {
         return prepTypeID;
     }
 
+    @JsonProperty("prep-type-id")
     public Integer getPrepTypeID() {
         return prepTypeID;
     }
@@ -122,6 +125,7 @@ public class Preptype extends BaseEntity {
         this.prepTypeID = prepTypeID;
     }
  
+    @JsonProperty("is-loanable")
     public boolean getIsLoanable() {
         return isLoanable;
     }
@@ -148,6 +152,7 @@ public class Preptype extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("modified-by-agent-id")
     public Agent getModifiedByAgentID() {
         return modifiedByAgentID;
     }
@@ -157,6 +162,7 @@ public class Preptype extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("created-by-agent-id")
     public Agent getCreatedByAgentID() {
         return createdByAgentID;
     }
@@ -166,6 +172,7 @@ public class Preptype extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("collection-id")
     public Collection getCollectionID() {
         return collectionID;
     }

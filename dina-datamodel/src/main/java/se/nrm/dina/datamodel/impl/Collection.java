@@ -5,6 +5,7 @@
  */
 package se.nrm.dina.datamodel.impl;
  
+import com.fasterxml.jackson.annotation.JsonProperty;
 import se.nrm.dina.datamodel.BaseEntity;
 import java.util.Date;
 import java.util.List;
@@ -29,7 +30,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient; 
+import javax.xml.bind.annotation.XmlTransient;  
 
 /**
  *
@@ -42,8 +43,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Collection.findAll", query = "SELECT c FROM Collection c"),
     @NamedQuery(name = "Collection.findByUserGroupScopeId", query = "SELECT c FROM Collection c WHERE c.userGroupScopeId = :userGroupScopeId"), 
     @NamedQuery(name = "Collection.findByCode", query = "SELECT c FROM Collection c WHERE c.code = :code"),
-    @NamedQuery(name = "Collection.findByCollectionId", query = "SELECT c FROM Collection c WHERE c.collectionId = :collectionId"),
-    @NamedQuery(name = "Collection.findByCollectionName", query = "SELECT c FROM Collection c WHERE c.collectionName = :collectionName"),
+    @NamedQuery(name = "Collection.collectionid", query = "SELECT c FROM Collection c WHERE c.collectionId = :collectionId"),
+    @NamedQuery(name = "Collection.collectionname", query = "SELECT c FROM Collection c WHERE c.collectionName = :collectionName"),
     @NamedQuery(name = "Collection.findByCollectionType", query = "SELECT c FROM Collection c WHERE c.collectionType = :collectionType"), 
     @NamedQuery(name = "Collection.findByGuid", query = "SELECT c FROM Collection c WHERE c.guid = :guid") })
 public class Collection extends BaseEntity {
@@ -55,9 +56,7 @@ public class Collection extends BaseEntity {
     @NotNull
     @Column(name = "UserGroupScopeId")
     private Integer userGroupScopeId;
-    
-    
-    
+     
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 64)
@@ -211,7 +210,7 @@ public class Collection extends BaseEntity {
 
     public Collection(Integer userGroupScopeId, Date timestampCreated, String catalogFormatNumName, boolean isEmbeddedCollectingEvent) {
         this.userGroupScopeId = userGroupScopeId;
-        this.timestampCreated = timestampCreated;
+//        this.timestampCreated = timestampCreated;
         this.catalogFormatNumName = catalogFormatNumName;
         this.isEmbeddedCollectingEvent = isEmbeddedCollectingEvent;
     }
@@ -230,27 +229,12 @@ public class Collection extends BaseEntity {
 //    }
   
     @Override
+    @JsonProperty("entity-id")
     public int getEntityId() {
         return userGroupScopeId;
     }
 
-    public Integer getUserGroupScopeId() {
-        return userGroupScopeId;
-    }
-
-    public void setUserGroupScopeId(Integer userGroupScopeId) {
-        this.userGroupScopeId = userGroupScopeId;
-    }
  
-
-    public String getCatalogFormatNumName() {
-        return catalogFormatNumName;
-    }
-
-    public void setCatalogFormatNumName(String catalogFormatNumName) {
-        this.catalogFormatNumName = catalogFormatNumName;
-    }
-
     public String getCode() {
         return code;
     }
@@ -259,37 +243,7 @@ public class Collection extends BaseEntity {
         this.code = code;
     }
 
-    public Integer getCollectionId() {
-        return collectionId;
-    }
-
-    public void setCollectionId(Integer collectionId) {
-        this.collectionId = collectionId;
-    }
-
-    public String getCollectionName() {
-        return collectionName;
-    }
-
-    public void setCollectionName(String collectionName) {
-        this.collectionName = collectionName;
-    }
-
-    public String getCollectionType() {
-        return collectionType;
-    }
-
-    public void setCollectionType(String collectionType) {
-        this.collectionType = collectionType;
-    }
-
-    public String getDbContentVersion() {
-        return dbContentVersion;
-    }
-
-    public void setDbContentVersion(String dbContentVersion) {
-        this.dbContentVersion = dbContentVersion;
-    }
+    
 
     public String getDescription() {
         return description;
@@ -298,22 +252,7 @@ public class Collection extends BaseEntity {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    public String getDevelopmentStatus() {
-        return developmentStatus;
-    }
-
-    public void setDevelopmentStatus(String developmentStatus) {
-        this.developmentStatus = developmentStatus;
-    }
-
-    public Integer getEstimatedSize() {
-        return estimatedSize;
-    }
-
-    public void setEstimatedSize(Integer estimatedSize) {
-        this.estimatedSize = estimatedSize;
-    }
+  
 
     public String getGuid() {
         return guid;
@@ -323,6 +262,79 @@ public class Collection extends BaseEntity {
         this.guid = guid;
     }
 
+    @JsonProperty("user-group-scop-id")
+    public Integer getUserGroupScopeId() {
+        return userGroupScopeId;
+    }
+
+    public void setUserGroupScopeId(Integer userGroupScopeId) {
+        this.userGroupScopeId = userGroupScopeId;
+    }
+
+    @JsonProperty("catalog-format-num-name")
+    public String getCatalogFormatNumName() {
+        return catalogFormatNumName;
+    }
+
+    public void setCatalogFormatNumName(String catalogFormatNumName) {
+        this.catalogFormatNumName = catalogFormatNumName;
+    }
+
+    @JsonProperty("collection-id")
+    public Integer getCollectionId() {
+        return collectionId;
+    }
+
+    public void setCollectionId(Integer collectionId) {
+        this.collectionId = collectionId;
+    }
+
+    @JsonProperty("collection-name")
+    public String getCollectionName() {
+        return collectionName;
+    }
+
+    public void setCollectionName(String collectionName) {
+        this.collectionName = collectionName;
+    }
+
+    @JsonProperty("collection-type")
+    public String getCollectionType() {
+        return collectionType;
+    }
+
+    public void setCollectionType(String collectionType) {
+        this.collectionType = collectionType;
+    }
+
+    @JsonProperty("db-content-version")
+    public String getDbContentVersion() {
+        return dbContentVersion;
+    }
+
+    public void setDbContentVersion(String dbContentVersion) {
+        this.dbContentVersion = dbContentVersion;
+    }
+
+    @JsonProperty("development-status")
+    public String getDevelopmentStatus() {
+        return developmentStatus;
+    }
+
+    public void setDevelopmentStatus(String developmentStatus) {
+        this.developmentStatus = developmentStatus;
+    }
+
+    @JsonProperty("estimated-size")
+    public Integer getEstimatedSize() {
+        return estimatedSize;
+    }
+
+    public void setEstimatedSize(Integer estimatedSize) {
+        this.estimatedSize = estimatedSize;
+    }
+
+    @JsonProperty("institution-type")
     public String getInstitutionType() {
         return institutionType;
     }
@@ -331,7 +343,8 @@ public class Collection extends BaseEntity {
         this.institutionType = institutionType;
     }
 
-    public boolean getIsEmbeddedCollectingEvent() {
+    @JsonProperty("is-embedded-collectingevent")
+    public boolean isIsEmbeddedCollectingEvent() {
         return isEmbeddedCollectingEvent;
     }
 
@@ -339,14 +352,16 @@ public class Collection extends BaseEntity {
         this.isEmbeddedCollectingEvent = isEmbeddedCollectingEvent;
     }
 
+    @JsonProperty("is-anumber")
     public String getIsaNumber() {
         return isaNumber;
     }
 
-    public void setIsaNumber(String isaNumber) {
+    public void setIsanumber(String isaNumber) {
         this.isaNumber = isaNumber;
     }
 
+    @JsonProperty("kingdom-coverage")
     public String getKingdomCoverage() {
         return kingdomCoverage;
     }
@@ -355,37 +370,61 @@ public class Collection extends BaseEntity {
         this.kingdomCoverage = kingdomCoverage;
     }
 
+    @JsonProperty("preservation-method-type")
     public String getPreservationMethodType() {
         return preservationMethodType;
     }
 
-    public void setPreservationMethodType(String preservationMethodType) {
+    public void setPreservationmethodtype(String preservationMethodType) {
         this.preservationMethodType = preservationMethodType;
     }
 
+    @JsonProperty("primary-focus")
     public String getPrimaryFocus() {
         return primaryFocus;
     }
 
-    public void setPrimaryFocus(String primaryFocus) {
+    public void setPrimaryfocus(String primaryFocus) {
         this.primaryFocus = primaryFocus;
     }
 
+    @JsonProperty("primary-purpose")
     public String getPrimaryPurpose() {
         return primaryPurpose;
     }
 
-    public void setPrimaryPurpose(String primaryPurpose) {
+    public void setPrimarypurpose(String primaryPurpose) {
         this.primaryPurpose = primaryPurpose;
     }
-
+ 
+    @JsonProperty("reg-number")
     public String getRegNumber() {
         return regNumber;
     }
 
-    public void setRegNumber(String regNumber) {
+    public void setRegnumber(String regNumber) {
         this.regNumber = regNumber;
     }
+
+    @JsonProperty("webportal-uri")
+    public String getWebPortalURI() {
+        return webPortalURI;
+    }
+
+    public void setWebportaluri(String webPortalURI) {
+        this.webPortalURI = webPortalURI;
+    }
+
+    @JsonProperty("website-uri")
+    public String getWebSiteURI() {
+        return webSiteURI;
+    }
+
+    public void setWebsiteuri(String webSiteURI) {
+        this.webSiteURI = webSiteURI;
+    }
+
+    
 
     public String getRemarks() {
         return remarks;
@@ -403,23 +442,9 @@ public class Collection extends BaseEntity {
         this.scope = scope;
     }
 
-    public String getWebPortalURI() {
-        return webPortalURI;
-    }
-
-    public void setWebPortalURI(String webPortalURI) {
-        this.webPortalURI = webPortalURI;
-    }
-
-    public String getWebSiteURI() {
-        return webSiteURI;
-    }
-
-    public void setWebSiteURI(String webSiteURI) {
-        this.webSiteURI = webSiteURI;
-    }
-
+   
     @XmlTransient
+    @JsonProperty("autonumberingschemes")
     public List<Autonumberingscheme> getAutonumberingschemeList() {
         return autonumberingschemeList;
     }
@@ -429,6 +454,7 @@ public class Collection extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("sptasksemaphores")
     public List<Sptasksemaphore> getSptasksemaphoreList() {
         return sptasksemaphoreList;
     }
@@ -438,6 +464,7 @@ public class Collection extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("preptypes")
     public List<Preptype> getPreptypeList() {
         return preptypeList;
     }
@@ -447,6 +474,7 @@ public class Collection extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("collectionreltypes")
     public List<Collectionreltype> getCollectionreltypeList() {
         return collectionreltypeList;
     }
@@ -456,6 +484,7 @@ public class Collection extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("collectionreltypes")
     public List<Collectionreltype> getCollectionreltypeList1() {
         return collectionreltypeList1;
     }
@@ -465,6 +494,7 @@ public class Collection extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("agents")
     public List<Agent> getAgentList() {
         return agentList;
     }
@@ -474,6 +504,7 @@ public class Collection extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("agent1s")
     public List<Agent> getAgentList1() {
         return agentList1;
     }
@@ -483,6 +514,7 @@ public class Collection extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("collectionobjects")
     public List<Collectionobject> getCollectionobjectList() {
         return collectionobjectList;
     }
@@ -492,6 +524,7 @@ public class Collection extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("fieldnotebooks")
     public List<Fieldnotebook> getFieldnotebookList() {
         return fieldnotebookList;
     }
@@ -501,6 +534,7 @@ public class Collection extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("modified-by-agent-id")
     public Agent getModifiedByAgentID() {
         return modifiedByAgentID;
     }
@@ -510,6 +544,7 @@ public class Collection extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("create-by-agent-id")
     public Agent getCreatedByAgentID() {
         return createdByAgentID;
     }
@@ -519,6 +554,7 @@ public class Collection extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("discipline-id")
     public Discipline getDisciplineID() {
         return disciplineID;
     }
@@ -528,6 +564,7 @@ public class Collection extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("institution-network-id")
     public Institution getInstitutionNetworkID() {
         return institutionNetworkID;
     }
@@ -537,6 +574,7 @@ public class Collection extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("spappresourcedirs")
     public List<Spappresourcedir> getSpappresourcedirList() {
         return spappresourcedirList;
     }
@@ -546,6 +584,7 @@ public class Collection extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("picklists")
     public List<Picklist> getPicklistList() {
         return picklistList;
     }

@@ -5,6 +5,7 @@
  */
 package se.nrm.dina.datamodel.impl;
  
+import com.fasterxml.jackson.annotation.JsonProperty;
 import se.nrm.dina.datamodel.BaseEntity;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -101,10 +102,12 @@ public class Picklistitem extends BaseEntity {
 //    }
     
     @Override
+    @JsonProperty("entity-id")
     public int getEntityId() {
         return pickListItemID;
     }
 
+    @JsonProperty("pick-list-item-id")
     public Integer getPickListItemID() {
         return pickListItemID;
     }
@@ -138,6 +141,7 @@ public class Picklistitem extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("modified-by-agent-id")
     public Agent getModifiedByAgentID() {
         return modifiedByAgentID;
     }
@@ -147,6 +151,7 @@ public class Picklistitem extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("pick-list-id")
     public Picklist getPickListID() {
         return pickListID;
     }
@@ -156,6 +161,7 @@ public class Picklistitem extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("created-by-agent-id")
     public Agent getCreatedByAgentID() {
         return createdByAgentID;
     }

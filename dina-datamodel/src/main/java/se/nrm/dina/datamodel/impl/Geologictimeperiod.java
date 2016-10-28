@@ -5,6 +5,7 @@
  */
 package se.nrm.dina.datamodel.impl;
  
+import com.fasterxml.jackson.annotation.JsonProperty;
 import se.nrm.dina.datamodel.BaseEntity;
 import java.util.Date;
 import java.util.List;
@@ -184,10 +185,12 @@ public class Geologictimeperiod extends BaseEntity {
 //    }
     
     @Override
+    @JsonProperty("entity-id")
     public int getEntityId() {
         return geologicTimePeriodID;
     }
 
+    @JsonProperty("geologic-time-period-id")
     public Integer getGeologicTimePeriodID() {
         return geologicTimePeriodID;
     }
@@ -196,6 +199,7 @@ public class Geologictimeperiod extends BaseEntity {
         this.geologicTimePeriodID = geologicTimePeriodID;
     }
   
+    @JsonProperty("end-period")
     public Float getEndPeriod() {
         return endPeriod;
     }
@@ -204,6 +208,7 @@ public class Geologictimeperiod extends BaseEntity {
         this.endPeriod = endPeriod;
     }
 
+    @JsonProperty("end-uncertainty")
     public Float getEndUncertainty() {
         return endUncertainty;
     }
@@ -228,6 +233,7 @@ public class Geologictimeperiod extends BaseEntity {
         this.text2 = text2;
     }
 
+    @JsonProperty("full-name")
     public String getFullName() {
         return fullName;
     }
@@ -244,6 +250,7 @@ public class Geologictimeperiod extends BaseEntity {
         this.guid = guid;
     }
 
+    @JsonProperty("highest-child-node-number")
     public Integer getHighestChildNodeNumber() {
         return highestChildNodeNumber;
     }
@@ -252,6 +259,7 @@ public class Geologictimeperiod extends BaseEntity {
         this.highestChildNodeNumber = highestChildNodeNumber;
     }
 
+    @JsonProperty("is-accepted")
     public Boolean getIsAccepted() {
         return isAccepted;
     }
@@ -260,6 +268,7 @@ public class Geologictimeperiod extends BaseEntity {
         this.isAccepted = isAccepted;
     }
 
+    @JsonProperty("is-bio-strat")
     public Boolean getIsBioStrat() {
         return isBioStrat;
     }
@@ -276,6 +285,7 @@ public class Geologictimeperiod extends BaseEntity {
         this.name = name;
     }
 
+    @JsonProperty("node-number")
     public Integer getNodeNumber() {
         return nodeNumber;
     }
@@ -284,6 +294,7 @@ public class Geologictimeperiod extends BaseEntity {
         this.nodeNumber = nodeNumber;
     }
 
+    @JsonProperty("rank-id")
     public int getRankID() {
         return rankID;
     }
@@ -308,6 +319,7 @@ public class Geologictimeperiod extends BaseEntity {
         this.standard = standard;
     }
 
+    @JsonProperty("start-period")
     public Float getStartPeriod() {
         return startPeriod;
     }
@@ -316,6 +328,7 @@ public class Geologictimeperiod extends BaseEntity {
         this.startPeriod = startPeriod;
     }
 
+    @JsonProperty("strat-uncertainty")
     public Float getStartUncertainty() {
         return startUncertainty;
     }
@@ -361,6 +374,7 @@ public class Geologictimeperiod extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("accepted-id")
     public Geologictimeperiod getAcceptedID() {
         return acceptedID;
     }
@@ -370,6 +384,7 @@ public class Geologictimeperiod extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("modified-by-agent-id")
     public Agent getModifiedByAgentID() {
         return modifiedByAgentID;
     }
@@ -379,6 +394,7 @@ public class Geologictimeperiod extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("created-by-agent-id")
     public Agent getCreatedByAgentID() {
         return createdByAgentID;
     }
@@ -388,6 +404,7 @@ public class Geologictimeperiod extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("geologic-time-period-tree-def-id")
     public Geologictimeperiodtreedef getGeologicTimePeriodTreeDefID() {
         return geologicTimePeriodTreeDefID;
     }
@@ -397,6 +414,7 @@ public class Geologictimeperiod extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("geologic-time-period-tree-def-item-id")
     public Geologictimeperiodtreedefitem getGeologicTimePeriodTreeDefItemID() {
         return geologicTimePeriodTreeDefItemID;
     }
@@ -415,6 +433,7 @@ public class Geologictimeperiod extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("parent-id")
     public Geologictimeperiod getParentID() {
         return parentID;
     }

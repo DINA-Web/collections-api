@@ -5,6 +5,7 @@
  */
 package se.nrm.dina.datamodel.impl;
  
+import com.fasterxml.jackson.annotation.JsonProperty;
 import se.nrm.dina.datamodel.BaseEntity;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -111,10 +112,12 @@ public class Collectionobjectattachment extends BaseEntity {
 //    }
     
     @Override
+    @JsonProperty("entity-id")
     public int getEntityId() {
         return collectionObjectAttachmentID;
     }
 
+    @JsonProperty("collection-object-attachment-id")
     public Integer getCollectionObjectAttachmentID() {
         return collectionObjectAttachmentID;
     }
@@ -123,6 +126,7 @@ public class Collectionobjectattachment extends BaseEntity {
         this.collectionObjectAttachmentID = collectionObjectAttachmentID;
     }
  
+    @JsonProperty("collection-member-id")
     public int getCollectionMemberID() {
         return collectionMemberID;
     }
@@ -148,6 +152,7 @@ public class Collectionobjectattachment extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("modified-by-agent-id")
     public Agent getModifiedByAgentID() {
         return modifiedByAgentID;
     }
@@ -157,6 +162,7 @@ public class Collectionobjectattachment extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("collection-object-id")
     public Collectionobject getCollectionObjectID() {
         return collectionObjectID;
     }
@@ -166,6 +172,7 @@ public class Collectionobjectattachment extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("created-by-agent-id")
     public Agent getCreatedByAgentID() {
         return createdByAgentID;
     }
@@ -175,6 +182,7 @@ public class Collectionobjectattachment extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("attachment-id")
     public Attachment getAttachmentID() {
         return attachmentID;
     }

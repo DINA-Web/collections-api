@@ -5,6 +5,7 @@
  */
 package se.nrm.dina.datamodel.impl;
   
+import com.fasterxml.jackson.annotation.JsonProperty;
 import se.nrm.dina.datamodel.BaseEntity;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -335,7 +336,7 @@ public class Collectionobject extends BaseEntity {
 
     public Collectionobject(Integer collectionObjectID, Date timestampCreated, int collectionMemberID) {
         this.collectionObjectID = collectionObjectID;
-        this.timestampCreated = timestampCreated;
+//        this.timestampCreated = timestampCreated;
         this.collectionMemberID = collectionMemberID;
     }
     
@@ -354,10 +355,12 @@ public class Collectionobject extends BaseEntity {
     
     @XmlTransient
     @Override
+    @JsonProperty("entity-id")
     public int getEntityId() {
         return collectionObjectID == null ? 0 : collectionObjectID;
     }
 
+    @JsonProperty("collection-object-id")
     public Integer getCollectionObjectID() {
         return collectionObjectID;
     }
@@ -366,6 +369,7 @@ public class Collectionobject extends BaseEntity {
         this.collectionObjectID = collectionObjectID;
     }
  
+    @JsonProperty("collection-member-id")
     public int getCollectionMemberID() {
         return collectionMemberID;
     }
@@ -374,7 +378,7 @@ public class Collectionobject extends BaseEntity {
         this.collectionMemberID = collectionMemberID;
     }
 
-//    @JsonInclude(Include.NON_NULL)
+    @JsonProperty("alt-catalog-number")
     public String getAltCatalogNumber() {
         return altCatalogNumber;
     }
@@ -391,6 +395,7 @@ public class Collectionobject extends BaseEntity {
         this.availability = availability;
     }
 
+    @JsonProperty("catalog-number")
     public String getCatalogNumber() {
         return catalogNumber;
     }
@@ -399,6 +404,7 @@ public class Collectionobject extends BaseEntity {
         this.catalogNumber = catalogNumber;
     }
 
+    @JsonProperty("cataloged-date")
     public Date getCatalogedDate() {
         return catalogedDate;
     }
@@ -407,6 +413,7 @@ public class Collectionobject extends BaseEntity {
         this.catalogedDate = catalogedDate;
     }
 
+    @JsonProperty("cataloged-date-precision")
     public Short getCatalogedDatePrecision() {
         return catalogedDatePrecision;
     }
@@ -415,6 +422,7 @@ public class Collectionobject extends BaseEntity {
         this.catalogedDatePrecision = catalogedDatePrecision;
     }
 
+    @JsonProperty("cataloged-date-verbatim")
     public String getCatalogedDateVerbatim() {
         return catalogedDateVerbatim;
     }
@@ -423,6 +431,7 @@ public class Collectionobject extends BaseEntity {
         this.catalogedDateVerbatim = catalogedDateVerbatim;
     }
 
+    @JsonProperty("count-amt")
     public Integer getCountAmt() {
         return countAmt;
     }
@@ -447,6 +456,7 @@ public class Collectionobject extends BaseEntity {
         this.description = description;
     }
 
+    @JsonProperty("field-number")
     public String getFieldNumber() {
         return fieldNumber;
     }
@@ -463,6 +473,7 @@ public class Collectionobject extends BaseEntity {
         this.guid = guid;
     }
 
+    @JsonProperty("inventory-date")
     public Date getInventoryDate() {
         return inventoryDate;
     }
@@ -511,6 +522,7 @@ public class Collectionobject extends BaseEntity {
         this.number2 = number2;
     }
 
+    @JsonProperty("object-condition")
     public String getObjectCondition() {
         return objectCondition;
     }
@@ -519,6 +531,7 @@ public class Collectionobject extends BaseEntity {
         this.objectCondition = objectCondition;
     }
 
+    @JsonProperty("project-number")
     public String getProjectNumber() {
         return projectNumber;
     }
@@ -559,6 +572,7 @@ public class Collectionobject extends BaseEntity {
         this.text2 = text2;
     }
 
+    @JsonProperty("total-value")
     public BigDecimal getTotalValue() {
         return totalValue;
     }
@@ -583,6 +597,7 @@ public class Collectionobject extends BaseEntity {
         this.visibility = visibility;
     }
 
+    @JsonProperty("yes-no1")
     public Boolean getYesNo1() {
         return yesNo1;
     }
@@ -591,6 +606,7 @@ public class Collectionobject extends BaseEntity {
         this.yesNo1 = yesNo1;
     }
 
+    @JsonProperty("yes-no2")
     public Boolean getYesNo2() {
         return yesNo2;
     }
@@ -599,6 +615,7 @@ public class Collectionobject extends BaseEntity {
         this.yesNo2 = yesNo2;
     }
 
+    @JsonProperty("yes-no3")
     public Boolean getYesNo3() {
         return yesNo3;
     }
@@ -607,6 +624,7 @@ public class Collectionobject extends BaseEntity {
         this.yesNo3 = yesNo3;
     }
 
+    @JsonProperty("yes-no4")
     public Boolean getYesNo4() {
         return yesNo4;
     }
@@ -615,6 +633,7 @@ public class Collectionobject extends BaseEntity {
         this.yesNo4 = yesNo4;
     }
 
+    @JsonProperty("yes-no5")
     public Boolean getYesNo5() {
         return yesNo5;
     }
@@ -623,6 +642,7 @@ public class Collectionobject extends BaseEntity {
         this.yesNo5 = yesNo5;
     }
 
+    @JsonProperty("yes-no6")
     public Boolean getYesNo6() {
         return yesNo6;
     }
@@ -631,6 +651,7 @@ public class Collectionobject extends BaseEntity {
         this.yesNo6 = yesNo6;
     }
 
+    @JsonProperty("s-gr-status")
     public Short getSGRStatus() {
         return sGRStatus;
     }
@@ -639,6 +660,7 @@ public class Collectionobject extends BaseEntity {
         this.sGRStatus = sGRStatus;
     }
 
+    @JsonProperty("reserved-text")
     public String getReservedText() {
         return reservedText;
     }
@@ -671,6 +693,7 @@ public class Collectionobject extends BaseEntity {
         this.integer2 = integer2;
     }
 
+    @JsonProperty("reserved-integer3")
     public Integer getReservedInteger3() {
         return reservedInteger3;
     }
@@ -679,6 +702,7 @@ public class Collectionobject extends BaseEntity {
         this.reservedInteger3 = reservedInteger3;
     }
 
+    @JsonProperty("reserved-integer4")
     public Integer getReservedInteger4() {
         return reservedInteger4;
     }
@@ -687,6 +711,7 @@ public class Collectionobject extends BaseEntity {
         this.reservedInteger4 = reservedInteger4;
     }
 
+    @JsonProperty("reserved-text2")
     public String getReservedText2() {
         return reservedText2;
     }
@@ -695,6 +720,7 @@ public class Collectionobject extends BaseEntity {
         this.reservedText2 = reservedText2;
     }
 
+    @JsonProperty("reserved-text3")
     public String getReservedText3() {
         return reservedText3;
     }
@@ -772,6 +798,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("visibility-set-by-id")
     public Specifyuser getVisibilitySetByID() {
         return visibilitySetByID;
     }
@@ -781,6 +808,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("accession-id")
     public Accession getAccessionID() {
         return accessionID;
     }
@@ -790,6 +818,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("cataloger-id")
     public Agent getCatalogerID() {
         return catalogerID;
     }
@@ -799,6 +828,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("modified-by-agent-id")
     public Agent getModifiedByAgentID() {
         return modifiedByAgentID;
     }
@@ -808,6 +838,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("field-notebook-page-id")
     public Fieldnotebookpage getFieldNotebookPageID() {
         return fieldNotebookPageID;
     }
@@ -817,6 +848,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("created-by-agent-id")
     public Agent getCreatedByAgentID() {
         return createdByAgentID;
     }
@@ -826,6 +858,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("collection-id")
     public Collection getCollectionID() {
         return collectionID;
     }
@@ -835,6 +868,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("paleo-context-id")
     public Paleocontext getPaleoContextID() {
         return paleoContextID;
     }
@@ -844,6 +878,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("collecting-event-id")
     public Collectingevent getCollectingEventID() {
         return collectingEventID;
     }
@@ -853,6 +888,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("collection-object-attribute-id")
     public Collectionobjectattribute getCollectionObjectAttributeID() {
         return collectionObjectAttributeID;
     }
@@ -862,6 +898,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("container-owner-id")
     public Container getContainerOwnerID() {
         return containerOwnerID;
     }
@@ -871,6 +908,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("container-id")
     public Container getContainerID() {
         return containerID;
     }
@@ -880,6 +918,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("appraisal-id")
     public Appraisal getAppraisalID() {
         return appraisalID;
     }

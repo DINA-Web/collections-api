@@ -5,6 +5,7 @@
  */
 package se.nrm.dina.datamodel.impl;
  
+import com.fasterxml.jackson.annotation.JsonProperty;
 import se.nrm.dina.datamodel.BaseEntity;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -272,10 +273,12 @@ public class Locality extends BaseEntity {
 //    }
     
     @Override
+    @JsonProperty("entity-id")
     public int getEntityId() {
         return localityID;
     }
 
+    @JsonProperty("locality-id")
     public Integer getLocalityID() {
         return localityID;
     }
@@ -283,8 +286,7 @@ public class Locality extends BaseEntity {
     public void setLocalityID(Integer localityID) {
         this.localityID = localityID;
     }
- 
-
+  
     public String getDatum() {
         return datum;
     }
@@ -293,6 +295,7 @@ public class Locality extends BaseEntity {
         this.datum = datum;
     }
 
+    @JsonProperty("elevation-accuracy")
     public Double getElevationAccuracy() {
         return elevationAccuracy;
     }
@@ -301,6 +304,7 @@ public class Locality extends BaseEntity {
         this.elevationAccuracy = elevationAccuracy;
     }
 
+    @JsonProperty("elevation-method")
     public String getElevationMethod() {
         return elevationMethod;
     }
@@ -325,6 +329,7 @@ public class Locality extends BaseEntity {
         this.guid = guid;
     }
 
+    @JsonProperty("lat1-text")
     public String getLat1Text() {
         return lat1Text;
     }
@@ -333,6 +338,7 @@ public class Locality extends BaseEntity {
         this.lat1Text = lat1Text;
     }
 
+    @JsonProperty("lat2-text")
     public String getLat2Text() {
         return lat2Text;
     }
@@ -341,6 +347,7 @@ public class Locality extends BaseEntity {
         this.lat2Text = lat2Text;
     }
 
+    @JsonProperty("lat-long-accuracy")
     public Double getLatLongAccuracy() {
         return latLongAccuracy;
     }
@@ -349,6 +356,7 @@ public class Locality extends BaseEntity {
         this.latLongAccuracy = latLongAccuracy;
     }
 
+    @JsonProperty("lat-long-method")
     public String getLatLongMethod() {
         return latLongMethod;
     }
@@ -357,6 +365,7 @@ public class Locality extends BaseEntity {
         this.latLongMethod = latLongMethod;
     }
 
+    @JsonProperty("lat-long-type")
     public String getLatLongType() {
         return latLongType;
     }
@@ -381,6 +390,7 @@ public class Locality extends BaseEntity {
         this.latitude2 = latitude2;
     }
 
+    @JsonProperty("locality-name")
     public String getLocalityName() {
         return localityName;
     }
@@ -389,6 +399,7 @@ public class Locality extends BaseEntity {
         this.localityName = localityName;
     }
 
+    @JsonProperty("long1-text")
     public String getLong1Text() {
         return long1Text;
     }
@@ -397,6 +408,7 @@ public class Locality extends BaseEntity {
         this.long1Text = long1Text;
     }
 
+    @JsonProperty("long2-text")
     public String getLong2Text() {
         return long2Text;
     }
@@ -421,6 +433,7 @@ public class Locality extends BaseEntity {
         this.longitude2 = longitude2;
     }
 
+    @JsonProperty("max-elevation")
     public Double getMaxElevation() {
         return maxElevation;
     }
@@ -429,6 +442,7 @@ public class Locality extends BaseEntity {
         this.maxElevation = maxElevation;
     }
 
+    @JsonProperty("min-elevation")
     public Double getMinElevation() {
         return minElevation;
     }
@@ -437,6 +451,7 @@ public class Locality extends BaseEntity {
         this.minElevation = minElevation;
     }
 
+    @JsonProperty("named-place")
     public String getNamedPlace() {
         return namedPlace;
     }
@@ -445,6 +460,7 @@ public class Locality extends BaseEntity {
         this.namedPlace = namedPlace;
     }
 
+    @JsonProperty("original-elevation-unit")
     public String getOriginalElevationUnit() {
         return originalElevationUnit;
     }
@@ -453,6 +469,7 @@ public class Locality extends BaseEntity {
         this.originalElevationUnit = originalElevationUnit;
     }
 
+    @JsonProperty("original-lat-long-unit")
     public Integer getOriginalLatLongUnit() {
         return originalLatLongUnit;
     }
@@ -461,6 +478,7 @@ public class Locality extends BaseEntity {
         this.originalLatLongUnit = originalLatLongUnit;
     }
 
+    @JsonProperty("relation-to-named-place")
     public String getRelationToNamedPlace() {
         return relationToNamedPlace;
     }
@@ -477,6 +495,7 @@ public class Locality extends BaseEntity {
         this.remarks = remarks;
     }
 
+    @JsonProperty("short-name")
     public String getShortName() {
         return shortName;
     }
@@ -485,6 +504,7 @@ public class Locality extends BaseEntity {
         this.shortName = shortName;
     }
 
+    @JsonProperty("src-lat-long-unit")
     public short getSrcLatLongUnit() {
         return srcLatLongUnit;
     }
@@ -509,6 +529,7 @@ public class Locality extends BaseEntity {
         this.text2 = text2;
     }
 
+    @JsonProperty("verbatim-elevation")
     public String getVerbatimElevation() {
         return verbatimElevation;
     }
@@ -525,6 +546,7 @@ public class Locality extends BaseEntity {
         this.visibility = visibility;
     }
 
+    @JsonProperty("s-gr-status")
     public Short getSGRStatus() {
         return sGRStatus;
     }
@@ -557,6 +579,7 @@ public class Locality extends BaseEntity {
         this.text5 = text5;
     }
 
+    @JsonProperty("verbatim-latitude")
     public String getVerbatimLatitude() {
         return verbatimLatitude;
     }
@@ -565,6 +588,7 @@ public class Locality extends BaseEntity {
         this.verbatimLatitude = verbatimLatitude;
     }
 
+    @JsonProperty("verbatim-longitude")
     public String getVerbatimLongitude() {
         return verbatimLongitude;
     }
@@ -583,6 +607,7 @@ public class Locality extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("discipline-id")
     public Discipline getDisciplineID() {
         return disciplineID;
     }
@@ -592,6 +617,7 @@ public class Locality extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("modified-by-agent-id")
     public Agent getModifiedByAgentID() {
         return modifiedByAgentID;
     }
@@ -601,6 +627,7 @@ public class Locality extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("created-by-agent-id")
     public Agent getCreatedByAgentID() {
         return createdByAgentID;
     }
@@ -610,6 +637,7 @@ public class Locality extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("visibility-set-by-id")
     public Specifyuser getVisibilitySetByID() {
         return visibilitySetByID;
     }
@@ -619,6 +647,7 @@ public class Locality extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("paleo-context-id")
     public Paleocontext getPaleoContextID() {
         return paleoContextID;
     }
@@ -628,6 +657,7 @@ public class Locality extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("geography-id")
     public Geography getGeographyID() {
         return geographyID;
     }

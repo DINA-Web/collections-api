@@ -5,6 +5,7 @@
  */
 package se.nrm.dina.datamodel.impl;
  
+import com.fasterxml.jackson.annotation.JsonProperty;
 import se.nrm.dina.datamodel.BaseEntity;
 import java.util.Date;
 import java.util.List;
@@ -206,10 +207,12 @@ public class Preparation extends BaseEntity {
     
     @XmlTransient
     @Override
+    @JsonProperty("entity-id")
     public int getEntityId() {
         return preparationID == null ? 0 : preparationID;
     }
 
+    @JsonProperty("preparation-id")
     public Integer getPreparationID() {
         return preparationID;
     }
@@ -218,7 +221,7 @@ public class Preparation extends BaseEntity {
         this.preparationID = preparationID;
     }
  
-
+    @JsonProperty("collection-member-id")
     public int getCollectionMemberID() {
         return collectionMemberID;
     }
@@ -227,6 +230,7 @@ public class Preparation extends BaseEntity {
         this.collectionMemberID = collectionMemberID;
     }
 
+    @JsonProperty("count-amt")
     public Integer getCountAmt() {
         return countAmt;
     }
@@ -259,6 +263,7 @@ public class Preparation extends BaseEntity {
         this.number2 = number2;
     }
 
+    @JsonProperty("prepared-date")
     public Date getPreparedDate() {
         return preparedDate;
     }
@@ -267,6 +272,7 @@ public class Preparation extends BaseEntity {
         this.preparedDate = preparedDate;
     }
 
+    @JsonProperty("prepared-date-precision")
     public Short getPreparedDatePrecision() {
         return preparedDatePrecision;
     }
@@ -283,6 +289,7 @@ public class Preparation extends BaseEntity {
         this.remarks = remarks;
     }
 
+    @JsonProperty("sample-number")
     public String getSampleNumber() {
         return sampleNumber;
     }
@@ -299,6 +306,7 @@ public class Preparation extends BaseEntity {
         this.status = status;
     }
 
+    @JsonProperty("storage-location")
     public String getStorageLocation() {
         return storageLocation;
     }
@@ -323,6 +331,7 @@ public class Preparation extends BaseEntity {
         this.text2 = text2;
     }
 
+    @JsonProperty("yes-no1")
     public Boolean getYesNo1() {
         return yesNo1;
     }
@@ -331,6 +340,7 @@ public class Preparation extends BaseEntity {
         this.yesNo1 = yesNo1;
     }
 
+    @JsonProperty("yes-no2")
     public Boolean getYesNo2() {
         return yesNo2;
     }
@@ -339,6 +349,7 @@ public class Preparation extends BaseEntity {
         this.yesNo2 = yesNo2;
     }
 
+    @JsonProperty("yes-no3")
     public Boolean getYesNo3() {
         return yesNo3;
     }
@@ -363,6 +374,7 @@ public class Preparation extends BaseEntity {
         this.integer2 = integer2;
     }
 
+    @JsonProperty("reserved-integer3")
     public Integer getReservedInteger3() {
         return reservedInteger3;
     }
@@ -371,6 +383,7 @@ public class Preparation extends BaseEntity {
         this.reservedInteger3 = reservedInteger3;
     }
 
+    @JsonProperty("reserved-integer4")
     public Integer getReservedInteger4() {
         return reservedInteger4;
     }
@@ -390,6 +403,7 @@ public class Preparation extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("preparation-attributed-id")
     public Preparationattribute getPreparationAttributeID() {
         return preparationAttributeID;
     }
@@ -399,6 +413,7 @@ public class Preparation extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("modified-by-agent-id")
     public Agent getModifiedByAgentID() {
         return modifiedByAgentID;
     }
@@ -408,6 +423,7 @@ public class Preparation extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("prep-type-id")
     public Preptype getPrepTypeID() {
         return prepTypeID;
     }
@@ -417,6 +433,7 @@ public class Preparation extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("collection-object-id")
     public Collectionobject getCollectionObjectID() {
         return collectionObjectID;
     }
@@ -426,6 +443,7 @@ public class Preparation extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("created-by-agent-id")
     public Agent getCreatedByAgentID() {
         return createdByAgentID;
     }
@@ -435,6 +453,7 @@ public class Preparation extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("storage-id")
     public Storage getStorageID() {
         return storageID;
     }
@@ -444,6 +463,7 @@ public class Preparation extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("prepared-by-id")
     public Agent getPreparedByID() {
         return preparedByID;
     }

@@ -4,16 +4,16 @@
  * and open the template in the editor.
  */
 package se.nrm.dina.data.service;
-    
+     
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.security.Principal;
 import java.util.ArrayList;
-import java.util.Arrays; 
+import java.util.Arrays;  
 import java.util.List;   
 import java.util.Map; 
-import java.util.function.Predicate; 
-import java.util.stream.Collectors;
+import java.util.function.Predicate;  
+import java.util.stream.Collectors; 
 import javax.ejb.EJB; 
 import javax.ejb.Stateless; 
 import javax.servlet.http.HttpServletRequest;  
@@ -32,7 +32,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
-import org.apache.commons.lang.StringUtils;  
+import org.apache.commons.lang.StringUtils;   
 import org.keycloak.KeycloakPrincipal;
 import org.keycloak.KeycloakSecurityContext; 
 import org.slf4j.Logger;
@@ -42,6 +42,7 @@ import se.nrm.dina.data.exceptions.DinaException;
 import se.nrm.dina.data.service.metadata.Metadata;
 import se.nrm.dina.data.service.util.Helpclass; 
 import se.nrm.dina.data.service.vo.EntityCount; 
+import se.nrm.dina.data.service.vo.EntityWrapper;
 import se.nrm.dina.data.service.vo.MetadataBean;
 import se.nrm.dina.data.vo.ErrorBean;
 import se.nrm.dina.datamodel.EntityBean;
@@ -51,7 +52,8 @@ import se.nrm.dina.logic.DinaDataLogic;
  *
  * @author idali
  */
-@Path("/v1")
+@Path("/v1") 
+//@Path("/") 
 @Consumes({MediaType.APPLICATION_JSON+";charset=UTF-8"})
 @Produces({MediaType.APPLICATION_JSON + ";charset=UTF-8"})
 @Stateless
@@ -61,49 +63,50 @@ public class DinaService {
 
     @EJB
     private DinaDataLogic logic;
- 
 
     public DinaService() {
 
     }
-    
+
     public DinaService(DinaDataLogic logic) {
         this.logic = logic;
     }
-    
+
     /**
      * Get all the records from database by the name of the entity
-     * 
-     * @param req       - HttpServletRequeset
-     * @param entity    - Entity name
-     * @param offset    - paging offset
-     * @param limit     - The amount of records to return 
-     * @param sort      - Sort order [ASC or DESC]
-     * @param orderby   - Sort order by list of fields
+     *
+     * @param req - HttpServletRequeset
+     * @param entity - Entity name
+     * @param offset - paging offset
+     * @param limit - The amount of records to return
+     * @param sort - Sort order [ASC or DESC]
+     * @param orderby - Sort order by list of fields
      * @return Response
      */
     @GET
-    @Path("{entity}") 
-    public Response getAllByEntityName (@Context HttpServletRequest req,
-                                        @PathParam("entity") String entity, 
-                                        @DefaultValue("0") @QueryParam("offset") int offset, 
-                                        @DefaultValue("50") @QueryParam("limit") int limit, 
-                                        @DefaultValue("asc") @QueryParam("sort") String sort,
-                                        @QueryParam("orderby") String orderby) {
-        
-        logger.info("getAllByEntityName : {} -- {}", entity, offset + " -- " + limit);  
-         
-        List<String> order = new ArrayList(); 
-        if(orderby != null) {
+    @Path("{entity}")
+    public Response getAllByEntityName(@Context HttpServletRequest req,
+            @PathParam("entity") String entity,
+            @DefaultValue("0") @QueryParam("offset") int offset,
+            @DefaultValue("50") @QueryParam("limit") int limit,
+            @DefaultValue("asc") @QueryParam("sort") String sort,
+            @QueryParam("orderby") String orderby) {
+
+        logger.info("getAllByEntityName : {} -- {}", entity, offset + " -- " + limit);
+
+        List<String> order = new ArrayList();
+        if (orderby != null) {
             order = Arrays.asList(StringUtils.split(orderby, ","));
         }
 
         Metadata metadata = new Metadata();
         MetadataBean meta = metadata.buildMetadata(req, entity, offset, limit, sort, order, orderby, true, null);
- 
+
         try {
-            List<EntityBean> results = logic.findAll(entity, limit, offset, sort, order); 
-            
+//            if (entity.endsWith("s")) {
+//                entity = StringUtils.substringBeforeLast(entity, "s");
+//            }
+            List<EntityBean> results = logic.findAll(entity, limit, offset, sort, order);   
             return Response.ok(Helpclass.getInstance().buildEntityWrapper(results, meta, 200)).build();
         } catch (DinaException e) {  
             ErrorBean error = new ErrorBean(entity, e.getMessage()); 
@@ -143,8 +146,13 @@ public class DinaService {
                 .filter(filterCondition())
                 .collect(Collectors.toMap(m -> m.getKey(), m -> m.getValue().get(0)));
 
-        Metadata metadata = new Metadata(); 
-        MetadataBean meta = metadata.buildMetadata(req, entity, offset, limit == 0 ? 50 : limit, sort == null ? "asc" : sort, order, orderBy, exact, condition); 
+        Metadata metadata = new Metadata();
+        MetadataBean meta = metadata.buildMetadata(req, entity, offset, limit == 0 ? 50 : limit, sort == null ? "asc" : sort, order, orderBy, exact, condition);
+
+        if (entity.endsWith("s")) {
+            entity = StringUtils.substringBeforeLast(entity, "s");
+        }
+
         try {
             List<EntityBean> results = logic.findAllBySearchCriteria(entity, limit, offset, sort, order, condition, exact);
             return Response.ok(Helpclass.getInstance().buildEntityWrapper(results, meta, 200)).build();  

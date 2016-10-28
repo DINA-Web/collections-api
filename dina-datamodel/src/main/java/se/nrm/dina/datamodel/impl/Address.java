@@ -179,7 +179,7 @@ public class Address extends BaseEntity {
 
     public Address(Integer addressID, Date timestampCreated) {
         this.addressID = addressID;
-        this.timestampCreated = timestampCreated;
+//        this.timestampCreated = timestampCreated;
     }
 
     @XmlID 

@@ -5,6 +5,7 @@
  */
 package se.nrm.dina.datamodel.impl;
  
+import com.fasterxml.jackson.annotation.JsonProperty;
 import se.nrm.dina.datamodel.BaseEntity;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -180,7 +181,7 @@ public class Accession extends BaseEntity {
 
     public Accession(Integer accessionID, Date timestampCreated, String accessionNumber) {
         this.accessionID = accessionID;
-        this.timestampCreated = timestampCreated;
+//        this.timestampCreated = timestampCreated;
         this.accessionNumber = accessionNumber;
     }
  
@@ -198,11 +199,12 @@ public class Accession extends BaseEntity {
 //    }
     
     @XmlTransient 
-    @Override
+    @Override 
     public int getEntityId() {
         return accessionID == null ? 0 : accessionID;
     }
   
+    @JsonProperty("accession-id")
     public Integer getAccessionID() {
         return accessionID;
     }
@@ -211,6 +213,7 @@ public class Accession extends BaseEntity {
         this.accessionID = accessionID;
     }
  
+    @JsonProperty("accession-condition")
     public String getAccessionCondition() {
         return accessionCondition;
     }
@@ -219,6 +222,7 @@ public class Accession extends BaseEntity {
         this.accessionCondition = accessionCondition;
     }
 
+    @JsonProperty("accession-number")
     public String getAccessionNumber() {
         return accessionNumber;
     }
@@ -227,6 +231,7 @@ public class Accession extends BaseEntity {
         this.accessionNumber = accessionNumber;
     }
 
+    @JsonProperty("date-accessioned")
     public Date getDateAccessioned() {
         return dateAccessioned;
     }
@@ -235,6 +240,7 @@ public class Accession extends BaseEntity {
         this.dateAccessioned = dateAccessioned;
     }
 
+    @JsonProperty("date-acknowledged")
     public Date getDateAcknowledged() {
         return dateAcknowledged;
     }
@@ -243,6 +249,7 @@ public class Accession extends BaseEntity {
         this.dateAcknowledged = dateAcknowledged;
     }
 
+    @JsonProperty("date-received")
     public Date getDateReceived() {
         return dateReceived;
     }
@@ -251,6 +258,7 @@ public class Accession extends BaseEntity {
         this.dateReceived = dateReceived;
     }
 
+    
     public Float getNumber1() {
         return number1;
     }
@@ -307,6 +315,7 @@ public class Accession extends BaseEntity {
         this.text3 = text3;
     }
 
+    @JsonProperty("total-value")
     public BigDecimal getTotalValue() {
         return totalValue;
     }
@@ -323,6 +332,7 @@ public class Accession extends BaseEntity {
         this.type = type;
     }
 
+    @JsonProperty("verbatim-date")
     public String getVerbatimDate() {
         return verbatimDate;
     }
@@ -331,6 +341,7 @@ public class Accession extends BaseEntity {
         this.verbatimDate = verbatimDate;
     }
 
+    @JsonProperty("yes-no1")
     public Boolean getYesNo1() {
         return yesNo1;
     }
@@ -339,6 +350,7 @@ public class Accession extends BaseEntity {
         this.yesNo1 = yesNo1;
     }
 
+    @JsonProperty("yes-no2")
     public Boolean getYesNo2() {
         return yesNo2;
     }
@@ -395,6 +407,7 @@ public class Accession extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("modified-by-agent-id")
     public Agent getModifiedByAgentID() {
         return modifiedByAgentID;
     }
@@ -404,6 +417,7 @@ public class Accession extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("created-by-agent-id")
     public Agent getCreatedByAgentID() {
         return createdByAgentID;
     }
@@ -413,6 +427,7 @@ public class Accession extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("division-id")
     public Division getDivisionID() {
         return divisionID;
     }
@@ -422,6 +437,7 @@ public class Accession extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("address-of-record-id")
     public Addressofrecord getAddressOfRecordID() {
         return addressOfRecordID;
     }

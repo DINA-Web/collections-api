@@ -5,6 +5,7 @@
  */
 package se.nrm.dina.datamodel.impl;
  
+import com.fasterxml.jackson.annotation.JsonProperty;
 import se.nrm.dina.datamodel.BaseEntity;
 import java.util.Date;
 import java.util.List;
@@ -145,10 +146,12 @@ public class Geographytreedefitem extends BaseEntity {
 //    }
     
     @Override
+    @JsonProperty("entity-id")
     public int getEntityId() {
         return geographyTreeDefItemID;
     }
     
+    @JsonProperty("geography-tree-def-item-id")
     public Integer getGeographyTreeDefItemID() {
         return geographyTreeDefItemID;
     }
@@ -158,7 +161,7 @@ public class Geographytreedefitem extends BaseEntity {
     }
 
    
-
+    @JsonProperty("full-name-separator")
     public String getFullNameSeparator() {
         return fullNameSeparator;
     }
@@ -167,6 +170,7 @@ public class Geographytreedefitem extends BaseEntity {
         this.fullNameSeparator = fullNameSeparator;
     }
 
+    @JsonProperty("is-enforced")
     public Boolean getIsEnforced() {
         return isEnforced;
     }
@@ -175,6 +179,7 @@ public class Geographytreedefitem extends BaseEntity {
         this.isEnforced = isEnforced;
     }
 
+    @JsonProperty("is-in-full-name")
     public Boolean getIsInFullName() {
         return isInFullName;
     }
@@ -191,6 +196,7 @@ public class Geographytreedefitem extends BaseEntity {
         this.name = name;
     }
 
+    @JsonProperty("rank-id")
     public int getRankID() {
         return rankID;
     }
@@ -207,6 +213,7 @@ public class Geographytreedefitem extends BaseEntity {
         this.remarks = remarks;
     }
 
+    @JsonProperty("text-after")
     public String getTextAfter() {
         return textAfter;
     }
@@ -215,6 +222,7 @@ public class Geographytreedefitem extends BaseEntity {
         this.textAfter = textAfter;
     }
 
+    @JsonProperty("text-before")
     public String getTextBefore() {
         return textBefore;
     }
@@ -241,6 +249,7 @@ public class Geographytreedefitem extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("modified-by-agent-id")
     public Agent getModifiedByAgentID() {
         return modifiedByAgentID;
     }
@@ -250,6 +259,7 @@ public class Geographytreedefitem extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("created-by-agent-id")
     public Agent getCreatedByAgentID() {
         return createdByAgentID;
     }
@@ -268,6 +278,7 @@ public class Geographytreedefitem extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("parent-item-id")
     public Geographytreedefitem getParentItemID() {
         return parentItemID;
     }
@@ -277,6 +288,7 @@ public class Geographytreedefitem extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("geography-tree-def-id")
     public Geographytreedef getGeographyTreeDefID() {
         return geographyTreeDefID;
     }

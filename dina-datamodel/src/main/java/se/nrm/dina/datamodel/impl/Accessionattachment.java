@@ -85,7 +85,7 @@ public class Accessionattachment extends BaseEntity {
 
     public Accessionattachment(Integer accessionAttachmentID, Date timestampCreated, int ordinal) {
         this.accessionAttachmentID = accessionAttachmentID;
-        this.timestampCreated = timestampCreated;
+//        this.timestampCreated = timestampCreated;
         this.ordinal = ordinal;
     }
 

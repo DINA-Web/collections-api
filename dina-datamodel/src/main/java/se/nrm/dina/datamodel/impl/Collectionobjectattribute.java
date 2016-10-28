@@ -5,6 +5,7 @@
  */
 package se.nrm.dina.datamodel.impl;
  
+import com.fasterxml.jackson.annotation.JsonProperty;
 import se.nrm.dina.datamodel.BaseEntity;
 import java.util.Date;
 import java.util.List;
@@ -347,10 +348,12 @@ public class Collectionobjectattribute extends BaseEntity {
 //    }
     
     @Override
+    @JsonProperty("entity-id")
     public int getEntityId() {
         return collectionObjectAttributeID;
     }
 
+    @JsonProperty("collection-object-attributed-id")
     public Integer getCollectionObjectAttributeID() {
         return collectionObjectAttributeID;
     }
@@ -359,7 +362,7 @@ public class Collectionobjectattribute extends BaseEntity {
         this.collectionObjectAttributeID = collectionObjectAttributeID;
     }
  
-
+    @JsonProperty("collection-member-id")
     public int getCollectionMemberID() {
         return collectionMemberID;
     }
@@ -832,6 +835,7 @@ public class Collectionobjectattribute extends BaseEntity {
         this.text9 = text9;
     }
 
+    @JsonProperty("yes-no1")
     public Boolean getYesNo1() {
         return yesNo1;
     }
@@ -840,6 +844,7 @@ public class Collectionobjectattribute extends BaseEntity {
         this.yesNo1 = yesNo1;
     }
 
+    @JsonProperty("yes-no2")
     public Boolean getYesNo2() {
         return yesNo2;
     }
@@ -848,6 +853,7 @@ public class Collectionobjectattribute extends BaseEntity {
         this.yesNo2 = yesNo2;
     }
 
+    @JsonProperty("yes-no3")
     public Boolean getYesNo3() {
         return yesNo3;
     }
@@ -856,6 +862,7 @@ public class Collectionobjectattribute extends BaseEntity {
         this.yesNo3 = yesNo3;
     }
 
+    @JsonProperty("yes-no4")
     public Boolean getYesNo4() {
         return yesNo4;
     }
@@ -864,6 +871,7 @@ public class Collectionobjectattribute extends BaseEntity {
         this.yesNo4 = yesNo4;
     }
 
+    @JsonProperty("yes-no5")
     public Boolean getYesNo5() {
         return yesNo5;
     }
@@ -872,6 +880,7 @@ public class Collectionobjectattribute extends BaseEntity {
         this.yesNo5 = yesNo5;
     }
 
+    @JsonProperty("yes-no6")
     public Boolean getYesNo6() {
         return yesNo6;
     }
@@ -880,6 +889,7 @@ public class Collectionobjectattribute extends BaseEntity {
         this.yesNo6 = yesNo6;
     }
 
+    @JsonProperty("yes-no7")
     public Boolean getYesNo7() {
         return yesNo7;
     }
@@ -888,6 +898,7 @@ public class Collectionobjectattribute extends BaseEntity {
         this.yesNo7 = yesNo7;
     }
 
+    @JsonProperty("bottom-distance")
     public Float getBottomDistance() {
         return bottomDistance;
     }
@@ -904,6 +915,7 @@ public class Collectionobjectattribute extends BaseEntity {
         this.direction = direction;
     }
 
+    @JsonProperty("distance-units")
     public String getDistanceUnits() {
         return distanceUnits;
     }
@@ -912,6 +924,7 @@ public class Collectionobjectattribute extends BaseEntity {
         this.distanceUnits = distanceUnits;
     }
 
+    @JsonProperty("position-state")
     public String getPositionState() {
         return positionState;
     }
@@ -920,6 +933,7 @@ public class Collectionobjectattribute extends BaseEntity {
         this.positionState = positionState;
     }
 
+    @JsonProperty("top-distance")
     public Float getTopDistance() {
         return topDistance;
     }
@@ -929,6 +943,7 @@ public class Collectionobjectattribute extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("modified-by-agent-id")
     public Agent getModifiedByAgentID() {
         return modifiedByAgentID;
     }
@@ -938,6 +953,7 @@ public class Collectionobjectattribute extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("created-by-agent-id")
     public Agent getCreatedByAgentID() {
         return createdByAgentID;
     }
@@ -954,8 +970,8 @@ public class Collectionobjectattribute extends BaseEntity {
     public void setCollectionobjectList(List<Collectionobject> collectionobjectList) {
         this.collectionobjectList = collectionobjectList;
     }
-    
-        public String getText16() {
+
+    public String getText16() {
         return text16;
     }
 

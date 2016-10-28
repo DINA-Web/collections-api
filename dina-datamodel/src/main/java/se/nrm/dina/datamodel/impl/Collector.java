@@ -5,6 +5,7 @@
  */
 package se.nrm.dina.datamodel.impl;
  
+import com.fasterxml.jackson.annotation.JsonProperty;
 import se.nrm.dina.datamodel.BaseEntity;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -114,10 +115,12 @@ public class Collector extends BaseEntity {
 //    }
     
     @Override
+    @JsonProperty("entity-id")
     public int getEntityId() {
         return collectorID;
     }
 
+    @JsonProperty("collector-id")
     public Integer getCollectorID() {
         return collectorID;
     }
@@ -126,7 +129,7 @@ public class Collector extends BaseEntity {
         this.collectorID = collectorID;
     }
  
-
+    @JsonProperty("is-primary")
     public boolean getIsPrimary() {
         return isPrimary;
     }
@@ -135,6 +138,7 @@ public class Collector extends BaseEntity {
         this.isPrimary = isPrimary;
     }
 
+    @JsonProperty("order-number")
     public int getOrderNumber() {
         return orderNumber;
     }
@@ -152,6 +156,7 @@ public class Collector extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("agent-id")
     public Agent getAgentID() {
         return agentID;
     }
@@ -161,6 +166,7 @@ public class Collector extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("modified-by-agent-id")
     public Agent getModifiedByAgentID() {
         return modifiedByAgentID;
     }
@@ -170,6 +176,7 @@ public class Collector extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("created-by-agent-id")
     public Agent getCreatedByAgentID() {
         return createdByAgentID;
     }
@@ -179,6 +186,7 @@ public class Collector extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("division-id")
     public Division getDivisionID() {
         return divisionID;
     }
@@ -188,6 +196,7 @@ public class Collector extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("collecting-event-id")
     public Collectingevent getCollectingEventID() {
         return collectingEventID;
     }

@@ -5,6 +5,7 @@
  */
 package se.nrm.dina.datamodel.impl;
  
+import com.fasterxml.jackson.annotation.JsonProperty;
 import se.nrm.dina.datamodel.BaseEntity;
 import java.util.Date;
 import java.util.List;
@@ -174,10 +175,12 @@ public class Lithostrat extends BaseEntity {
 //    }
     
     @Override
+    @JsonProperty("entity-id")
     public int getEntityId() {
         return lithoStratID;
     }
 
+    @JsonProperty("litho-strat-id")
     public Integer getLithoStratID() {
         return lithoStratID;
     }
@@ -186,7 +189,7 @@ public class Lithostrat extends BaseEntity {
         this.lithoStratID = lithoStratID;
     }
  
-
+    @JsonProperty("full-name")
     public String getFullName() {
         return fullName;
     }
@@ -203,6 +206,7 @@ public class Lithostrat extends BaseEntity {
         this.guid = guid;
     }
 
+    @JsonProperty("highest-child-node-number")
     public Integer getHighestChildNodeNumber() {
         return highestChildNodeNumber;
     }
@@ -211,6 +215,7 @@ public class Lithostrat extends BaseEntity {
         this.highestChildNodeNumber = highestChildNodeNumber;
     }
 
+    @JsonProperty("is-accepted")
     public Boolean getIsAccepted() {
         return isAccepted;
     }
@@ -227,6 +232,7 @@ public class Lithostrat extends BaseEntity {
         this.name = name;
     }
 
+    @JsonProperty("node-number")
     public Integer getNodeNumber() {
         return nodeNumber;
     }
@@ -251,6 +257,7 @@ public class Lithostrat extends BaseEntity {
         this.number2 = number2;
     }
 
+    @JsonProperty("rank-id")
     public int getRankID() {
         return rankID;
     }
@@ -283,6 +290,7 @@ public class Lithostrat extends BaseEntity {
         this.text2 = text2;
     }
 
+    @JsonProperty("yes-no1")
     public Boolean getYesNo1() {
         return yesNo1;
     }
@@ -291,6 +299,7 @@ public class Lithostrat extends BaseEntity {
         this.yesNo1 = yesNo1;
     }
 
+    @JsonProperty("yes-no2")
     public Boolean getYesNo2() {
         return yesNo2;
     }
@@ -309,6 +318,7 @@ public class Lithostrat extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("modified-by-agent-id")
     public Agent getModifiedByAgentID() {
         return modifiedByAgentID;
     }
@@ -318,6 +328,7 @@ public class Lithostrat extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("litho-strat-tree-def-id")
     public Lithostrattreedef getLithoStratTreeDefID() {
         return lithoStratTreeDefID;
     }
@@ -327,6 +338,7 @@ public class Lithostrat extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("created-by-agent-id")
     public Agent getCreatedByAgentID() {
         return createdByAgentID;
     }
@@ -345,6 +357,7 @@ public class Lithostrat extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("accepted-id")
     public Lithostrat getAcceptedID() {
         return acceptedID;
     }
@@ -363,6 +376,7 @@ public class Lithostrat extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("parent-id")
     public Lithostrat getParentID() {
         return parentID;
     }
@@ -372,6 +386,7 @@ public class Lithostrat extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("litho-strat-tree-def-item-id")
     public Lithostrattreedefitem getLithoStratTreeDefItemID() {
         return lithoStratTreeDefItemID;
     }

@@ -80,7 +80,7 @@ public class Exsiccataitem extends BaseEntity {
 
     public Exsiccataitem(Integer exsiccataItemID, Date timestampCreated) {
         this.exsiccataItemID = exsiccataItemID;
-        this.timestampCreated = timestampCreated;
+//        this.timestampCreated = timestampCreated;
     }
     
     @XmlID

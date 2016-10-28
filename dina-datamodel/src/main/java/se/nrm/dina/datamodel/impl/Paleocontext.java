@@ -5,6 +5,7 @@
  */
 package se.nrm.dina.datamodel.impl;
  
+import com.fasterxml.jackson.annotation.JsonProperty;
 import se.nrm.dina.datamodel.BaseEntity;
 import java.util.Date;
 import java.util.List;
@@ -174,10 +175,12 @@ public class Paleocontext extends BaseEntity {
 //    }
     
     @Override
+    @JsonProperty("entity-id")
     public int getEntityId() {
         return paleoContextID;
     }
     
+    @JsonProperty("paleo-context-id")
     public Integer getPaleoContextID() {
         return paleoContextID;
     }
@@ -203,6 +206,7 @@ public class Paleocontext extends BaseEntity {
         this.text2 = text2;
     }
 
+    @JsonProperty("yes-no1")
     public Boolean getYesNo1() {
         return yesNo1;
     }
@@ -211,10 +215,11 @@ public class Paleocontext extends BaseEntity {
         this.yesNo1 = yesNo1;
     }
 
+    @JsonProperty("yes-no2")
     public Boolean getYesNo2() {
         return yesNo2;
     }
-
+ 
     public void setYesNo2(Boolean yesNo2) {
         this.yesNo2 = yesNo2;
     }
@@ -267,6 +272,7 @@ public class Paleocontext extends BaseEntity {
         this.number5 = number5;
     }
 
+    @JsonProperty("paleo-context-name")
     public String getPaleoContextName() {
         return paleoContextName;
     }
@@ -299,6 +305,7 @@ public class Paleocontext extends BaseEntity {
         this.text5 = text5;
     }
 
+    @JsonProperty("yes-no3")
     public Boolean getYesNo3() {
         return yesNo3;
     }
@@ -307,6 +314,7 @@ public class Paleocontext extends BaseEntity {
         this.yesNo3 = yesNo3;
     }
 
+    @JsonProperty("yes-no4")
     public Boolean getYesNo4() {
         return yesNo4;
     }
@@ -315,6 +323,7 @@ public class Paleocontext extends BaseEntity {
         this.yesNo4 = yesNo4;
     }
 
+    @JsonProperty("yes-no5")
     public Boolean getYesNo5() {
         return yesNo5;
     }
@@ -333,6 +342,7 @@ public class Paleocontext extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("chronos-strat-end-id")
     public Geologictimeperiod getChronosStratEndID() {
         return chronosStratEndID;
     }
@@ -342,6 +352,7 @@ public class Paleocontext extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("discipline-id")
     public Discipline getDisciplineID() {
         return disciplineID;
     }
@@ -351,6 +362,7 @@ public class Paleocontext extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("chronos-strat-id")
     public Geologictimeperiod getChronosStratID() {
         return chronosStratID;
     }
@@ -360,6 +372,7 @@ public class Paleocontext extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("modified-by-agent-id")
     public Agent getModifiedByAgentID() {
         return modifiedByAgentID;
     }
@@ -369,6 +382,7 @@ public class Paleocontext extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("created-by-agent-id")
     public Agent getCreatedByAgentID() {
         return createdByAgentID;
     }
@@ -378,6 +392,7 @@ public class Paleocontext extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("bio-strat-id")
     public Geologictimeperiod getBioStratID() {
         return bioStratID;
     }
@@ -387,6 +402,7 @@ public class Paleocontext extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("litho-strat-id")
     public Lithostrat getLithoStratID() {
         return lithoStratID;
     }

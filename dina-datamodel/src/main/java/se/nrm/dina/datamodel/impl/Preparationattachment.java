@@ -5,6 +5,7 @@
  */
 package se.nrm.dina.datamodel.impl;
  
+import com.fasterxml.jackson.annotation.JsonProperty;
 import se.nrm.dina.datamodel.BaseEntity;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -111,10 +112,12 @@ public class Preparationattachment extends BaseEntity {
 //    }
     
     @Override
+    @JsonProperty("entity-id")
     public int getEntityId() {
         return preparationAttachmentID;
     }
 
+    @JsonProperty("preparation-attachment-id")
     public Integer getPreparationAttachmentID() {
         return preparationAttachmentID;
     }
@@ -123,7 +126,7 @@ public class Preparationattachment extends BaseEntity {
         this.preparationAttachmentID = preparationAttachmentID;
     }
  
-
+    @JsonProperty("collection-member-id")
     public int getCollectionMemberID() {
         return collectionMemberID;
     }
@@ -149,6 +152,7 @@ public class Preparationattachment extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("preparation-id")
     public Preparation getPreparationID() {
         return preparationID;
     }
@@ -158,6 +162,7 @@ public class Preparationattachment extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("modified-by-agent-id")
     public Agent getModifiedByAgentID() {
         return modifiedByAgentID;
     }
@@ -167,6 +172,7 @@ public class Preparationattachment extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("created-by-agent-id")
     public Agent getCreatedByAgentID() {
         return createdByAgentID;
     }
@@ -176,6 +182,7 @@ public class Preparationattachment extends BaseEntity {
     }
 
     @XmlIDREF
+    @JsonProperty("attachment-id")
     public Attachment getAttachmentID() {
         return attachmentID;
     }
