@@ -70,8 +70,8 @@ public class Helpclass {
             meta.setResultCount(1);
         } 
         if(entityBean != null) {
-            ResultWrapper wrapper = null;
-//            ResultWrapper wrapper = new ResultWrapper(entityBean.getEntityId(), entityBean.getClass().getSimpleName().toLowerCase(), entityBean);
+//            ResultWrapper wrapper = null;
+            ResultWrapper wrapper = new ResultWrapper(entityBean.getEntityId(), entityBean.getClass().getSimpleName().toLowerCase(), entityBean);
 //            ResultWrapper wrapper = new ResultWrapper(entityBean.getEntityId(), entityBean);
             return new EntityWrapper(meta, wrapper);
         } else {

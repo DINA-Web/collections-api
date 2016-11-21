@@ -5,7 +5,7 @@
  */
 package se.nrm.dina.data.service.vo;
 
-import java.io.Serializable;
+import java.io.Serializable; 
 
 /**
  *
@@ -14,15 +14,15 @@ import java.io.Serializable;
 public class ResultWrapper implements Serializable {
     
     private final int id;
-    private final String type;
-    
+    private final String type; 
     private final Object attributes;
-    
+      
     public ResultWrapper(int id, String type, Object attributes) {
         this.id = id;
         this.type = type;
         this.attributes = attributes;
-    }
+    } 
+ 
 
     public int getId() {
         return id;
@@ -34,5 +34,7 @@ public class ResultWrapper implements Serializable {
 
     public Object getAttributes() {
         return attributes;
-    } 
+    }  
+    
+    
 }

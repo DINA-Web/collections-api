@@ -2,5 +2,5 @@
 
 <jboss-web>  
    <default-encoding>UTF-8</default-encoding>
-   <!--<security-domain>app</security-domain>-->
+   <!--<security-domain>app</security-domain>--> 
 </jboss-web>
