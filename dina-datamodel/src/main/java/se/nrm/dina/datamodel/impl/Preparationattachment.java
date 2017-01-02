@@ -31,18 +31,14 @@ import se.nrm.dina.json.converter.annotation.DinaField;
 import se.nrm.dina.json.converter.annotation.DinaId;
 import se.nrm.dina.json.converter.annotation.DinaIgnor;
 import se.nrm.dina.json.converter.annotation.DinaManyToOne;
-import se.nrm.dina.json.converter.annotation.DinaResource;
-//import se.nrm.dina.datamodel.annotation.DinaField;
-//import se.nrm.dina.datamodel.annotation.DinaIgnor;
-//import se.nrm.dina.datamodel.annotation.DinaManyToOne;
-//import se.nrm.dina.datamodel.annotation.DinaResource;
+import se.nrm.dina.json.converter.annotation.DinaResource; 
 
 /**
  *
  * @author idali
  */
 @Entity
-@Table(name = "preparationAttachment")
+@Table(name = "preparationattachment")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Preparationattachment.findAll", query = "SELECT p FROM Preparationattachment p"),

@@ -33,11 +33,7 @@ import se.nrm.dina.json.converter.annotation.DinaField;
 import se.nrm.dina.json.converter.annotation.DinaId;
 import se.nrm.dina.json.converter.annotation.DinaIgnor;
 import se.nrm.dina.json.converter.annotation.DinaManyToOne;
-import se.nrm.dina.json.converter.annotation.DinaResource;
-//import se.nrm.dina.datamodel.annotation.DinaField;
-//import se.nrm.dina.datamodel.annotation.DinaIgnor;
-//import se.nrm.dina.datamodel.annotation.DinaManyToOne;
-//import se.nrm.dina.datamodel.annotation.DinaResource;
+import se.nrm.dina.json.converter.annotation.DinaResource; 
 
 /**
  *
@@ -50,7 +46,7 @@ import se.nrm.dina.json.converter.annotation.DinaResource;
     @NamedQuery(name = "Paleocontext.findAll", query = "SELECT p FROM Paleocontext p"),
     @NamedQuery(name = "Paleocontext.findByPaleoContextID", query = "SELECT p FROM Paleocontext p WHERE p.paleoContextID = :paleoContextID"),  
     @NamedQuery(name = "Paleocontext.findByPaleoContextName", query = "SELECT p FROM Paleocontext p WHERE p.paleoContextName = :paleoContextName") })
-@DinaResource(type = "paleocontext")
+@DinaResource(type = "paleoContext")
 public class Paleocontext extends BaseEntity {
     
 //    private static final long serialVersionUID = 1L;

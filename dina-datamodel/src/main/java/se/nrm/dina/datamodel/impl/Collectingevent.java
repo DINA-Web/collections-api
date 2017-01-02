@@ -39,12 +39,7 @@ import se.nrm.dina.json.converter.annotation.DinaId;
 import se.nrm.dina.json.converter.annotation.DinaIgnor;
 import se.nrm.dina.json.converter.annotation.DinaManyToOne;
 import se.nrm.dina.json.converter.annotation.DinaOneToMany;
-import se.nrm.dina.json.converter.annotation.DinaResource;
-//import se.nrm.dina.datamodel.annotation.DinaField;
-//import se.nrm.dina.datamodel.annotation.DinaIgnor;
-//import se.nrm.dina.datamodel.annotation.DinaManyToOne;
-//import se.nrm.dina.datamodel.annotation.DinaOneToMany;
-//import se.nrm.dina.datamodel.annotation.DinaResource;
+import se.nrm.dina.json.converter.annotation.DinaResource; 
 
 /**
  *

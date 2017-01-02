@@ -34,10 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import se.nrm.dina.json.converter.annotation.DinaField;
 import se.nrm.dina.json.converter.annotation.DinaId;
 import se.nrm.dina.json.converter.annotation.DinaIgnor;
-import se.nrm.dina.json.converter.annotation.DinaResource;
-//import se.nrm.dina.datamodel.annotation.DinaField;
-//import se.nrm.dina.datamodel.annotation.DinaIgnor;
-//import se.nrm.dina.datamodel.annotation.DinaResource;
+import se.nrm.dina.json.converter.annotation.DinaResource; 
 
 /**
  *
@@ -51,7 +48,7 @@ import se.nrm.dina.json.converter.annotation.DinaResource;
     @NamedQuery(name = "Collectionobjectattribute.findByCollectionObjectAttributeID", query = "SELECT c FROM Collectionobjectattribute c WHERE c.collectionObjectAttributeID = :collectionObjectAttributeID"), 
     @NamedQuery(name = "Collectionobjectattribute.findByCollectionMemberID", query = "SELECT c FROM Collectionobjectattribute c WHERE c.collectionMemberID = :collectionMemberID"),    
     @NamedQuery(name = "Collectionobjectattribute.findByTopDistance", query = "SELECT c FROM Collectionobjectattribute c WHERE c.topDistance = :topDistance")})
-@DinaResource(type = "colletionobjectattribute")
+@DinaResource(type = "colletionObjectAttribute")
 public class Collectionobjectattribute extends BaseEntity {
      
 //    private static final long serialVersionUID = 1L;

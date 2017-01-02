@@ -35,18 +35,14 @@ import se.nrm.dina.json.converter.annotation.DinaField;
 import se.nrm.dina.json.converter.annotation.DinaId;
 import se.nrm.dina.json.converter.annotation.DinaIgnor;
 import se.nrm.dina.json.converter.annotation.DinaManyToOne;
-import se.nrm.dina.json.converter.annotation.DinaResource;
-//import se.nrm.dina.datamodel.annotation.DinaField;
-//import se.nrm.dina.datamodel.annotation.DinaIgnor;
-//import se.nrm.dina.datamodel.annotation.DinaManyToOne;
-//import se.nrm.dina.datamodel.annotation.DinaResource;
+import se.nrm.dina.json.converter.annotation.DinaResource; 
 
 /**
  *
  * @author idali
  */
 @Entity
-@Table(name = "geographyTreedefItem")
+@Table(name = "geographytreedefitem")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Geographytreedefitem.findAll", query = "SELECT g FROM Geographytreedefitem g"),
@@ -57,7 +53,7 @@ import se.nrm.dina.json.converter.annotation.DinaResource;
     @NamedQuery(name = "Geographytreedefitem.findByName", query = "SELECT g FROM Geographytreedefitem g WHERE g.name = :name"),
     @NamedQuery(name = "Geographytreedefitem.findByRankID", query = "SELECT g FROM Geographytreedefitem g WHERE g.rankID = :rankID"), 
     @NamedQuery(name = "Geographytreedefitem.findByTitle", query = "SELECT g FROM Geographytreedefitem g WHERE g.title = :title")})
-@DinaResource(type = "geographytreedefitem")
+@DinaResource(type = "geographyTreedefItem")
 public class Geographytreedefitem extends BaseEntity {
    
 //    private static final long serialVersionUID = 1L;
