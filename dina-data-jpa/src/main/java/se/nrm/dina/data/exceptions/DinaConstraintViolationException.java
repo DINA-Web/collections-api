@@ -6,8 +6,7 @@
 package se.nrm.dina.data.exceptions;
 
 import java.util.List;
-import javax.ejb.ApplicationException;
-import se.nrm.dina.data.vo.ErrorBean;
+import javax.ejb.ApplicationException; 
 
 /**
  *
@@ -15,22 +14,12 @@ import se.nrm.dina.data.vo.ErrorBean;
  */
 @ApplicationException
 public class DinaConstraintViolationException extends DinaException {
-    
-    private Throwable t;
-    
-    public DinaConstraintViolationException(ErrorBean errorBean, int errorCode) {
-        super(errorBean, errorCode);
+     
+    public DinaConstraintViolationException(int errorCode, String errorType, String errorMsg) {
+        super(errorCode, errorType, errorMsg);
     }
     
-    public DinaConstraintViolationException(List<ErrorBean> errorBeans, int errorCode) {
-        super(errorBeans, errorCode);
-    }
-    
-    public DinaConstraintViolationException(Throwable t) { 
-        this.t = t;
-    }
-
-    public Throwable getT() {
-        return t;
+    public DinaConstraintViolationException(int errorCode, String errorType, List<String> errorMsgs) {
+        super(errorCode, errorType, errorMsgs);
     } 
 }

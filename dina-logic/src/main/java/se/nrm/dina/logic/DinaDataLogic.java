@@ -10,23 +10,28 @@ import java.io.IOException;
 import java.io.Serializable; 
 import java.lang.reflect.Field;
 import java.sql.Timestamp; 
-import java.time.LocalDateTime;
+import java.time.LocalDateTime; 
 import java.util.ArrayList;
-import java.util.Arrays; 
+import java.util.Arrays;  
 import java.util.List;
 import java.util.Map; 
+import java.util.stream.Collectors;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;  
+import javax.json.JsonObject;
 import org.apache.commons.lang.StringUtils;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import se.nrm.dina.data.exceptions.DinaConstraintViolationException;
-import se.nrm.dina.data.exceptions.DinaException;
-import se.nrm.dina.data.jpa.DinaDao; 
+import se.nrm.dina.data.exceptions.DinaDatabaseException;
+import se.nrm.dina.data.exceptions.DinaException; 
+import se.nrm.dina.data.jpa.DinaDao;   
 import se.nrm.dina.logic.util.NamedQueries;
 import se.nrm.dina.datamodel.EntityBean;     
-import se.nrm.dina.logic.util.HelpClass;
+import se.nrm.dina.json.converter.JsonConverter;
+import se.nrm.dina.json.converter.impl.JsonConverterImpl; 
+import se.nrm.dina.logic.util.HelpClass;  
 
 /**
  *
@@ -44,10 +49,17 @@ public class DinaDataLogic<T extends EntityBean> implements Serializable {
     private ObjectMapper mapper;
     private EntityBean bean;
     
+    private JsonConverter converter;
+    
     @EJB
     private DinaDao dao;
-
+    
+//    @EJB
+//    private JsonConverter converter;
+    
+   
     public DinaDataLogic() { 
+        converter = new JsonConverterImpl();
         mapper = new ObjectMapper();
     }
     
@@ -68,21 +80,20 @@ public class DinaDataLogic<T extends EntityBean> implements Serializable {
      * @param limit
      * @param offset 
      * @param orderby
-     * @param sort 
+     * @param sort   
+     * @param meta   
      * 
      * @return List
-     */
-    public List<T> findAll(String entityName, int limit, int offset, String sort, List<String> orderby ) {
-          
-        try {
-            entityName = JpaReflectionHelper.getInstance().validateEntityName(entityName);
+     */ 
+    public JsonObject findAll(String entityName, int limit, int offset, String sort, List<String> orderby, Map<String, Object> meta) {     
+        try { 
             Class clazz = JpaReflectionHelper.getInstance().convertClassNameToClass(entityName);
             
-            String strQuery = NamedQueries.getInstance().createQueryFindAll(entityName, clazz, sort, orderby);
- 
-            return dao.findAll(clazz, strQuery, limit, null, false, offset); 
-        } catch (DinaException e) {
-            throw e;
+            String strQuery = NamedQueries.getInstance().createQueryFindAll(clazz, sort, orderby);
+            List<EntityBean> beans = dao.findAll(clazz, strQuery, limit, null, false, offset);  
+            return converter.convert(beans, meta, 200);
+        } catch (DinaException e) {  
+            return converter.convert(meta, e.getErrorMessageList(), e.getErrorCode(), e.getErrorType(), entityName);
         }
     }
      
@@ -96,26 +107,26 @@ public class DinaDataLogic<T extends EntityBean> implements Serializable {
      * @param orderby
      * @param condition 
      * @param isExact 
+     * @param meta 
      * 
      * @return List
      */
-    public List<T> findAllBySearchCriteria(String entityName, int limit, int offset, String sort, 
-                                           List<String> orderby, Map<String, String> condition, boolean isExact) {
+    public JsonObject findAllBySearchCriteria(String entityName, int limit, int offset, String sort, 
+                                           List<String> orderby, Map<String, String> condition, 
+                                           boolean isExact, Map<String, Object> meta) {
 
         logger.info("findAllBySearchCriteria : {}", condition);
-
-        entityName = JpaReflectionHelper.getInstance().validateEntityName(entityName);
-    
-        try {
+ 
+        try { 
             Class clazz = JpaReflectionHelper.getInstance().convertClassNameToClass(entityName); 
 
             String strQuery = NamedQueries.getInstance()
-                    .createQueryFindAllWithSearchCriteria(entityName, clazz,  HelpClass.getInstance().getSort(sort),
-                                                            orderby, isExact, condition);
+                    .createQueryFindAllWithSearchCriteria(clazz,  sort, orderby, isExact, condition);
     
-            return dao.findAll(clazz, strQuery, limit, condition, isExact, offset);
+            List<EntityBean> beans = dao.findAll(clazz, strQuery, limit, condition, isExact, offset);
+            return converter.convert(beans, meta, 200); 
         } catch (DinaException e) {
-            throw e;
+            return converter.convert(meta, e.getErrorMessageList(), e.getErrorCode(), e.getErrorType(), entityName); 
         }
     }
 
@@ -125,72 +136,78 @@ public class DinaDataLogic<T extends EntityBean> implements Serializable {
      *
      * @param id
      * @param entityName  
+     * @param meta  
      * @return T
-     */
-    public T findById(String id, String entityName) {
+     */ 
+    public JsonObject findById(String id, String entityName, Map<String, Object> meta) {
         logger.info("findById : {} -- {}", id, entityName);
    
+        bean = null;
         try {
             Class clazz = JpaReflectionHelper.getInstance().convertClassNameToClass(entityName); 
             if(HelpClass.getInstance().isNumric(id)) { 
-                return (T) dao.findById(Integer.parseInt(id), clazz, JpaReflectionHelper.getInstance().isVersioned(clazz));
+                bean = (T) dao.findById(Integer.parseInt(id), clazz, JpaReflectionHelper.getInstance().isVersioned(clazz));
             } else {
-                return (T) dao.findByStringId(id, clazz); 
-            }       
+                bean = (T) dao.findByStringId(id, clazz); 
+            }    
+            return bean == null ? converter.convert(meta, 200) : converter.convert(bean, meta, 200);
         } catch (DinaException e) {
-            throw e;
-        }
-
+            return converter.convert(meta, e.getErrorMessageList(), e.getErrorCode(), e.getErrorType(), entityName); 
+        } 
     }
-
-    public List<T> findEntitiesByids(String entityName, String ids) {
-        logger.info("findEntitiesByids : {} -- {}", entityName, ids);
-
-//        String idList = StringUtils.substringBetween(ids, "(", ")");
-
+    
+    private List<Integer> buildIdList(String ids) {
         if (StringUtils.isEmpty(ids)) {
             return null;
         }
         
         if(ids.contains("(")) {
             ids = StringUtils.substringBetween(ids, "(", ")");
+        }  
+        try {
+            List<Integer> intIds = Arrays.asList(ids.split(","))
+                                .stream()
+                                .map(Integer::parseInt)
+                                .collect(Collectors.toList());
+            return intIds;
+        } catch(NumberFormatException e) {
+            throw new DinaException(400, "NumberFormatException", e.getMessage());
         } 
+    }
+
+    public JsonObject findEntitiesByids(String entityName, String ids, Map<String, Object> meta) {
+        logger.info("findEntitiesByids : {} -- {}", entityName, ids);
+         
+        entityName = JpaReflectionHelper.getInstance().reformClassName(entityName);
         
         try { 
-            Class clazz = JpaReflectionHelper.getInstance().convertClassNameToClass(entityName); 
-            boolean isVersioned = JpaReflectionHelper.getInstance().isVersioned(clazz);
-            List<T> beans = new ArrayList();
-            
-            Arrays.asList(ids.split(",")).stream()
-                    .forEach(strId -> {
-                        int id =  HelpClass.getInstance().strToInt(strId); 
-                        T t = (T) dao.findById(id, clazz, isVersioned);
-                        if(t != null) {
-                            beans.add(t);
-                        } 
-                    }); 
-            return beans;
+            List<Integer> intIds = buildIdList(ids); 
+            String idFieldName = JpaReflectionHelper.getInstance().getIDfieldName(entityName); 
+            List<EntityBean> beans = dao.findAll(entityName, idFieldName, intIds);
+            return converter.convert(beans, meta, 200); 
         } catch (DinaException e) {
-            throw e;
-        }
-
+            return converter.convert(meta, e.getErrorMessageList(), e.getErrorCode(), e.getErrorType(), entityName);
+        } 
     }
 
     /**
      * Finds the total number of an entity in database
      *
      * @param entityName
-     * @return int
+     * @param meta
+     * @return JsonObject
      */
-    public int findEntityCount(String entityName) {
+    public JsonObject findEntityCount(String entityName, Map<String, Object> meta) {
 
         try {
-            return dao.getCountByQuery(NamedQueries.getInstance()
-                    .createFindTotalCountNamedQuery(
-                            JpaReflectionHelper.getInstance().convertClassNameToClass(entityName)
-                                    .getSimpleName()));
-        } catch (DinaException e) {
-            throw e;
+            int count = dao.getCountByQuery(NamedQueries.getInstance()
+                                .createFindTotalCountNamedQuery(
+                                            JpaReflectionHelper.getInstance().convertClassNameToClass(entityName)
+                                                .getSimpleName()));
+            
+            return converter.convert(count, meta, entityName); 
+        } catch (DinaException e) { 
+            return converter.convert(meta, e.getErrorMessageList(), e.getErrorCode(), e.getErrorType(), entityName); 
         }
     }
 
@@ -200,22 +217,26 @@ public class DinaDataLogic<T extends EntityBean> implements Serializable {
      * @param entityName
      * @param json  
      * @param agentId  
+     * @param meta  
      * @return EntityBean
      */
-    public EntityBean createEntity(String entityName, String json, int agentId) { 
+//    public EntityBean createEntity(String entityName, String json, int agentId) { 
+    public JsonObject createEntity(String entityName, String json, int agentId, Map<String, Object> meta) { 
         logger.info("createEntity : {} ", entityName);
  
         LocalDateTime ld = LocalDateTime.now();
         date = Timestamp.valueOf(ld);
-
-        System.out.println("bean : " + bean);
+ 
         try {
-            bean = mappObject(entityName, json); 
-            
-            System.out.println("bean 1 .. " + bean);
+            bean = mappObject(entityName, json);  
             Class clazz = JpaReflectionHelper.getInstance().getCreatedByClazz();
             createdByUserBean = dao.findById(agentId, clazz, JpaReflectionHelper.getInstance().isVersioned(clazz));
   
+            if(createdByUserBean == null) {
+                List<String> errors = new ArrayList<>();
+                errors.add("Agent is not registered in database");
+                return converter.convert(meta, errors, 400, "Missing agent", entityName);
+            }
             Field[] fields = bean.getClass().getDeclaredFields();
             Arrays.stream(fields)
                     .forEach(f -> {
@@ -223,13 +244,15 @@ public class DinaDataLogic<T extends EntityBean> implements Serializable {
                     });
 
             setTimeStampCreated(bean);
-            setCreatedByUser(bean, createdByUserBean);
-            return dao.create(bean);
-        } catch (DinaConstraintViolationException ex) {
-            throw ex;
+            setCreatedByUser(bean, createdByUserBean); 
+            return converter.convert(dao.create(bean), meta, 200); 
+         } catch (DinaConstraintViolationException ex) {
+            return converter.convert(meta, ex.getErrorMessageList(), ex.getErrorCode(), ex.getErrorType(), entityName);
+        } catch (DinaDatabaseException ex) {
+            return converter.convert(meta, ex.getErrorMessageList(), ex.getErrorCode(), ex.getErrorType(), entityName);
         } catch (DinaException ex) {
-            throw ex;
-        } 
+            return converter.convert(meta, ex.getErrorMessageList(), ex.getErrorCode(), ex.getErrorType(), entityName);
+        }
     }
 
 
@@ -247,7 +270,7 @@ public class DinaDataLogic<T extends EntityBean> implements Serializable {
             bean = mappObject(entityName, json);
             return dao.merge(bean);
         } catch (DinaException ex) {
-            throw new DinaException(ex.getMessage());
+            throw ex;
         }
     }
 
@@ -257,7 +280,7 @@ public class DinaDataLogic<T extends EntityBean> implements Serializable {
         try {
             bean = (EntityBean) mapper.readValue(json, JpaReflectionHelper.getInstance().convertClassNameToClass(entityName));
         } catch (IOException ex) {
-            throw new DinaException(ex.getMessage());
+            throw new DinaException(400, ex.getCause().getClass().getSimpleName(), ex.getMessage());
         }
         return bean;
     }
@@ -278,9 +301,8 @@ public class DinaDataLogic<T extends EntityBean> implements Serializable {
             if (bean != null) {
                 dao.delete(bean);
             }
-        } catch (DinaException e) {
-            logger.error(e.getMessage());
-            throw new DinaException(e.getMessage());
+        } catch (DinaException e) { 
+            throw e;
         }
     }
 
@@ -321,7 +343,7 @@ public class DinaDataLogic<T extends EntityBean> implements Serializable {
                 }  
             }
         } catch (IllegalArgumentException | IllegalAccessException ex) {
-            throw new DinaException("Save data failed.");
+            throw new DinaException(400, ex.getCause().getClass().getSimpleName(), ex.getMessage());
         }
     }
 
@@ -341,7 +363,7 @@ public class DinaDataLogic<T extends EntityBean> implements Serializable {
 
             }
         } catch (IllegalArgumentException | IllegalAccessException ex) {
-            throw new DinaException("Save data failed. " + ex.getMessage());
+            throw new DinaException(400, ex.getCause().getClass().getSimpleName(), ex.getMessage());
         }
     }
 
@@ -356,7 +378,7 @@ public class DinaDataLogic<T extends EntityBean> implements Serializable {
                                 f.set(child, parent);
                             }
                         } catch (IllegalArgumentException | IllegalAccessException ex) {
-                            throw new DinaException("Save data failed. " + ex.getMessage());
+                            throw new DinaException(400, ex.getCause().getClass().getSimpleName(), ex.getMessage());
                         }
                     }
                 });
@@ -382,7 +404,7 @@ public class DinaDataLogic<T extends EntityBean> implements Serializable {
                 field.setAccessible(true);
                 field.set(bean, userBean);
             } catch (IllegalArgumentException | IllegalAccessException ex) {
-                throw new DinaException(ex.getMessage()); 
+                throw new DinaException(400, ex.getCause().getClass().getSimpleName(), ex.getMessage()); 
             }
         } 
     }
@@ -395,7 +417,7 @@ public class DinaDataLogic<T extends EntityBean> implements Serializable {
                 field.setAccessible(true);
                 field.set(bean, date);
             } catch (IllegalArgumentException | IllegalAccessException ex) {
-                throw new DinaException(ex.getMessage()); 
+                throw new DinaException(400, ex.getCause().getClass().getSimpleName(), ex.getMessage()); 
             }
         }
     }  

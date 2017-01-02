@@ -30,6 +30,13 @@ import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient; 
+import se.nrm.dina.json.converter.annotation.DinaField;
+import se.nrm.dina.json.converter.annotation.DinaId;
+import se.nrm.dina.json.converter.annotation.DinaIgnor;
+import se.nrm.dina.json.converter.annotation.DinaResource;
+//import se.nrm.dina.datamodel.annotation.DinaField;
+//import se.nrm.dina.datamodel.annotation.DinaIgnor;
+//import se.nrm.dina.datamodel.annotation.DinaResource;
 
 /**
  *
@@ -43,44 +50,53 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Preptype.findByPrepTypeID", query = "SELECT p FROM Preptype p WHERE p.prepTypeID = :prepTypeID"), 
     @NamedQuery(name = "Preptype.findByIsLoanable", query = "SELECT p FROM Preptype p WHERE p.isLoanable = :isLoanable"),
     @NamedQuery(name = "Preptype.findByName", query = "SELECT p FROM Preptype p WHERE p.name = :name")})
+@DinaResource(type = "prepType")
 public class Preptype extends BaseEntity {
     
-    private static final long serialVersionUID = 1L;
+//    private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "PrepTypeID")
+    @DinaField(name = "prep-type-id")
+    @DinaId
     private Integer prepTypeID;
-    
-    
+     
     @Basic(optional = false)
     @NotNull
     @Column(name = "IsLoanable")
+    @DinaIgnor
     private boolean isLoanable;
     
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 64)
     @Column(name = "Name")
+    @DinaField(name = "name")
     private String name;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "prepTypeID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Preparation> preparationList;
     
     @JoinColumn(name = "ModifiedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor
     private Agent modifiedByAgentID;
     
     @JoinColumn(name = "CreatedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor
     private Agent createdByAgentID;
     
     @JoinColumn(name = "CollectionID", referencedColumnName = "UserGroupScopeId")
     @ManyToOne(optional = false)
+    @DinaIgnor
     private Collection collectionID;
     
     @OneToMany(mappedBy = "prepTypeID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Attributedef> attributedefList;
 
     public Preptype() {

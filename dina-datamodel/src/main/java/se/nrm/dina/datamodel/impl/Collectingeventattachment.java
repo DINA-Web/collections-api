@@ -27,60 +27,75 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient; 
+import javax.xml.bind.annotation.XmlTransient;     
+import se.nrm.dina.json.converter.annotation.DinaField;
+import se.nrm.dina.json.converter.annotation.DinaId;  
+import se.nrm.dina.json.converter.annotation.DinaIgnor;
+import se.nrm.dina.json.converter.annotation.DinaManyToOne;
+import se.nrm.dina.json.converter.annotation.DinaResource;
 
 /**
  *
  * @author idali
  */
 @Entity
-@Table(name = "collectingeventattachment")
+@Table(name = "collectingEventAttachment")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Collectingeventattachment.findAll", query = "SELECT c FROM Collectingeventattachment c"),
     @NamedQuery(name = "Collectingeventattachment.findByCollectingEventAttachmentID", query = "SELECT c FROM Collectingeventattachment c WHERE c.collectingEventAttachmentID = :collectingEventAttachmentID"),
     @NamedQuery(name = "Collectingeventattachment.findByCollectionMemberID", query = "SELECT c FROM Collectingeventattachment c WHERE c.collectionMemberID = :collectionMemberID"),
     @NamedQuery(name = "Collectingeventattachment.findByOrdinal", query = "SELECT c FROM Collectingeventattachment c WHERE c.ordinal = :ordinal")})
+@DinaResource(type = "collectingEventAttachment")
 public class Collectingeventattachment extends BaseEntity {
  
-    private static final long serialVersionUID = 1L;
+//    private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "CollectingEventAttachmentID")
+    @DinaField(name = "collecting-event-attachment-id")
+    @DinaId
     private Integer collectingEventAttachmentID;
     
     
     @Basic(optional = false)
     @NotNull
     @Column(name = "CollectionMemberID")
+    @DinaField(name = "collection-member-id") 
     private int collectionMemberID;
     
     @Basic(optional = false)
     @NotNull
     @Column(name = "Ordinal")
+    @DinaField(name = "ordinal")
     private int ordinal;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Remarks")
+    @DinaField(name = "remarks")
     private String remarks;
     
     @JoinColumn(name = "ModifiedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor
     private Agent modifiedByAgentID;
     
     @JoinColumn(name = "CreatedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaManyToOne(name = "created-by-agent", type = "agent")
     private Agent createdByAgentID;
     
     @JoinColumn(name = "CollectingEventID", referencedColumnName = "CollectingEventID")
     @ManyToOne(optional = false)
+    @DinaManyToOne(name = "colecting-event-id", type = "collectingEvent")
     private Collectingevent collectingEventID;
     
     @JoinColumn(name = "AttachmentID", referencedColumnName = "AttachmentID")
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @DinaManyToOne(name = "attachment", type = "attachment")
     private Attachment attachmentID;
 
     public Collectingeventattachment() {

@@ -53,7 +53,7 @@ public class ErrorMsgNGTest {
     public void testGetEntityNameErrorMsg() {
         System.out.println("getEntityNameErrorMsg");
          
-        String expResult = "No such entity ";
+        String expResult = "Wrong type";
         String result = instance.getEntityNameErrorMsg();
         assertEquals(result, expResult); 
     } 

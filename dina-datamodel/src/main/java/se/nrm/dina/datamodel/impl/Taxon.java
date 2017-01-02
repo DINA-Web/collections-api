@@ -31,6 +31,17 @@ import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient; 
+import se.nrm.dina.json.converter.annotation.DinaField;
+import se.nrm.dina.json.converter.annotation.DinaId;
+import se.nrm.dina.json.converter.annotation.DinaIgnor;
+import se.nrm.dina.json.converter.annotation.DinaManyToOne;
+import se.nrm.dina.json.converter.annotation.DinaOneToMany;
+import se.nrm.dina.json.converter.annotation.DinaResource;
+//import se.nrm.dina.datamodel.annotation.DinaField;
+//import se.nrm.dina.datamodel.annotation.DinaIgnor;
+//import se.nrm.dina.datamodel.annotation.DinaManyToOne;
+//import se.nrm.dina.datamodel.annotation.DinaOneToMany;
+//import se.nrm.dina.datamodel.annotation.DinaResource;
 
 /**
  *
@@ -42,13 +53,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Taxon.findAll", query = "SELECT t FROM Taxon t"),
     @NamedQuery(name = "Taxon.findByTaxonID", query = "SELECT t FROM Taxon t WHERE t.taxonID = :taxonID"), 
-    @NamedQuery(name = "Taxon.findByAuthor", query = "SELECT t FROM Taxon t WHERE t.author = :author"),
-    @NamedQuery(name = "Taxon.findByCitesStatus", query = "SELECT t FROM Taxon t WHERE t.citesStatus = :citesStatus"),
-    @NamedQuery(name = "Taxon.findByCOLStatus", query = "SELECT t FROM Taxon t WHERE t.cOLStatus = :cOLStatus"),
-    @NamedQuery(name = "Taxon.findByCommonName", query = "SELECT t FROM Taxon t WHERE t.commonName = :commonName"),
-    @NamedQuery(name = "Taxon.findByCultivarName", query = "SELECT t FROM Taxon t WHERE t.cultivarName = :cultivarName"),
-    @NamedQuery(name = "Taxon.findByEnvironmentalProtectionStatus", query = "SELECT t FROM Taxon t WHERE t.environmentalProtectionStatus = :environmentalProtectionStatus"),
-    @NamedQuery(name = "Taxon.findByEsaStatus", query = "SELECT t FROM Taxon t WHERE t.esaStatus = :esaStatus"),
+    @NamedQuery(name = "Taxon.findByAuthor", query = "SELECT t FROM Taxon t WHERE t.author = :author"),  
+    @NamedQuery(name = "Taxon.findByCommonName", query = "SELECT t FROM Taxon t WHERE t.commonName = :commonName"),  
     @NamedQuery(name = "Taxon.findByFullName", query = "SELECT t FROM Taxon t WHERE t.fullName = :fullName"),
     @NamedQuery(name = "Taxon.findByGroupNumber", query = "SELECT t FROM Taxon t WHERE t.groupNumber = :groupNumber"),
     @NamedQuery(name = "Taxon.findByGuid", query = "SELECT t FROM Taxon t WHERE t.guid = :guid"),
@@ -57,261 +63,326 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Taxon.findByIsHybrid", query = "SELECT t FROM Taxon t WHERE t.isHybrid = :isHybrid"),
     @NamedQuery(name = "Taxon.findByIsisNumber", query = "SELECT t FROM Taxon t WHERE t.isisNumber = :isisNumber"),
     @NamedQuery(name = "Taxon.findByLabelFormat", query = "SELECT t FROM Taxon t WHERE t.labelFormat = :labelFormat"),
-    @NamedQuery(name = "Taxon.findByName", query = "SELECT t FROM Taxon t WHERE t.name = :name"),
-    @NamedQuery(name = "Taxon.findByNcbiTaxonNumber", query = "SELECT t FROM Taxon t WHERE t.ncbiTaxonNumber = :ncbiTaxonNumber"),
+    @NamedQuery(name = "Taxon.findByName", query = "SELECT t FROM Taxon t WHERE t.name = :name"), 
     @NamedQuery(name = "Taxon.findByNodeNumber", query = "SELECT t FROM Taxon t WHERE t.nodeNumber = :nodeNumber"), 
     @NamedQuery(name = "Taxon.findByRankID", query = "SELECT t FROM Taxon t WHERE t.rankID = :rankID") })
+@DinaResource(type = "taxon")
 public class Taxon extends BaseEntity {
      
     
-    private static final long serialVersionUID = 1L;
+//    private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "TaxonID")
+    @DinaField(name = "taxon-id")
+    @DinaId
     private Integer taxonID;
-    
-    
+     
     @Size(max = 128)
     @Column(name = "Author")
+    @DinaField(name = "author")
     private String author;
     
     @Size(max = 32)
     @Column(name = "CitesStatus")
+    @DinaIgnor
     private String citesStatus;
     
     @Size(max = 32)
     @Column(name = "COLStatus")
+    @DinaIgnor
     private String cOLStatus;
     
     @Size(max = 128)
     @Column(name = "CommonName")
+    @DinaField(name = "common-nae")
     private String commonName;
     
     @Size(max = 32)
     @Column(name = "CultivarName")
+    @DinaIgnor
     private String cultivarName;
     
     @Size(max = 64)
     @Column(name = "EnvironmentalProtectionStatus")
+    @DinaIgnor
     private String environmentalProtectionStatus;
     
     @Size(max = 64)
     @Column(name = "EsaStatus")
+    @DinaIgnor
     private String esaStatus;
     
     @Size(max = 255)
     @Column(name = "FullName")
+    @DinaField(name = "full-name")
     private String fullName;
     
     @Size(max = 20)
     @Column(name = "GroupNumber")
+    @DinaIgnor
     private String groupNumber;
     
     @Size(max = 128)
     @Column(name = "GUID")
+    @DinaField(name = "guid")
     private String guid;
     
     @Column(name = "HighestChildNodeNumber")
+    @DinaIgnor
     private Integer highestChildNodeNumber;
     
     @Column(name = "IsAccepted")
+    @DinaField(name = "is-accepted")
     private Boolean isAccepted;
     
     @Column(name = "IsHybrid")
+    @DinaIgnor
     private Boolean isHybrid;
     
     @Size(max = 16)
     @Column(name = "IsisNumber")
+    @DinaIgnor
     private String isisNumber;
     
     @Size(max = 64)
     @Column(name = "LabelFormat")
+    @DinaIgnor
     private String labelFormat;
     
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 64)
     @Column(name = "Name")
+    @DinaField(name = "name")
     private String name;
     
     @Size(max = 8)
     @Column(name = "NcbiTaxonNumber")
+    @DinaIgnor
     private String ncbiTaxonNumber;
     
     @Column(name = "NodeNumber")
+    @DinaIgnor
     private Integer nodeNumber;
     
     @Column(name = "Number1")
+    @DinaIgnor
     private Integer number1;
     
     @Column(name = "Number2")
+    @DinaIgnor
     private Integer number2;
     
     @Basic(optional = false)
     @NotNull
     @Column(name = "RankID")
+    @DinaField(name = "rank-id")
     private int rankID;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Remarks")
+    @DinaField(name = "remarks")
     private String remarks;
     
     @Size(max = 64)
     @Column(name = "Source")
+    @DinaIgnor
     private String source;
     
     @Size(max = 50)
     @Column(name = "TaxonomicSerialNumber")
+    @DinaIgnor
     private String taxonomicSerialNumber;
     
     @Size(max = 32)
     @Column(name = "Text1")
+    @DinaIgnor
     private String text1;
     
     @Size(max = 32)
     @Column(name = "Text2")
+    @DinaIgnor
     private String text2;
     
     @Size(max = 50)
     @Column(name = "UnitInd1")
+    @DinaIgnor
     private String unitInd1;
     
     @Size(max = 50)
     @Column(name = "UnitInd2")
+    @DinaIgnor
     private String unitInd2;
     
     @Size(max = 50)
     @Column(name = "UnitInd3")
+    @DinaIgnor
     private String unitInd3;
     
     @Size(max = 50)
     @Column(name = "UnitInd4")
+    @DinaIgnor
     private String unitInd4;
     
     @Size(max = 50)
     @Column(name = "UnitName1")
+    @DinaIgnor
     private String unitName1;
     
     @Size(max = 50)
     @Column(name = "UnitName2")
+    @DinaIgnor
     private String unitName2;
     
     @Size(max = 50)
     @Column(name = "UnitName3")
+    @DinaIgnor
     private String unitName3;
     
     @Size(max = 50)
     @Column(name = "UnitName4")
+    @DinaIgnor
     private String unitName4;
     
     @Size(max = 16)
     @Column(name = "UsfwsCode")
+    @DinaIgnor
     private String usfwsCode;
     
     @Column(name = "Visibility")
+    @DinaIgnor
     private Short visibility;
     
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "Number3")
+    @DinaIgnor
     private Float number3;
     
     @Column(name = "Number4")
+    @DinaIgnor
     private Float number4;
     
     @Column(name = "Number5")
+    @DinaIgnor
     private Float number5;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Text3")
+    @DinaIgnor
     private String text3;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Text4")
+    @DinaIgnor
     private String text4;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Text5")
+    @DinaIgnor
     private String text5;
     
     @Column(name = "YesNo1")
+    @DinaIgnor
     private Boolean yesNo1;
     
     @Column(name = "YesNo2")
+    @DinaIgnor
     private Boolean yesNo2;
     
     @Column(name = "YesNo3")
+    @DinaIgnor
     private Boolean yesNo3;
     
     @OneToMany(mappedBy = "taxonID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Determination> determinationList;
     
     @OneToMany(mappedBy = "preferredTaxonID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Determination> determinationList1;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "taxonID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Taxonattachment> taxonattachmentList;
     
     @OneToMany(mappedBy = "acceptedID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Taxon> taxonList;
     
     @JoinColumn(name = "AcceptedID", referencedColumnName = "TaxonID")
     @ManyToOne
+    @DinaManyToOne(name = "accepted-id", type = "taxon")
     private Taxon acceptedID;
     
     @JoinColumn(name = "ModifiedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor
     private Agent modifiedByAgentID;
     
     @OneToMany(mappedBy = "hybridParent1ID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Taxon> taxonList1;
     
     @JoinColumn(name = "HybridParent1ID", referencedColumnName = "TaxonID")
     @ManyToOne
+    @DinaIgnor
     private Taxon hybridParent1ID;
     
     @OneToMany(mappedBy = "hybridParent2ID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Taxon> taxonList2;
     
     @JoinColumn(name = "HybridParent2ID", referencedColumnName = "TaxonID")
     @ManyToOne
+    @DinaIgnor
     private Taxon hybridParent2ID;
     
     @JoinColumn(name = "CreatedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor
     private Agent createdByAgentID;
     
     @JoinColumn(name = "VisibilitySetByID", referencedColumnName = "SpecifyUserID")
     @ManyToOne
+    @DinaIgnor
     private Specifyuser visibilitySetByID;
     
     @JoinColumn(name = "TaxonTreeDefItemID", referencedColumnName = "TaxonTreeDefItemID")
     @ManyToOne(optional = false)
+    @DinaManyToOne(name = "taxon-tree-def-item", type = "taxonTreeDefItem")
     private Taxontreedefitem taxonTreeDefItemID;
     
     @OneToMany(mappedBy = "parentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Taxon> taxonList3;
     
     @JoinColumn(name = "ParentID", referencedColumnName = "TaxonID")
     @ManyToOne
+    @DinaManyToOne(name = "parent", type = "taxon")
     private Taxon parentID;
     
     @JoinColumn(name = "TaxonTreeDefID", referencedColumnName = "TaxonTreeDefID")
     @ManyToOne(optional = false)
+    @DinaManyToOne(name = "taxon-tree-def", type = "taxonTreeDef")
     private Taxontreedef taxonTreeDefID;
     
     @OneToMany(mappedBy = "hostTaxonID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Collectingeventattribute> collectingeventattributeList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "taxonID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Taxoncitation> taxoncitationList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "taxonID", fetch = FetchType.LAZY)
+    @DinaOneToMany(name = "commonnnametxs", type = "commonnametx")
     private List<Commonnametx> commonnametxList;
 
     public Taxon() {

@@ -5,7 +5,7 @@
  */
 package se.nrm.dina.datamodel.impl;
  
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty;  
 import se.nrm.dina.datamodel.BaseEntity;
 import java.util.Date;
 import java.util.List;
@@ -31,6 +31,12 @@ import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;  
+import se.nrm.dina.json.converter.annotation.DinaField;
+import se.nrm.dina.json.converter.annotation.DinaId;
+import se.nrm.dina.json.converter.annotation.DinaIgnor;
+import se.nrm.dina.json.converter.annotation.DinaManyToOne;
+import se.nrm.dina.json.converter.annotation.DinaOneToMany;
+import se.nrm.dina.json.converter.annotation.DinaResource; 
 
 /**
  *
@@ -47,158 +53,211 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Collection.collectionname", query = "SELECT c FROM Collection c WHERE c.collectionName = :collectionName"),
     @NamedQuery(name = "Collection.findByCollectionType", query = "SELECT c FROM Collection c WHERE c.collectionType = :collectionType"), 
     @NamedQuery(name = "Collection.findByGuid", query = "SELECT c FROM Collection c WHERE c.guid = :guid") })
+@DinaResource(type = "collection")
 public class Collection extends BaseEntity {
    
-    private static final long serialVersionUID = 1L;
+//    private static final long serialVersionUID = 1L;
     
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "UserGroupScopeId")
+    @Column(name = "UserGroupScopeId")  
+    @DinaField(name = "user-group-scope-id")
+    @DinaId
     private Integer userGroupScopeId;
      
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 64)
-    @Column(name = "CatalogFormatNumName")
+    @Column(name = "CatalogFormatNumName")  
+    @DinaField(name = "catalog-format-num-name") 
     private String catalogFormatNumName;
     
     @Size(max = 50)
     @Column(name = "Code")
+    @DinaField(name = "code")
     private String code;
     
-    @Column(name = "collectionId")
+    @Column(name = "collectionId") 
+    @DinaField(name = "collection-id")
     private Integer collectionId;
     
     @Size(max = 50)
-    @Column(name = "CollectionName")
+    @Column(name = "CollectionName") 
+    @DinaField(name = "collection-name")
     private String collectionName;
     
     @Size(max = 32)
     @Column(name = "CollectionType")
+    @DinaField(name = "collection-type")
     private String collectionType;
     
     @Size(max = 32)
-    @Column(name = "DbContentVersion")
+    @Column(name = "DbContentVersion") 
+    @DinaField(name = "db-content-version")
+    @DinaIgnor
     private String dbContentVersion;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Description")
+    @DinaField(name = "description")
     private String description;
     
     @Size(max = 32)
-    @Column(name = "DevelopmentStatus")
+    @Column(name = "DevelopmentStatus") 
+    @DinaField(name = "development-status")
+    @DinaIgnor
     private String developmentStatus;
     
-    @Column(name = "EstimatedSize")
+    @Column(name = "EstimatedSize") 
+    @DinaField(name = "estimated-size")
+    @DinaIgnor
     private Integer estimatedSize;
     
     @Size(max = 128)
     @Column(name = "GUID")
+    @DinaField(name = "guid")
     private String guid;
     
     @Size(max = 32)
-    @Column(name = "InstitutionType")
+    @Column(name = "InstitutionType") 
+    @DinaField(name = "institution-type")
     private String institutionType;
     
     @Basic(optional = false)
     @NotNull
-    @Column(name = "IsEmbeddedCollectingEvent")
+    @Column(name = "IsEmbeddedCollectingEvent") 
+    @DinaField(name = "is-embedded-colleting-event")
     private boolean isEmbeddedCollectingEvent;
     
     @Size(max = 24)
-    @Column(name = "IsaNumber")
+    @Column(name = "IsaNumber") 
+    @DinaField(name = "isa-number")
+    @DinaIgnor
     private String isaNumber;
     
     @Size(max = 32)
-    @Column(name = "KingdomCoverage")
+    @Column(name = "KingdomCoverage") 
+    @DinaField(name = "kingdom-coverage")
+    @DinaIgnor
     private String kingdomCoverage;
     
     @Size(max = 32)
-    @Column(name = "PreservationMethodType")
+    @Column(name = "PreservationMethodType") 
+    @DinaField(name = "preservation-method-type")
+    @DinaIgnor
     private String preservationMethodType;
     
     @Size(max = 32)
-    @Column(name = "PrimaryFocus")
+    @Column(name = "PrimaryFocus") 
+    @DinaField(name = "primary-focus")
+    @DinaIgnor
     private String primaryFocus;
     
     @Size(max = 32)
-    @Column(name = "PrimaryPurpose")
+    @Column(name = "PrimaryPurpose") 
+    @DinaField(name = "primary-purpose")
+    @DinaIgnor
     private String primaryPurpose;
     
     @Size(max = 24)
-    @Column(name = "RegNumber")
+    @Column(name = "RegNumber") 
+    @DinaField(name = "reg-number")
     private String regNumber;
     
     @Lob
     @Size(max = 65535)
-    @Column(name = "Remarks")
+    @Column(name = "Remarks") 
+    @DinaField(name = "remarks")
     private String remarks;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Scope")
+    @DinaField(name = "scope")
     private String scope;
     
     @Size(max = 255)
-    @Column(name = "WebPortalURI")
+    @Column(name = "WebPortalURI") 
+    @DinaField(name = "web-portal-uri")
+    @DinaIgnor
     private String webPortalURI;
     
     @Size(max = 255)
-    @Column(name = "WebSiteURI")
+    @Column(name = "WebSiteURI") 
+    @DinaField(name = "web-site-uri")
+    @DinaIgnor
     private String webSiteURI;
     
     @JoinTable(name = "autonumsch_coll", joinColumns = {
         @JoinColumn(name = "CollectionID", referencedColumnName = "UserGroupScopeId")}, inverseJoinColumns = {
         @JoinColumn(name = "AutoNumberingSchemeID", referencedColumnName = "AutoNumberingSchemeID")})
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY) 
+    @DinaIgnor
     private List<Autonumberingscheme> autonumberingschemeList;
     
-    @OneToMany(mappedBy = "collectionID", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "collectionID", fetch = FetchType.LAZY) 
+    @DinaIgnor
     private List<Sptasksemaphore> sptasksemaphoreList;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "collectionID", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "collectionID", fetch = FetchType.LAZY) 
+    @DinaIgnor
     private List<Preptype> preptypeList;
     
-    @OneToMany(mappedBy = "leftSideCollectionID", fetch = FetchType.LAZY)
-    private List<Collectionreltype> collectionreltypeList;
+    @OneToMany(mappedBy = "leftSideCollectionID", fetch = FetchType.LAZY) 
+    @DinaIgnor
+    private List<Collectionreltype> collectionreltypeList; 
     
-    @OneToMany(mappedBy = "rightSideCollectionID", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "rightSideCollectionID", fetch = FetchType.LAZY) 
+    @DinaIgnor
     private List<Collectionreltype> collectionreltypeList1;
     
     @OneToMany(mappedBy = "collectionCCID", fetch = FetchType.LAZY)
+    @DinaOneToMany(name = "agents", type = "agent")
+    @DinaIgnor
     private List<Agent> agentList;
     
     @OneToMany(mappedBy = "collectionTCID", fetch = FetchType.LAZY)
+    @DinaOneToMany(name = "agents1", type = "agent")
+    @DinaIgnor
     private List<Agent> agentList1;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "collectionID", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "collectionID", fetch = FetchType.LAZY) 
+    @DinaIgnor
     private List<Collectionobject> collectionobjectList;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "collectionID", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "collectionID", fetch = FetchType.LAZY) 
+    @DinaIgnor
     private List<Fieldnotebook> fieldnotebookList;
     
-    @JoinColumn(name = "ModifiedByAgentID", referencedColumnName = "AgentID")
-    @ManyToOne
+    @JoinColumn(name = "ModifiedByAgentID", referencedColumnName = "AgentID") 
+    @ManyToOne 
+    @DinaIgnor
     private Agent modifiedByAgentID;
     
     @JoinColumn(name = "CreatedByAgentID", referencedColumnName = "AgentID")
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.PERSIST) 
+    @DinaManyToOne(name = "created-by-agent", type = "agent")
     private Agent createdByAgentID;
     
     @JoinColumn(name = "DisciplineID", referencedColumnName = "UserGroupScopeId")
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL) 
+    @DinaManyToOne(name = "discipline", type="discipline")
     private Discipline disciplineID;
     
     @JoinColumn(name = "InstitutionNetworkID", referencedColumnName = "UserGroupScopeId")
     @ManyToOne
+    @DinaManyToOne(name = "institution-network", type="institution") 
+    @DinaIgnor
     private Institution institutionNetworkID;
     
-    @OneToMany(mappedBy = "collectionID", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "collectionID", fetch = FetchType.LAZY) 
+    @DinaIgnor
     private List<Spappresourcedir> spappresourcedirList;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "collectionID", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "collectionID", fetch = FetchType.LAZY) 
+    @DinaIgnor
     private List<Picklist> picklistList;
 
     public Collection() {
@@ -228,23 +287,21 @@ public class Collection extends BaseEntity {
 //        return Util.getInstance().getURLLink(this.getClass().getSimpleName()) + userGroupScopeId;
 //    }
   
-    @Override
-    @JsonProperty("entity-id")
+    @Override 
     public int getEntityId() {
         return userGroupScopeId;
     }
 
- 
+    @JsonProperty("code")
     public String getCode() {
         return code;
     }
 
     public void setCode(String code) {
         this.code = code;
-    }
-
+    } 
     
-
+    @JsonProperty("description")
     public String getDescription() {
         return description;
     }
@@ -253,7 +310,7 @@ public class Collection extends BaseEntity {
         this.description = description;
     }
   
-
+    @JsonProperty("guid")
     public String getGuid() {
         return guid;
     }
@@ -342,8 +399,8 @@ public class Collection extends BaseEntity {
     public void setInstitutionType(String institutionType) {
         this.institutionType = institutionType;
     }
-
-    @JsonProperty("is-embedded-collectingevent")
+    
+    @JsonProperty("is-embedded-collecting-event")
     public boolean isIsEmbeddedCollectingEvent() {
         return isEmbeddedCollectingEvent;
     }
@@ -352,7 +409,7 @@ public class Collection extends BaseEntity {
         this.isEmbeddedCollectingEvent = isEmbeddedCollectingEvent;
     }
 
-    @JsonProperty("is-anumber")
+    @JsonProperty("isa-number")
     public String getIsaNumber() {
         return isaNumber;
     }
@@ -406,7 +463,7 @@ public class Collection extends BaseEntity {
         this.regNumber = regNumber;
     }
 
-    @JsonProperty("webportal-uri")
+    @JsonProperty("web-portal-uri")
     public String getWebPortalURI() {
         return webPortalURI;
     }
@@ -415,7 +472,7 @@ public class Collection extends BaseEntity {
         this.webPortalURI = webPortalURI;
     }
 
-    @JsonProperty("website-uri")
+    @JsonProperty("web-site-uri")
     public String getWebSiteURI() {
         return webSiteURI;
     }
@@ -423,9 +480,8 @@ public class Collection extends BaseEntity {
     public void setWebsiteuri(String webSiteURI) {
         this.webSiteURI = webSiteURI;
     }
-
-    
-
+ 
+    @JsonProperty("remarks")
     public String getRemarks() {
         return remarks;
     }
@@ -434,6 +490,7 @@ public class Collection extends BaseEntity {
         this.remarks = remarks;
     }
 
+    @JsonProperty("scope")
     public String getScope() {
         return scope;
     }
@@ -544,7 +601,7 @@ public class Collection extends BaseEntity {
     }
 
     @XmlIDREF
-    @JsonProperty("create-by-agent-id")
+    @JsonProperty("create-by-agent-id") 
     public Agent getCreatedByAgentID() {
         return createdByAgentID;
     }

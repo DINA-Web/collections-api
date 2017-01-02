@@ -5,7 +5,7 @@
  */
 package se.nrm.dina.datamodel.impl;
  
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty; 
 import se.nrm.dina.datamodel.BaseEntity;
 import java.util.Date;
 import java.util.List;
@@ -30,6 +30,15 @@ import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient; 
+import se.nrm.dina.json.converter.annotation.DinaField;
+import se.nrm.dina.json.converter.annotation.DinaId;
+import se.nrm.dina.json.converter.annotation.DinaIgnor;
+import se.nrm.dina.json.converter.annotation.DinaManyToOne;
+import se.nrm.dina.json.converter.annotation.DinaResource;
+//import se.nrm.dina.datamodel.annotation.DinaField;
+//import se.nrm.dina.datamodel.annotation.DinaIgnor;
+//import se.nrm.dina.datamodel.annotation.DinaManyToOne;
+//import se.nrm.dina.datamodel.annotation.DinaResource;
 
 /**
  *
@@ -47,147 +56,188 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Discipline.findByType", query = "SELECT d FROM Discipline d WHERE d.type = :type"),
     @NamedQuery(name = "Discipline.findByIsPaleoContextEmbedded", query = "SELECT d FROM Discipline d WHERE d.isPaleoContextEmbedded = :isPaleoContextEmbedded"),
     @NamedQuery(name = "Discipline.findByPaleoContextChildTable", query = "SELECT d FROM Discipline d WHERE d.paleoContextChildTable = :paleoContextChildTable")})
+@DinaResource(type = "discipline")
 public class Discipline extends BaseEntity {
     
-    private static final long serialVersionUID = 1L;
+//    private static final long serialVersionUID = 1L;
     
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "UserGroupScopeId")
+    @Column(name = "UserGroupScopeId") 
+    @DinaField(name = "user-group-scope-id")
+    @DinaId
     private Integer userGroupScopeId;
     
-    
     @Column(name = "disciplineId")
+    @DinaField(name = "discipline-id")
     private Integer disciplineId;
     
     @Size(max = 64)
     @Column(name = "Name")
+    @DinaField(name = "name")
     private String name;
     
     @Size(max = 24)
     @Column(name = "RegNumber")
+    @DinaIgnor
     private String regNumber;
     
     @Size(max = 64)
-    @Column(name = "Type")
+    @Column(name = "Type") 
+    @DinaField(name = "type")
     private String type;
     
     @Column(name = "IsPaleoContextEmbedded")
+    @DinaIgnor
     private Boolean isPaleoContextEmbedded;
     
     @Size(max = 50)
     @Column(name = "PaleoContextChildTable")
+    @DinaIgnor
     private String paleoContextChildTable;
     
     @JoinTable(name = "autonumsch_dsp", joinColumns = {
         @JoinColumn(name = "DisciplineID", referencedColumnName = "UserGroupScopeId")}, inverseJoinColumns = {
-        @JoinColumn(name = "AutoNumberingSchemeID", referencedColumnName = "AutoNumberingSchemeID")})
-    @ManyToMany(fetch = FetchType.LAZY)
+        @JoinColumn(name = "AutoNumberingSchemeID", referencedColumnName = "AutoNumberingSchemeID")}) 
+    @ManyToMany(fetch = FetchType.LAZY)  
+    @DinaIgnor
     private List<Autonumberingscheme> autonumberingschemeList;
-    
+     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "disciplineID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Gift> giftList;
     
     @JoinColumn(name = "LithoStratTreeDefID", referencedColumnName = "LithoStratTreeDefID")
     @ManyToOne
+    @DinaIgnor
     private Lithostrattreedef lithoStratTreeDefID;
     
-    @JoinColumn(name = "DivisionID", referencedColumnName = "UserGroupScopeId")
+    @JoinColumn(name = "DivisionID", referencedColumnName = "UserGroupScopeId") 
     @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
+    @DinaManyToOne(name = "division", type = "division")
     private Division divisionID;
     
     @JoinColumn(name = "GeologicTimePeriodTreeDefID", referencedColumnName = "GeologicTimePeriodTreeDefID")
     @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
+    @DinaIgnor
     private Geologictimeperiodtreedef geologicTimePeriodTreeDefID;
     
     @JoinColumn(name = "GeographyTreeDefID", referencedColumnName = "GeographyTreeDefID")
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @DinaIgnor
     private Geographytreedef geographyTreeDefID;
     
     @JoinColumn(name = "DataTypeID", referencedColumnName = "DataTypeID")
     @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
+    @DinaIgnor
     private Datatype dataTypeID;
     
     @JoinColumn(name = "TaxonTreeDefID", referencedColumnName = "TaxonTreeDefID")
     @ManyToOne
+    @DinaIgnor
     private Taxontreedef taxonTreeDefID;
     
     @JoinColumn(name = "ModifiedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor
     private Agent modifiedByAgentID;
     
     @JoinColumn(name = "CreatedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor
     private Agent createdByAgentID;
     
     @OneToMany(mappedBy = "disciplineID", fetch = FetchType.LAZY)
+    @DinaIgnor 
     private List<Sptasksemaphore> sptasksemaphoreList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "disciplineID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Collectingtrip> collectingtripList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "disciplineID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Locality> localityList;
     
     @OneToMany(mappedBy = "disciplineID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Localitycitation> localitycitationList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "disciplineID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Fieldnotebookpageset> fieldnotebookpagesetList;
     
     @OneToMany(mappedBy = "disciplineID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Paleocontext> paleocontextList;
     
     @OneToMany(mappedBy = "disciplineID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Loanreturnpreparation> loanreturnpreparationList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "disciplineID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Localitynamealias> localitynamealiasList;
     
     @OneToMany(mappedBy = "disciplineID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Collectingeventattribute> collectingeventattributeList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "disciplineID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Attributedef> attributedefList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "disciplineID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Collectingevent> collectingeventList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "disciplineID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Fieldnotebook> fieldnotebookList;
     
     @OneToMany(mappedBy = "disciplineID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Shipment> shipmentList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "disciplineID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Splocalecontainer> splocalecontainerList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "disciplineID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Collection> collectionList;
     
     @OneToMany(mappedBy = "disciplineID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Spappresourcedir> spappresourcedirList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "disciplineID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Spexportschema> spexportschemaList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "disciplineID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Loan> loanList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "disciplineID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Fieldnotebookpage> fieldnotebookpageList;
     
     @OneToMany(mappedBy = "disciplineID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Giftagent> giftagentList;
     
     @OneToMany(mappedBy = "disciplineID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Loanpreparation> loanpreparationList;
     
     @OneToMany(mappedBy = "disciplineID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Giftpreparation> giftpreparationList;
     
     @OneToMany(mappedBy = "disciplineID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Loanagent> loanagentList;
 
     public Discipline() {
@@ -215,12 +265,11 @@ public class Discipline extends BaseEntity {
 //        return Util.getInstance().getURLLink(this.getClass().getSimpleName()) + userGroupScopeId;
 //    }
 
-    @Override
-    @JsonProperty("entity-id")
+    @Override 
     public int getEntityId() {
         return userGroupScopeId;
     }
-    
+     
     @JsonProperty("user-group-scope-id")
     public Integer getUserGroupScopeId() {
         return userGroupScopeId;
@@ -229,7 +278,7 @@ public class Discipline extends BaseEntity {
     public void setUserGroupScopeId(Integer userGroupScopeId) {
         this.userGroupScopeId = userGroupScopeId;
     }
- 
+  
     @JsonProperty("discipline-id")
     public Integer getDisciplineId() {
         return disciplineId;
@@ -239,6 +288,7 @@ public class Discipline extends BaseEntity {
         this.disciplineId = disciplineId;
     }
 
+    @JsonProperty("name")
     public String getName() {
         return name;
     }
@@ -246,7 +296,7 @@ public class Discipline extends BaseEntity {
     public void setName(String name) {
         this.name = name;
     }
-
+ 
     @JsonProperty("reg-number")
     public String getRegNumber() {
         return regNumber;
@@ -256,6 +306,7 @@ public class Discipline extends BaseEntity {
         this.regNumber = regNumber;
     }
 
+    @JsonProperty("type")
     public String getType() {
         return type;
     }
@@ -263,7 +314,7 @@ public class Discipline extends BaseEntity {
     public void setType(String type) {
         this.type = type;
     }
-
+ 
     @JsonProperty("is-paleo-context-embedded")
     public Boolean getIsPaleoContextEmbedded() {
         return isPaleoContextEmbedded;
@@ -272,7 +323,7 @@ public class Discipline extends BaseEntity {
     public void setIsPaleoContextEmbedded(Boolean isPaleoContextEmbedded) {
         this.isPaleoContextEmbedded = isPaleoContextEmbedded;
     }
-
+ 
     @JsonProperty("paleo-context-child-table")
     public String getPaleoContextChildTable() {
         return paleoContextChildTable;
@@ -283,6 +334,7 @@ public class Discipline extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("autonumberingschemes")
     public List<Autonumberingscheme> getAutonumberingschemeList() {
         return autonumberingschemeList;
     }
@@ -292,6 +344,7 @@ public class Discipline extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("gifts")
     public List<Gift> getGiftList() {
         return giftList;
     }
@@ -300,7 +353,7 @@ public class Discipline extends BaseEntity {
         this.giftList = giftList;
     }
 
-    @XmlIDREF
+    @XmlIDREF 
     @JsonProperty("litho-strat-tree-def-id")
     public Lithostrattreedef getLithoStratTreeDefID() {
         return lithoStratTreeDefID;
@@ -310,7 +363,7 @@ public class Discipline extends BaseEntity {
         this.lithoStratTreeDefID = lithoStratTreeDefID;
     }
 
-    @XmlIDREF
+    @XmlIDREF 
     @JsonProperty("division-id")
     public Division getDivisionID() {
         return divisionID;
@@ -320,7 +373,7 @@ public class Discipline extends BaseEntity {
         this.divisionID = divisionID;
     }
 
-    @XmlIDREF
+    @XmlIDREF 
     @JsonProperty("geologic-time-period-tree-def-id")
     public Geologictimeperiodtreedef getGeologicTimePeriodTreeDefID() {
         return geologicTimePeriodTreeDefID;
@@ -330,8 +383,8 @@ public class Discipline extends BaseEntity {
         this.geologicTimePeriodTreeDefID = geologicTimePeriodTreeDefID;
     }
 
-    @XmlIDREF
-    @JsonProperty("geopraphy-tree-def-id")
+    @XmlIDREF 
+    @JsonProperty("geography-tree-def-id")
     public Geographytreedef getGeographyTreeDefID() {
         return geographyTreeDefID;
     }
@@ -340,7 +393,7 @@ public class Discipline extends BaseEntity {
         this.geographyTreeDefID = geographyTreeDefID;
     }
 
-    @XmlIDREF
+    @XmlIDREF 
     @JsonProperty("data-type-id")
     public Datatype getDataTypeID() {
         return dataTypeID;
@@ -350,7 +403,7 @@ public class Discipline extends BaseEntity {
         this.dataTypeID = dataTypeID;
     }
 
-    @XmlIDREF
+    @XmlIDREF 
     @JsonProperty("taxon-tree-def-id")
     public Taxontreedef getTaxonTreeDefID() {
         return taxonTreeDefID;
@@ -360,7 +413,7 @@ public class Discipline extends BaseEntity {
         this.taxonTreeDefID = taxonTreeDefID;
     }
 
-    @XmlIDREF
+    @XmlIDREF 
     @JsonProperty("modified-by-agent-id")
     public Agent getModifiedByAgentID() {
         return modifiedByAgentID;
@@ -370,7 +423,7 @@ public class Discipline extends BaseEntity {
         this.modifiedByAgentID = modifiedByAgentID;
     }
 
-    @XmlIDREF
+    @XmlIDREF 
     @JsonProperty("created-by-agent-id")
     public Agent getCreatedByAgentID() {
         return createdByAgentID;
@@ -381,6 +434,7 @@ public class Discipline extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("sptasksemaphores")
     public List<Sptasksemaphore> getSptasksemaphoreList() {
         return sptasksemaphoreList;
     }
@@ -390,6 +444,7 @@ public class Discipline extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("collectingtrips")
     public List<Collectingtrip> getCollectingtripList() {
         return collectingtripList;
     }
@@ -399,6 +454,7 @@ public class Discipline extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("localitys")
     public List<Locality> getLocalityList() {
         return localityList;
     }
@@ -408,6 +464,7 @@ public class Discipline extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("localitycitations")
     public List<Localitycitation> getLocalitycitationList() {
         return localitycitationList;
     }
@@ -417,6 +474,7 @@ public class Discipline extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("fieldnotebookpagesets")
     public List<Fieldnotebookpageset> getFieldnotebookpagesetList() {
         return fieldnotebookpagesetList;
     }
@@ -426,6 +484,7 @@ public class Discipline extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("paleocontexts")
     public List<Paleocontext> getPaleocontextList() {
         return paleocontextList;
     }
@@ -435,6 +494,7 @@ public class Discipline extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("loanreturnpreparations")
     public List<Loanreturnpreparation> getLoanreturnpreparationList() {
         return loanreturnpreparationList;
     }
@@ -444,6 +504,7 @@ public class Discipline extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("localitynamealiases")
     public List<Localitynamealias> getLocalitynamealiasList() {
         return localitynamealiasList;
     }
@@ -453,6 +514,7 @@ public class Discipline extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("collectingeventattributes")
     public List<Collectingeventattribute> getCollectingeventattributeList() {
         return collectingeventattributeList;
     }
@@ -462,6 +524,7 @@ public class Discipline extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("attributedefs")
     public List<Attributedef> getAttributedefList() {
         return attributedefList;
     }
@@ -471,6 +534,7 @@ public class Discipline extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("collectingevents")
     public List<Collectingevent> getCollectingeventList() {
         return collectingeventList;
     }
@@ -480,6 +544,7 @@ public class Discipline extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("fieldnotebooks")
     public List<Fieldnotebook> getFieldnotebookList() {
         return fieldnotebookList;
     }
@@ -489,6 +554,7 @@ public class Discipline extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("shipments")
     public List<Shipment> getShipmentList() {
         return shipmentList;
     }
@@ -498,6 +564,7 @@ public class Discipline extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("splocalecontainers")
     public List<Splocalecontainer> getSplocalecontainerList() {
         return splocalecontainerList;
     }
@@ -507,6 +574,7 @@ public class Discipline extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("collections")
     public List<Collection> getCollectionList() {
         return collectionList;
     }
@@ -516,6 +584,7 @@ public class Discipline extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("spappresourcedirs")
     public List<Spappresourcedir> getSpappresourcedirList() {
         return spappresourcedirList;
     }
@@ -525,6 +594,7 @@ public class Discipline extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("spexportschemas")
     public List<Spexportschema> getSpexportschemaList() {
         return spexportschemaList;
     }
@@ -534,6 +604,7 @@ public class Discipline extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("loans")
     public List<Loan> getLoanList() {
         return loanList;
     }
@@ -543,6 +614,7 @@ public class Discipline extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("fieldnotebookpages")
     public List<Fieldnotebookpage> getFieldnotebookpageList() {
         return fieldnotebookpageList;
     }
@@ -552,6 +624,7 @@ public class Discipline extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("giftagents")
     public List<Giftagent> getGiftagentList() {
         return giftagentList;
     }
@@ -561,6 +634,7 @@ public class Discipline extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("laonpreparations")
     public List<Loanpreparation> getLoanpreparationList() {
         return loanpreparationList;
     }
@@ -570,6 +644,7 @@ public class Discipline extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("giftpreparations")
     public List<Giftpreparation> getGiftpreparationList() {
         return giftpreparationList;
     }
@@ -579,6 +654,7 @@ public class Discipline extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("loanagents")
     public List<Loanagent> getLoanagentList() {
         return loanagentList;
     }

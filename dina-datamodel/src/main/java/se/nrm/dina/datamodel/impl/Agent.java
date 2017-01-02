@@ -34,7 +34,15 @@ import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import org.codehaus.jackson.annotate.JsonIgnore; 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import se.nrm.dina.json.converter.annotation.DinaField;
+import se.nrm.dina.json.converter.annotation.DinaId;
+import se.nrm.dina.json.converter.annotation.DinaIgnor;
+import se.nrm.dina.json.converter.annotation.DinaResource;
+//import org.codehaus.jackson.annotate.JsonIgnore; 
+//import se.nrm.dina.datamodel.annotation.DinaField;
+//import se.nrm.dina.datamodel.annotation.DinaIgnor;
+//import se.nrm.dina.datamodel.annotation.DinaResource;
 
 /**
  *
@@ -46,1140 +54,1508 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 @NamedQueries({
     @NamedQuery(name = "Agent.findAll", query = "SELECT a FROM Agent a"),
     @NamedQuery(name = "Agent.findByAgentID", query = "SELECT a FROM Agent a WHERE a.agentID = :agentID"),  
+//    @NamedQuery(name = "Agent.findAllByIDs", query = "SELECT a FROM Agent a WHERE a.agentID in :agentIDs"), 
     @NamedQuery(name = "Agent.findByAgentType", query = "SELECT a FROM Agent a WHERE a.agentType = :agentType"),   
     @NamedQuery(name = "Agent.findByEmail", query = "SELECT a FROM Agent a WHERE a.email = :email"),
     @NamedQuery(name = "Agent.findByFirstName", query = "SELECT a FROM Agent a WHERE a.firstName = :firstName"),
     @NamedQuery(name = "Agent.findByGuid", query = "SELECT a FROM Agent a WHERE a.guid = :guid"),   
     @NamedQuery(name = "Agent.findByLastName", query = "SELECT a FROM Agent a WHERE a.lastName = :lastName"),  
     @NamedQuery(name = "Agent.findByDateType", query = "SELECT a FROM Agent a WHERE a.dateType = :dateType") })
+@DinaResource(type = "agent")
 public class Agent extends BaseEntity {
 
-    private static final long serialVersionUID = 1L;
+//    private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "AgentID")
+    @DinaField(name = "agent-id")
+    @DinaId
     private Integer agentID;
     
     @Size(max = 50)
     @Column(name = "Abbreviation")
+    @DinaIgnor
     private String abbreviation;
      
     @Basic(optional = false)
     @NotNull
     @Column(name = "AgentType")
+    @DinaField(name = "agent-type")
     private short agentType;
     
     @Column(name = "DateOfBirth")
     @Temporal(TemporalType.DATE)
+    @DinaIgnor
     private Date dateOfBirth;
     
     @Column(name = "DateOfBirthPrecision")
+    @DinaIgnor
     private Short dateOfBirthPrecision;
     
     @Column(name = "DateOfDeath")
     @Temporal(TemporalType.DATE)
+    @DinaIgnor
     private Date dateOfDeath;
     
     @Column(name = "DateOfDeathPrecision")
+    @DinaIgnor
     private Short dateOfDeathPrecision;
     
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Size(max = 50)
     @Column(name = "Email")
+    @DinaField(name = "email")
     private String email;
     
     @Size(max = 50)
     @Column(name = "FirstName")
+    @DinaField(name = "first-name")
     private String firstName;
     
     @Size(max = 128)
     @Column(name = "GUID")
+    @DinaField(name = "guid")
     private String guid;
     
     @Size(max = 8)
     @Column(name = "Initials")
+    @DinaIgnor
     private String initials;
     
     @Size(max = 255)
     @Column(name = "Interests")
+    @DinaIgnor
     private String interests;
     
     @Size(max = 50)
     @Column(name = "JobTitle")
+    @DinaIgnor
     private String jobTitle;
     
     @Size(max = 128)
     @Column(name = "LastName")
+    @DinaField(name = "last-name")
     private String lastName;
     
     @Size(max = 50)
     @Column(name = "MiddleInitial")
+    @DinaIgnor
     private String middleInitial;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Remarks")
+    @DinaField(name = "remarks")
     private String remarks;
     
     @Size(max = 50)
     @Column(name = "Title")
+    @DinaIgnor
     private String title;
     
     @Column(name = "DateType")
+    @DinaIgnor
     private Short dateType;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "URL")
+    @DinaIgnor
     private String url;
     
     @Size(max = 50)
     @Column(name = "Suffix")
+    @DinaIgnor
     private String suffix;
     
          
     @OneToMany(mappedBy = "modifiedByAgentID")
+    @DinaIgnor
     private List<Treatmenteventattachment> treatmenteventattachmentList;
     
     @OneToMany(mappedBy = "createdByAgentID")
+    @DinaIgnor
     private List<Treatmenteventattachment> treatmenteventattachmentList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Container> containerList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Container> containerList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Gift> giftList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Gift> giftList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Geologictimeperiodtreedef> geologictimeperiodtreedefList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Geologictimeperiodtreedef> geologictimeperiodtreedefList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Collectingeventattachment> collectingeventattachmentList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Collectingeventattachment> collectingeventattachmentList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Taxontreedef> taxontreedefList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Taxontreedef> taxontreedefList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Preparationattachment> preparationattachmentList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Preparationattachment> preparationattachmentList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Determination> determinationList;
     
     @OneToMany(mappedBy = "createdByAgentID",fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Determination> determinationList1;
     
     @OneToMany(mappedBy = "determinerID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Determination> determinationList2;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Discipline> disciplineList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Discipline> disciplineList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Spfieldvaluedefault> spfieldvaluedefaultList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Spfieldvaluedefault> spfieldvaluedefaultList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Exsiccataitem> exsiccataitemList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Exsiccataitem> exsiccataitemList1;
     
-    @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY) 
+    @DinaIgnor
     private List<Preparation> preparationList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Preparation> preparationList1;
     
     @OneToMany(mappedBy = "preparedByID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Preparation> preparationList2;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Division> divisionList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Division> divisionList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Sptasksemaphore> sptasksemaphoreList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Sptasksemaphore> sptasksemaphoreList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Repositoryagreementattachment> repositoryagreementattachmentList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Repositoryagreementattachment> repositoryagreementattachmentList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Geography> geographyList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Geography> geographyList1;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "agentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Agentattachment> agentattachmentList;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Agentattachment> agentattachmentList1;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Agentattachment> agentattachmentList2;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Picklistitem> picklistitemList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Picklistitem> picklistitemList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Permitattachment> permitattachmentList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Permitattachment> permitattachmentList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Collectingtrip> collectingtripList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Collectingtrip> collectingtripList1;
     
     @OneToMany(mappedBy = "agentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Geocoorddetail> geocoorddetailList;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Geocoorddetail> geocoorddetailList1;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Geocoorddetail> geocoorddetailList2;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Dnasequencingrun> dnasequencingrunList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Dnasequencingrun> dnasequencingrunList1;
     
     @OneToMany(mappedBy = "runByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Dnasequencingrun> dnasequencingrunList2;
     
     @OneToMany(mappedBy = "preparedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Dnasequencingrun> dnasequencingrunList3;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Preptype> preptypeList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Preptype> preptypeList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Conservdescription> conservdescriptionList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Conservdescription> conservdescriptionList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Locality> localityList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Locality> localityList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Accessionattachment> accessionattachmentList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Accessionattachment> accessionattachmentList1;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "catalogedByID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Exchangeout> exchangeoutList;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Exchangeout> exchangeoutList1;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Exchangeout> exchangeoutList2;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sentToOrganizationID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Exchangeout> exchangeoutList3;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Borrowmaterial> borrowmaterialList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Borrowmaterial> borrowmaterialList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Dnasequenceattachment> dnasequenceattachmentList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Dnasequenceattachment> dnasequenceattachmentList1;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "agentID",fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Agentvariant> agentvariantList;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Agentvariant> agentvariantList1;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Agentvariant> agentvariantList2;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Localitycitation> localitycitationList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Localitycitation> localitycitationList1;
     
     @OneToMany(mappedBy = "agentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Fieldnotebookpageset> fieldnotebookpagesetList;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Fieldnotebookpageset> fieldnotebookpagesetList1;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Fieldnotebookpageset> fieldnotebookpagesetList2;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Paleocontext> paleocontextList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Paleocontext> paleocontextList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Collectionobjectattribute> collectionobjectattributeList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Collectionobjectattribute> collectionobjectattributeList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Collectionobjectattachment> collectionobjectattachmentList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Collectionobjectattachment> collectionobjectattachmentList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Storageattachment> storageattachmentList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Storageattachment> storageattachmentList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Exsiccata> exsiccataList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Exsiccata> exsiccataList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Attachmentmetadata> attachmentmetadataList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Attachmentmetadata> attachmentmetadataList1;
     
     @OneToMany(mappedBy = "receivedByID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Loanreturnpreparation> loanreturnpreparationList;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Loanreturnpreparation> loanreturnpreparationList1;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Loanreturnpreparation> loanreturnpreparationList2;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Localitynamealias> localitynamealiasList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Localitynamealias> localitynamealiasList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Recordset> recordsetList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Recordset> recordsetList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Spappresource> spappresourceList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Spappresource> spappresourceList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Taxonattachment> taxonattachmentList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Taxonattachment> taxonattachmentList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Storagetreedefitem> storagetreedefitemList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Storagetreedefitem> storagetreedefitemList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Determinationcitation> determinationcitationList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Determinationcitation> determinationcitationList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Conserveventattachment> conserveventattachmentList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Conserveventattachment> conserveventattachmentList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Lithostrattreedefitem> lithostrattreedefitemList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Lithostrattreedefitem> lithostrattreedefitemList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Journal> journalList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Journal> journalList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Datatype> datatypeList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Datatype> datatypeList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Collectionreltype> collectionreltypeList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Collectionreltype> collectionreltypeList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Taxon> taxonList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Taxon> taxonList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Localityattachment> localityattachmentList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Localityattachment> localityattachmentList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Treatmentevent> treatmenteventList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Treatmentevent> treatmenteventList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Storagetreedef> storagetreedefList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Storagetreedef> storagetreedefList1;
     
     @OneToMany(mappedBy = "agentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Address> addressList;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Address> addressList1;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Address> addressList2;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Spexportschemaitem> spexportschemaitemList;
-    
+     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Spexportschemaitem> spexportschemaitemList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Splocaleitemstr> splocaleitemstrList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Splocaleitemstr> splocaleitemstrList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Workbenchtemplatemappingitem> workbenchtemplatemappingitemList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Workbenchtemplatemappingitem> workbenchtemplatemappingitemList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Lithostrattreedef> lithostrattreedefList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Lithostrattreedef> lithostrattreedefList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Autonumberingscheme> autonumberingschemeList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Autonumberingscheme> autonumberingschemeList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Conservdescriptionattachment> conservdescriptionattachmentList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Conservdescriptionattachment> conservdescriptionattachmentList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Collectingeventattribute> collectingeventattributeList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Collectingeventattribute> collectingeventattributeList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Spquery> spqueryList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Spquery> spqueryList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Geographytreedef> geographytreedefList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Geographytreedef> geographytreedefList1;
     
     @OneToMany(mappedBy = "agentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Addressofrecord> addressofrecordList;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Addressofrecord> addressofrecordList1;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Addressofrecord> addressofrecordList2;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "agentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Deaccessionagent> deaccessionagentList;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Deaccessionagent> deaccessionagentList1;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Deaccessionagent> deaccessionagentList2;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Borrow> borrowList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Borrow> borrowList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Localitydetail> localitydetailList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Localitydetail> localitydetailList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Commonnametxcitation> commonnametxcitationList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Commonnametxcitation> commonnametxcitationList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Spqueryfield> spqueryfieldList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Spqueryfield> spqueryfieldList1;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "memberID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Groupperson> grouppersonList;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Groupperson> grouppersonList1;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Groupperson> grouppersonList2;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "groupID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Groupperson> grouppersonList3;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Attributedef> attributedefList;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Attributedef> attributedefList1;
     
     @JoinColumn(name = "CollectionCCID", referencedColumnName = "UserGroupScopeId")
     @ManyToOne(fetch = FetchType.LAZY)
+    @DinaIgnor
     private Collection collectionCCID;
     
     @JoinColumn(name = "CollectionTCID", referencedColumnName = "UserGroupScopeId")
     @ManyToOne(fetch = FetchType.LAZY)
+    @DinaIgnor
     private Collection collectionTCID;
     
     @JoinColumn(name = "SpecifyUserID", referencedColumnName = "SpecifyUserID")
     @ManyToOne
+    @DinaIgnor
     private Specifyuser specifyUserID;
     
     @OneToMany(mappedBy = "modifiedByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Agent> agentList;
     
     @JoinColumn(name = "ModifiedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor
     private Agent modifiedByAgentID;
     
     @OneToMany(mappedBy = "createdByAgentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Agent> agentList1;
     
     @JoinColumn(name = "CreatedByAgentID", referencedColumnName = "AgentID")
+    @DinaIgnor
     @ManyToOne
     private Agent createdByAgentID;
     
     @OneToMany(mappedBy = "parentOrganizationID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Agent> agentList2;
     
     @JoinColumn(name = "ParentOrganizationID", referencedColumnName = "AgentID")
     @ManyToOne(fetch = FetchType.EAGER)
+    @DinaIgnor
     private Agent parentOrganizationID;
     
     @JoinColumn(name = "InstitutionCCID", referencedColumnName = "UserGroupScopeId")
     @ManyToOne(  fetch = FetchType.LAZY)
+    @DinaIgnor
     private Institution institutionCCID;
     
     @JoinColumn(name = "InstitutionTCID", referencedColumnName = "UserGroupScopeId")
     @ManyToOne(  fetch = FetchType.LAZY)
+    @DinaIgnor
     private Institution institutionTCID;
     
     @JoinColumn(name = "DivisionID", referencedColumnName = "UserGroupScopeId")
     @ManyToOne(  fetch = FetchType.EAGER)
+    @DinaIgnor
     private Division divisionID;
     
     @OneToMany(mappedBy = "catalogerID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Collectionobject> collectionobjectList;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Collectionobject> collectionobjectList1;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Collectionobject> collectionobjectList2;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Project> projectList;
     
     @OneToMany(mappedBy = "projectAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Project> projectList1;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Project> projectList2;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Splocalecontaineritem> splocalecontaineritemList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Splocalecontaineritem> splocalecontaineritemList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Institution> institutionList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Institution> institutionList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Collectingevent> collectingeventList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Collectingevent> collectingeventList1;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "agentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Fieldnotebook> fieldnotebookList;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Fieldnotebook> fieldnotebookList1;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Fieldnotebook> fieldnotebookList2;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Geologictimeperiod> geologictimeperiodList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Geologictimeperiod> geologictimeperiodList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Lithostrat> lithostratList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Lithostrat> lithostratList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Taxoncitation> taxoncitationList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Taxoncitation> taxoncitationList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Dnasequencingruncitation> dnasequencingruncitationList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Dnasequencingruncitation> dnasequencingruncitationList1;
     
     @OneToMany(mappedBy = "agentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Dnasequence> dnasequenceList;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Dnasequence> dnasequenceList1;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Dnasequence> dnasequenceList2;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Preparationattr> preparationattrList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Preparationattr> preparationattrList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Borrowreturnmaterial> borrowreturnmaterialList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Borrowreturnmaterial> borrowreturnmaterialList1;
     
     @OneToMany(mappedBy = "returnedByID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Borrowreturnmaterial> borrowreturnmaterialList2;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Workbench> workbenchList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Workbench> workbenchList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Spauditlogfield> spauditlogfieldList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Spauditlogfield> spauditlogfieldList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Referencework> referenceworkList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Referencework> referenceworkList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Shipment> shipmentList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Shipment> shipmentList1;
     
     @OneToMany(mappedBy = "shippedByID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Shipment> shipmentList2;
     
     @OneToMany(mappedBy = "shippedToID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Shipment> shipmentList3;
     
     @OneToMany(mappedBy = "shipperID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Shipment> shipmentList4;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "agentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Repositoryagreement> repositoryagreementList;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Repositoryagreement> repositoryagreementList1;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Repositoryagreement> repositoryagreementList2;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Splocalecontainer> splocalecontainerList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Splocalecontainer> splocalecontainerList1;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "agentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Author> authorList;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Author> authorList1;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Author> authorList2;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "agentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Accessionagent> accessionagentList;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Accessionagent> accessionagentList1;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Accessionagent> accessionagentList2;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Workbenchtemplate> workbenchtemplateList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Workbenchtemplate> workbenchtemplateList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Taxontreedefitem> taxontreedefitemList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Taxontreedefitem> taxontreedefitemList1;
     
     @OneToMany(mappedBy = "examinedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Conservevent> conserveventList;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Conservevent> conserveventList1;
     
     @OneToMany(mappedBy = "treatedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Conservevent> conserveventList2;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Conservevent> conserveventList3;
     
     @OneToMany(mappedBy = "curatorID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Conservevent> conserveventList4;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Collection> collectionList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Collection> collectionList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Fieldnotebookpageattachment> fieldnotebookpageattachmentList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Fieldnotebookpageattachment> fieldnotebookpageattachmentList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Spprincipal> spprincipalList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Spprincipal> spprincipalList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Fieldnotebookattachment> fieldnotebookattachmentList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Fieldnotebookattachment> fieldnotebookattachmentList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Preparationattribute> preparationattributeList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Preparationattribute> preparationattributeList1;
     
     @OneToMany(mappedBy = "agentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Inforequest> inforequestList;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Inforequest> inforequestList1;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Inforequest> inforequestList2;
+ 
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY ) 
+    @DinaIgnor
     private List<Collectingeventattr> collectingeventattrList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Collectingeventattr> collectingeventattrList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Spappresourcedir> spappresourcedirList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Spappresourcedir> spappresourcedirList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Spexportschema> spexportschemaList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Spexportschema> spexportschemaList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Collectionrelationship> collectionrelationshipList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Collectionrelationship> collectionrelationshipList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Attachmenttag> attachmenttagList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Attachmenttag> attachmenttagList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Geographytreedefitem> geographytreedefitemList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Geographytreedefitem> geographytreedefitemList1;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "agentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Borrowagent> borrowagentList;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Borrowagent> borrowagentList1;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Borrowagent> borrowagentList2;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Geologictimeperiodtreedefitem> geologictimeperiodtreedefitemList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Geologictimeperiodtreedefitem> geologictimeperiodtreedefitemList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Loan> loanList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Loan> loanList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Fieldnotebookpage> fieldnotebookpageList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Fieldnotebookpage> fieldnotebookpageList1;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "agentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Agentspecialty> agentspecialtyList;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Agentspecialty> agentspecialtyList1;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Agentspecialty> agentspecialtyList2;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Picklist> picklistList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Picklist> picklistList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Accession> accessionList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Accession> accessionList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Storage> storageList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Storage> storageList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Dnasequencerunattachment> dnasequencerunattachmentList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Dnasequencerunattachment> dnasequencerunattachmentList1;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "agentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Giftagent> giftagentList;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Giftagent> giftagentList1;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Giftagent> giftagentList2;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "agentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Collector> collectorList;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Collector> collectorList1;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Collector> collectorList2;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Attachment> attachmentList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Attachment> attachmentList1;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "agentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Appraisal> appraisalList;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Appraisal> appraisalList1;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Appraisal> appraisalList2;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "agentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Agentgeography> agentgeographyList;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Agentgeography> agentgeographyList1;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Agentgeography> agentgeographyList2;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Collectionobjectcitation> collectionobjectcitationList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Collectionobjectcitation> collectionobjectcitationList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Spappresourcedata> spappresourcedataList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Spappresourcedata> spappresourcedataList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Spexportschemaitemmapping> spexportschemaitemmappingList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Spexportschemaitemmapping> spexportschemaitemmappingList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Specifyuser> specifyuserList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Specifyuser> specifyuserList1;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "catalogedByID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Exchangein> exchangeinList;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Exchangein> exchangeinList1;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Exchangein> exchangeinList2;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "receivedFromOrganizationID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Exchangein> exchangeinList3;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Fieldnotebookpagesetattachment> fieldnotebookpagesetattachmentList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Fieldnotebookpagesetattachment> fieldnotebookpagesetattachmentList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Commonnametx> commonnametxList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Commonnametx> commonnametxList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Loanpreparation> loanpreparationList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Loanpreparation> loanpreparationList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Otheridentifier> otheridentifierList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Otheridentifier> otheridentifierList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Spexportschemamapping> spexportschemamappingList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Spexportschemamapping> spexportschemamappingList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Giftpreparation> giftpreparationList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Giftpreparation> giftpreparationList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Spversion> spversionList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Spversion> spversionList1;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "agentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Loanagent> loanagentList;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Loanagent> loanagentList1;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Loanagent> loanagentList2;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Spviewsetobj> spviewsetobjList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Spviewsetobj> spviewsetobjList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Deaccessionpreparation> deaccessionpreparationList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Deaccessionpreparation> deaccessionpreparationList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Accessionauthorization> accessionauthorizationList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Accessionauthorization> accessionauthorizationList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Permit> permitList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Permit> permitList1;
     
     @OneToMany(mappedBy = "issuedByID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Permit> permitList2;
     
     @OneToMany(mappedBy = "issuedToID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Permit> permitList3;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Collectionobjectattr> collectionobjectattrList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Collectionobjectattr> collectionobjectattrList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Spauditlog> spauditlogList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Spauditlog> spauditlogList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Spreport> spreportList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Spreport> spreportList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Deaccession> deaccessionList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Deaccession> deaccessionList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Loanattachment> loanattachmentList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Loanattachment> loanattachmentList1;
     
     @OneToMany(mappedBy = "modifiedByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Spsymbiotainstance> spsymbiotainstanceList;
     
     @OneToMany(mappedBy = "createdByAgentID",  fetch = FetchType.LAZY )
+    @DinaIgnor
     private List<Spsymbiotainstance> spsymbiotainstanceList1;
 
     public Agent() {
@@ -2985,8 +3361,7 @@ public class Agent extends BaseEntity {
         this.agentList2 = agentList2;
     }
 
-    @XmlTransient
-    @JsonIgnore
+    @XmlTransient 
     public Agent getParentOrganizationID() {
         return parentOrganizationID;
     }

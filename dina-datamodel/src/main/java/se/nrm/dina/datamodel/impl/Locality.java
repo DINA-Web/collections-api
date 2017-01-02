@@ -32,6 +32,15 @@ import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient; 
+import se.nrm.dina.json.converter.annotation.DinaField;
+import se.nrm.dina.json.converter.annotation.DinaId;
+import se.nrm.dina.json.converter.annotation.DinaIgnor;
+import se.nrm.dina.json.converter.annotation.DinaManyToOne;
+import se.nrm.dina.json.converter.annotation.DinaResource;
+//import se.nrm.dina.datamodel.annotation.DinaField;
+//import se.nrm.dina.datamodel.annotation.DinaIgnor;
+//import se.nrm.dina.datamodel.annotation.DinaManyToOne;
+//import se.nrm.dina.datamodel.annotation.DinaResource;
 
 /**
  *
@@ -48,201 +57,251 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Locality.findByElevationMethod", query = "SELECT l FROM Locality l WHERE l.elevationMethod = :elevationMethod"),
     @NamedQuery(name = "Locality.findByGuid", query = "SELECT l FROM Locality l WHERE l.guid = :guid"), 
     @NamedQuery(name = "Locality.findByVerbatimLongitude", query = "SELECT l FROM Locality l WHERE l.verbatimLongitude = :verbatimLongitude")})
+@DinaResource(type = "locality")
 public class Locality extends BaseEntity {
     
-    private static final long serialVersionUID = 1L;
+//    private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "LocalityID")
+    @DinaField(name = "locality-id")
+    @DinaId
     private Integer localityID;
     
     @Size(max = 50)
     @Column(name = "Datum")
+    @DinaIgnor
     private String datum;
     
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "ElevationAccuracy")
+    @DinaIgnor
     private Double elevationAccuracy;
     
     @Size(max = 50)
     @Column(name = "ElevationMethod")
+    @DinaIgnor
     private String elevationMethod;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "GML")
+    @DinaIgnor
     private String gml;
     
     @Size(max = 128)
     @Column(name = "GUID")
+    @DinaField(name = "guid")
     private String guid;
-    
-    
+     
     @Size(max = 50)
     @Column(name = "Lat1Text")
+    @DinaField(name = "lat1-text")
     private String lat1Text;
      
     @Size(max = 50)
     @Column(name = "Lat2Text")
+    @DinaIgnor
     private String lat2Text;
     
     @Column(name = "LatLongAccuracy")
+    @DinaIgnor
     private Double latLongAccuracy;
     
     @Size(max = 50)
     @Column(name = "LatLongMethod")
+    @DinaIgnor
     private String latLongMethod;
     
     @Size(max = 50)
     @Column(name = "LatLongType")
+    @DinaIgnor
     private String latLongType;
     
     @Column(name = "Latitude1")
+    @DinaField(name = "latitude")
     private BigDecimal latitude1;
     
     @Column(name = "Latitude2")
+    @DinaIgnor
     private BigDecimal latitude2;
     
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 255)
+    @Size(min = 1, max = 255) 
     @Column(name = "LocalityName")
+    @DinaField(name = "locality-name")
     private String localityName;
     
     @Size(max = 50)
     @Column(name = "Long1Text")
+    @DinaField(name = "long1-text")
     private String long1Text;
     
     @Size(max = 50)
     @Column(name = "Long2Text")
+    @DinaIgnor
     private String long2Text;
     
     @Column(name = "Longitude1")
+    @DinaField(name = "longitude")
     private BigDecimal longitude1;
     
     @Column(name = "Longitude2")
+    @DinaIgnor
     private BigDecimal longitude2;
     
     @Column(name = "MaxElevation")
+    @DinaField(name = "max-elevation")
     private Double maxElevation;
     
     @Column(name = "MinElevation")
+    @DinaField(name = "min-elevation")
     private Double minElevation;
     
     @Size(max = 255)
     @Column(name = "NamedPlace")
+    @DinaField(name = "named-place")
     private String namedPlace;
     
     @Size(max = 50)
     @Column(name = "OriginalElevationUnit")
+    @DinaIgnor
     private String originalElevationUnit;
     
     @Column(name = "OriginalLatLongUnit")
+    @DinaIgnor
     private Integer originalLatLongUnit;
     
     @Size(max = 120)
     @Column(name = "RelationToNamedPlace")
+    @DinaIgnor
     private String relationToNamedPlace;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Remarks")
+    @DinaField(name = "remarks")
     private String remarks;
     
     @Size(max = 32)
     @Column(name = "ShortName")
+    @DinaField(name = "short-name")
     private String shortName;
     
     @Basic(optional = false)
     @NotNull
     @Column(name = "SrcLatLongUnit")
+    @DinaField(name = "src-lat-long-unit")
     private short srcLatLongUnit;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Text1")
+    @DinaIgnor
     private String text1;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Text2")
+    @DinaIgnor
     private String text2;
     
     @Size(max = 50)
     @Column(name = "VerbatimElevation")
+    @DinaIgnor
     private String verbatimElevation;
     
     @Column(name = "Visibility")
+    @DinaIgnor
     private Short visibility;
     
     @Column(name = "SGRStatus")
+    @DinaIgnor
     private Short sGRStatus;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Text3")
+    @DinaIgnor
     private String text3;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Text4")
+    @DinaIgnor
     private String text4;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Text5")
+    @DinaIgnor
     private String text5;
     
     @Size(max = 50)
     @Column(name = "VerbatimLatitude")
+    @DinaField(name = "verbatim-latitude")
     private String verbatimLatitude;
     
     @Size(max = 50)
     @Column(name = "VerbatimLongitude")
+    @DinaField(name = "verbatim-longitude")
     private String verbatimLongitude;
     
     @OneToMany(mappedBy = "localityID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Geocoorddetail> geocoorddetailList;
     
     @JoinColumn(name = "DisciplineID", referencedColumnName = "UserGroupScopeId")
     @ManyToOne(optional = false)
+    @DinaManyToOne(name = "discipline", type = "discipline")
     private Discipline disciplineID;
     
     @JoinColumn(name = "ModifiedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor
     private Agent modifiedByAgentID;
     
     @JoinColumn(name = "CreatedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaManyToOne(name = "created-by-agent", type = "agent")
     private Agent createdByAgentID;
     
     @JoinColumn(name = "VisibilitySetByID", referencedColumnName = "SpecifyUserID")
     @ManyToOne
+    @DinaIgnor
     private Specifyuser visibilitySetByID;
     
     @JoinColumn(name = "PaleoContextID", referencedColumnName = "PaleoContextID")
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @DinaManyToOne(name = "paleo-context", type = "paleoContext")
     private Paleocontext paleoContextID;
     
     @JoinColumn(name = "GeographyID", referencedColumnName = "GeographyID")
     @ManyToOne
+    @DinaManyToOne(name = "geography", type = "geography")
     private Geography geographyID;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "localityID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Localitycitation> localitycitationList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "localityID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Localitynamealias> localitynamealiasList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "localityID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Localityattachment> localityattachmentList;
     
     @OneToMany(mappedBy = "localityID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Localitydetail> localitydetailList;
     
     @OneToMany(mappedBy = "localityID", fetch = FetchType.LAZY, cascade={CascadeType.MERGE, CascadeType.PERSIST})
+    @DinaIgnor
     private List<Collectingevent> collectingeventList;
 
     public Locality() {

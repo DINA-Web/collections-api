@@ -32,6 +32,19 @@ import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient; 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import se.nrm.dina.json.converter.annotation.DinaField;
+import se.nrm.dina.json.converter.annotation.DinaId;
+import se.nrm.dina.json.converter.annotation.DinaIgnor;
+import se.nrm.dina.json.converter.annotation.DinaManyToOne;
+import se.nrm.dina.json.converter.annotation.DinaOneToMany;
+import se.nrm.dina.json.converter.annotation.DinaResource;
+//import se.nrm.dina.datamodel.annotation.DinaField;
+//import se.nrm.dina.datamodel.annotation.DinaIgnor;
+//import se.nrm.dina.datamodel.annotation.DinaManyToOne;
+//import se.nrm.dina.datamodel.annotation.DinaOneToMany;
+//import se.nrm.dina.datamodel.annotation.DinaResource;
 
 /**
  *
@@ -48,149 +61,189 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Collectingevent.findByStationFieldNumber", query = "SELECT c FROM Collectingevent c WHERE c.stationFieldNumber = :stationFieldNumber"),
     @NamedQuery(name = "Collectingevent.findByVisibility", query = "SELECT c FROM Collectingevent c WHERE c.visibility = :visibility"),
     @NamedQuery(name = "Collectingevent.findByGuid", query = "SELECT c FROM Collectingevent c WHERE c.guid = :guid")  })
+@DinaResource(type = "collectingEvent")
 public class Collectingevent extends BaseEntity {
    
-    private static final long serialVersionUID = 1L;
+//    private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "CollectingEventID")
+    @DinaField(name = "collecting-event-id")
+    @DinaId
     private Integer collectingEventID;
     
     
     @Column(name = "EndDate")
     @Temporal(TemporalType.DATE)
+    @DinaField(name = "end-date")
     private Date endDate;
     
     @Column(name = "EndDatePrecision")
+    @DinaIgnor
     private Short endDatePrecision;
     
     @Size(max = 50)
     @Column(name = "EndDateVerbatim")
+    @DinaIgnor
     private String endDateVerbatim;
     
     @Column(name = "EndTime")
+    @DinaIgnor
     private Short endTime;
     
     @Size(max = 50)
     @Column(name = "Method")
+    @DinaField(name = "method")
     private String method;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Remarks")
+    @DinaField(name = "remarks")
     private String remarks;
     
     @Column(name = "StartDate")
     @Temporal(TemporalType.DATE)
+    @DinaField(name = "start-date")
     private Date startDate;
     
     @Column(name = "StartDatePrecision")
+    @DinaIgnor
     private Short startDatePrecision;
     
     @Size(max = 50)
     @Column(name = "StartDateVerbatim")
+    @DinaIgnor
     private String startDateVerbatim;
     
     @Column(name = "StartTime")
+    @DinaIgnor
     private Short startTime;
     
     @Size(max = 50)
     @Column(name = "StationFieldNumber")
+    @DinaField(name = "station-field-number")
     private String stationFieldNumber;
     
     @Size(max = 50)
     @Column(name = "VerbatimDate")
+    @DinaIgnor
     private String verbatimDate;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "VerbatimLocality")
+    @DinaIgnor
     private String verbatimLocality;
     
     @Column(name = "Visibility")
+    @DinaIgnor
     private Short visibility;
     
     @Column(name = "SGRStatus")
+    @DinaIgnor
     private Short sGRStatus;
     
     @Size(max = 128)
     @Column(name = "GUID")
+    @DinaField(name = "guid")
     private String guid;
     
     @Column(name = "Integer1")
+    @DinaIgnor
     private Integer integer1;
     
     @Column(name = "Integer2")
+    @DinaIgnor
     private Integer integer2;
     
     @Column(name = "ReservedInteger3")
+    @DinaIgnor
     private Integer reservedInteger3;
     
     @Column(name = "ReservedInteger4")
+    @DinaIgnor
     private Integer reservedInteger4;
     
     @Size(max = 128)
     @Column(name = "ReservedText1")
+    @DinaIgnor
     private String reservedText1;
     
     @Size(max = 128)
     @Column(name = "ReservedText2")
+    @DinaIgnor
     private String reservedText2;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Text1")
+    @DinaIgnor
     private String text1;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Text2")
+    @DinaIgnor
     private String text2;
-    
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "collectingEventID", fetch = FetchType.EAGER)
+     
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "collectingEventID", fetch = FetchType.EAGER )
+    @DinaOneToMany(name = "collectingeventattachments", type = "collectingEventAttachment")
     private List<Collectingeventattachment> collectingeventattachmentList;
     
     @OneToMany(mappedBy = "collectingEventID", fetch = FetchType.LAZY)
+    @DinaOneToMany(name = "collectionobjects", type =" collectionObject")
     private List<Collectionobject> collectionobjectList;
     
     @JoinColumn(name = "DisciplineID", referencedColumnName = "UserGroupScopeId")
     @ManyToOne(optional = false)
+    @DinaManyToOne(name = "discipline", type = "discipline")
     private Discipline disciplineID;
     
     @JoinColumn(name = "ModifiedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor
     private Agent modifiedByAgentID;
     
     @JoinColumn(name = "CollectingTripID", referencedColumnName = "CollectingTripID")
     @ManyToOne
+    @DinaIgnor
     private Collectingtrip collectingTripID;
     
     @JoinColumn(name = "CreatedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaManyToOne(name = "created-by-agent", type = "agent")
     private Agent createdByAgentID;
     
     @JoinColumn(name = "VisibilitySetByID", referencedColumnName = "SpecifyUserID")
     @ManyToOne
+    @DinaIgnor
     private Specifyuser visibilitySetByID;
     
     @JoinColumn(name = "PaleoContextID", referencedColumnName = "PaleoContextID")
     @ManyToOne
+    @DinaIgnor
     private Paleocontext paleoContextID;
     
     @JoinColumn(name = "LocalityID", referencedColumnName = "LocalityID")
     @ManyToOne(cascade = CascadeType.ALL)
+    @DinaManyToOne(name = "locality", type = "locality")
     private Locality localityID;
     
     @JoinColumn(name = "CollectingEventAttributeID", referencedColumnName = "CollectingEventAttributeID")
     @ManyToOne
+    @DinaIgnor
     private Collectingeventattribute collectingEventAttributeID;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "collectingEventID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Collectingeventattr> collectingeventattrList;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "collectingEventID", fetch = FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "collectingEventID")
+    @DinaOneToMany(name = "collectors", type = "collector")
     private List<Collector> collectorList;
 
     public Collectingevent() {

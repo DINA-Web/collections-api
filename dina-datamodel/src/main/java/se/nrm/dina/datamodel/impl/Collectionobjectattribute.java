@@ -31,6 +31,13 @@ import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient; 
+import se.nrm.dina.json.converter.annotation.DinaField;
+import se.nrm.dina.json.converter.annotation.DinaId;
+import se.nrm.dina.json.converter.annotation.DinaIgnor;
+import se.nrm.dina.json.converter.annotation.DinaResource;
+//import se.nrm.dina.datamodel.annotation.DinaField;
+//import se.nrm.dina.datamodel.annotation.DinaIgnor;
+//import se.nrm.dina.datamodel.annotation.DinaResource;
 
 /**
  *
@@ -44,280 +51,359 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Collectionobjectattribute.findByCollectionObjectAttributeID", query = "SELECT c FROM Collectionobjectattribute c WHERE c.collectionObjectAttributeID = :collectionObjectAttributeID"), 
     @NamedQuery(name = "Collectionobjectattribute.findByCollectionMemberID", query = "SELECT c FROM Collectionobjectattribute c WHERE c.collectionMemberID = :collectionMemberID"),    
     @NamedQuery(name = "Collectionobjectattribute.findByTopDistance", query = "SELECT c FROM Collectionobjectattribute c WHERE c.topDistance = :topDistance")})
+@DinaResource(type = "colletionobjectattribute")
 public class Collectionobjectattribute extends BaseEntity {
      
-    private static final long serialVersionUID = 1L;
+//    private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "CollectionObjectAttributeID")
+    @DinaField(name = "collection-object-attribute-id")
+    @DinaId
     private Integer collectionObjectAttributeID;
-    
-    
+     
     @Basic(optional = false)
     @NotNull
     @Column(name = "CollectionMemberID")
+    @DinaField(name = "collection-member-id")
     private int collectionMemberID;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Text16")
+    @DinaIgnor
     private String text16;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Text17")
+    @DinaIgnor
     private String text17;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Text18")
+    @DinaIgnor
     private String text18;
     
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "Number1")
+    @DinaIgnor
     private Float number1;
     
     @Column(name = "Number10")
+    @DinaIgnor
     private Float number10;
     
     @Column(name = "Number11")
+    @DinaIgnor
     private Float number11;
     
     @Column(name = "Number12")
+    @DinaIgnor
     private Float number12;
     
     @Column(name = "Number13")
+    @DinaIgnor
     private Float number13;
     
     @Column(name = "Number14")
+    @DinaIgnor
     private Float number14;
     
     @Column(name = "Number15")
+    @DinaIgnor
     private Float number15;
     
     @Column(name = "Number16")
+    @DinaIgnor
     private Float number16;
     
     @Column(name = "Number17")
+    @DinaIgnor
     private Float number17;
     
     @Column(name = "Number18")
+    @DinaIgnor
     private Float number18;
     
     @Column(name = "Number19")
+    @DinaIgnor
     private Float number19;
     
     @Column(name = "Number2")
+    @DinaIgnor
     private Float number2;
     
     @Column(name = "Number20")
+    @DinaIgnor
     private Float number20;
     
     @Column(name = "Number21")
+    @DinaIgnor
     private Float number21;
     
     @Column(name = "Number22")
+    @DinaIgnor
     private Float number22;
     
     @Column(name = "Number23")
+    @DinaIgnor
     private Float number23;
     
     @Column(name = "Number24")
+    @DinaIgnor
     private Float number24;
     
     @Column(name = "Number25")
+    @DinaIgnor
     private Float number25;
     
     @Column(name = "Number26")
+    @DinaIgnor
     private Float number26;
     
     @Column(name = "Number27")
+    @DinaIgnor
     private Float number27;
     
     @Column(name = "Number28")
+    @DinaIgnor
     private Float number28;
     
     @Column(name = "Number29")
+    @DinaIgnor
     private Float number29;
     
     @Column(name = "Number3")
+    @DinaIgnor
     private Float number3;
     
     @Column(name = "Number30")
+    @DinaIgnor
     private Short number30;
     
     @Column(name = "Number31")
+    @DinaIgnor
     private Float number31;
     
     @Column(name = "Number32")
+    @DinaIgnor
     private Float number32;
     
     @Column(name = "Number33")
+    @DinaIgnor
     private Float number33;
     
     @Column(name = "Number34")
+    @DinaIgnor
     private Float number34;
     
     @Column(name = "Number35")
+    @DinaIgnor
     private Float number35;
     
     @Column(name = "Number36")
+    @DinaIgnor
     private Float number36;
     
     @Column(name = "Number37")
+    @DinaIgnor
     private Float number37;
     
     @Column(name = "Number38")
+    @DinaIgnor
     private Float number38;
     
     @Column(name = "Number39")
+    @DinaIgnor
     private Float number39;
     
     @Column(name = "Number4")
+    @DinaIgnor
     private Float number4;
     
     @Column(name = "Number40")
+    @DinaIgnor
     private Float number40;
     
     @Column(name = "Number41")
+    @DinaIgnor
     private Float number41;
     
     @Column(name = "Number42")
+    @DinaIgnor
     private Float number42;
     
     @Column(name = "Number5")
+    @DinaIgnor
     private Float number5;
     
     @Column(name = "Number6")
+    @DinaIgnor
     private Float number6;
     
     @Column(name = "Number7")
+    @DinaIgnor
     private Float number7;
     
     @Column(name = "Number8")
+    @DinaIgnor
     private Short number8;
     
     @Column(name = "Number9")
+    @DinaIgnor
     private Float number9;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Remarks")
+    @DinaField(name = "remarks")
     private String remarks;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Text1")
+    @DinaField(name = "sex")
     private String text1;
     
     @Size(max = 50)
     @Column(name = "Text10")
+    @DinaIgnor
     private String text10;
     
     @Size(max = 50)
     @Column(name = "Text11")
+    @DinaIgnor
     private String text11;
     
     @Size(max = 50)
     @Column(name = "Text12")
+    @DinaIgnor
     private String text12;
     
     @Size(max = 50)
     @Column(name = "Text13")
+    @DinaIgnor
     private String text13;
     
     @Size(max = 50)
     @Column(name = "Text14")
+    @DinaIgnor
     private String text14;
     
     @Size(max = 64)
     @Column(name = "Text15")
+    @DinaIgnor
     private String text15;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Text2")
+    @DinaIgnor
     private String text2;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Text3")
+    @DinaIgnor
     private String text3;
     
     @Size(max = 50)
     @Column(name = "Text4")
+    @DinaField(name = "life-stage")
     private String text4;
     
     @Size(max = 50)
     @Column(name = "Text5")
+    @DinaIgnor
     private String text5;
     
     @Size(max = 100)
     @Column(name = "Text6")
+    @DinaIgnor
     private String text6;
     
     @Size(max = 100)
     @Column(name = "Text7")
+    @DinaIgnor
     private String text7;
     
     @Size(max = 50)
     @Column(name = "Text8")
+    @DinaIgnor
     private String text8;
     
     @Size(max = 50)
     @Column(name = "Text9")
+    @DinaIgnor
     private String text9;
     
     @Column(name = "YesNo1")
+    @DinaIgnor
     private Boolean yesNo1;
     
     @Column(name = "YesNo2")
+    @DinaIgnor
     private Boolean yesNo2;
     
     @Column(name = "YesNo3")
+    @DinaIgnor
     private Boolean yesNo3;
     
     @Column(name = "YesNo4")
+    @DinaIgnor
     private Boolean yesNo4;
     
     @Column(name = "YesNo5")
+    @DinaIgnor
     private Boolean yesNo5;
     
     @Column(name = "YesNo6")
+    @DinaIgnor
     private Boolean yesNo6;
     
     @Column(name = "YesNo7")
+    @DinaIgnor
     private Boolean yesNo7;
     
     @Column(name = "BottomDistance")
+    @DinaIgnor
     private Float bottomDistance;
     
     @Size(max = 32)
     @Column(name = "Direction")
+    @DinaIgnor
     private String direction;
     
     @Size(max = 16)
     @Column(name = "DistanceUnits")
+    @DinaIgnor
     private String distanceUnits;
     
     @Size(max = 32)
     @Column(name = "PositionState")
+    @DinaIgnor
     private String positionState;
     
     @Column(name = "TopDistance")
+    @DinaIgnor
     private Float topDistance;
     
     @JoinColumn(name = "ModifiedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor
     private Agent modifiedByAgentID;
     
     @JoinColumn(name = "CreatedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor
     private Agent createdByAgentID;
     
     @OneToMany(mappedBy = "collectionObjectAttributeID", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @DinaIgnor
     private List<Collectionobject> collectionobjectList;
 
     public Collectionobjectattribute() {

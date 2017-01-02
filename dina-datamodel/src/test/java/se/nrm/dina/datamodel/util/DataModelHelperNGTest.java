@@ -102,8 +102,8 @@ public class DataModelHelperNGTest {
      * Test of getTIME_CREATED_FIELD method, of class DataModelHelper.
      */
     @Test
-    public void testGetTIME_CREAGED_FIELD() {
-        System.out.println("getTIME_CREAGED_FIELD"); 
+    public void testGetTIME_CREATED_FIELD() {
+        System.out.println("getTIME_CREATED_FIELD"); 
         String result = instance.getTIME_CREATED_FIELD();
         assertEquals(result, TIME_CREAGED_FIELD); 
     } 

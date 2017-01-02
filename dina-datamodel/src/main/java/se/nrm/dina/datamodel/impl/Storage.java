@@ -33,6 +33,17 @@ import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient; 
+import se.nrm.dina.json.converter.annotation.DinaField;
+import se.nrm.dina.json.converter.annotation.DinaId;
+import se.nrm.dina.json.converter.annotation.DinaIgnor;
+import se.nrm.dina.json.converter.annotation.DinaManyToOne;
+import se.nrm.dina.json.converter.annotation.DinaOneToMany;
+import se.nrm.dina.json.converter.annotation.DinaResource;
+//import se.nrm.dina.datamodel.annotation.DinaField;
+//import se.nrm.dina.datamodel.annotation.DinaIgnor;
+//import se.nrm.dina.datamodel.annotation.DinaManyToOne;
+//import se.nrm.dina.datamodel.annotation.DinaOneToMany;
+//import se.nrm.dina.datamodel.annotation.DinaResource;
 
 /**
  *
@@ -50,104 +61,132 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Storage.findByName", query = "SELECT s FROM Storage s WHERE s.name = :name"),
     @NamedQuery(name = "Storage.findByNodeNumber", query = "SELECT s FROM Storage s WHERE s.nodeNumber = :nodeNumber"), 
     @NamedQuery(name = "Storage.findByRankID", query = "SELECT s FROM Storage s WHERE s.rankID = :rankID") })
+@DinaResource(type = "storage")
 public class Storage extends BaseEntity {
     
-    private static final long serialVersionUID = 1L;
+//    private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "StorageID")
+    @DinaField(name = "storage-id")
+    @DinaId
     private Integer storageID;
     
     
     @Size(max = 16)
     @Column(name = "Abbrev")
+    @DinaIgnor
     private String abbrev;
     
     @Size(max = 255)
     @Column(name = "FullName")
+    @DinaField(name = "full-name")
     private String fullName;
     
     @Column(name = "HighestChildNodeNumber")
+    @DinaIgnor
     private Integer highestChildNodeNumber;
     
     @Column(name = "IsAccepted")
+    @DinaIgnor
     private Boolean isAccepted;
     
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 64)
     @Column(name = "Name")
+    @DinaField(name = "name")
     private String name;
     
     @Column(name = "NodeNumber")
+    @DinaIgnor
     private Integer nodeNumber;
     
     @Column(name = "Number1")
+    @DinaIgnor
     private Integer number1;
     
     @Column(name = "Number2")
+    @DinaIgnor
     private Integer number2;
     
     @Basic(optional = false)
     @NotNull
     @Column(name = "RankID")
+    @DinaField(name = "rank-id")
     private int rankID;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Remarks")
+    @DinaField(name = "remarks")
     private String remarks;
     
     @Size(max = 32)
     @Column(name = "Text1")
+    @DinaIgnor
     private String text1;
     
     @Size(max = 32)
     @Column(name = "Text2")
+    @DinaIgnor
     private String text2;
     
     @Column(name = "TimestampVersion")
     @Temporal(TemporalType.TIMESTAMP)
+    @DinaIgnor
     private Date timestampVersion;
     
     @OneToMany(mappedBy = "storageID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Container> containerList;
     
     @OneToMany(mappedBy = "storageID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Preparation> preparationList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "storageID",  fetch = FetchType.LAZY)
+    @DinaOneToMany(name = "storageattachments", type = "storageattachment")
     private List<Storageattachment> storageattachmentList;
     
     @OneToMany(mappedBy = "acceptedID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Storage> storageList;
     
     @JoinColumn(name = "AcceptedID", referencedColumnName = "StorageID")
     @ManyToOne
+    @DinaManyToOne(name = "storage", type = "storage")
     private Storage acceptedID;
     
     @JoinColumn(name = "StorageTreeDefItemID", referencedColumnName = "StorageTreeDefItemID")
     @ManyToOne(optional = false)
+    @DinaManyToOne(name = "storage-tree-def-item", type = "stroageTreeDefItem")
     private Storagetreedefitem storageTreeDefItemID;
     
     @JoinColumn(name = "ModifiedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor
     private Agent modifiedByAgentID;
     
     @JoinColumn(name = "StorageTreeDefID", referencedColumnName = "StorageTreeDefID")
     @ManyToOne(optional = false)
+    @DinaManyToOne(name = "storage-tree-def", type = "storageTreeDef")
     private Storagetreedef storageTreeDefID;
     
     @JoinColumn(name = "CreatedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor
     private Agent createdByAgentID;
     
     @OneToMany(mappedBy = "parentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Storage> storageList1;
+    
     @JoinColumn(name = "ParentID", referencedColumnName = "StorageID")
     @ManyToOne
+    @DinaManyToOne(name = "parent", type = "storage")
     private Storage parentID;
 
     public Storage() {

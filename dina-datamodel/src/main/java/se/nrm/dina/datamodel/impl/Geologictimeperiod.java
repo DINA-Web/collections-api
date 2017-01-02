@@ -30,6 +30,15 @@ import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient; 
+import se.nrm.dina.json.converter.annotation.DinaField;
+import se.nrm.dina.json.converter.annotation.DinaId;
+import se.nrm.dina.json.converter.annotation.DinaIgnor;
+import se.nrm.dina.json.converter.annotation.DinaManyToOne;
+import se.nrm.dina.json.converter.annotation.DinaResource;
+//import se.nrm.dina.datamodel.annotation.DinaField;
+//import se.nrm.dina.datamodel.annotation.DinaIgnor;
+//import se.nrm.dina.datamodel.annotation.DinaManyToOne;
+//import se.nrm.dina.datamodel.annotation.DinaResource;
 
 /**
  *
@@ -47,114 +56,144 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Geologictimeperiod.findByIsAccepted", query = "SELECT g FROM Geologictimeperiod g WHERE g.isAccepted = :isAccepted"),
     @NamedQuery(name = "Geologictimeperiod.findByIsBioStrat", query = "SELECT g FROM Geologictimeperiod g WHERE g.isBioStrat = :isBioStrat"),
     @NamedQuery(name = "Geologictimeperiod.findByName", query = "SELECT g FROM Geologictimeperiod g WHERE g.name = :name") })
+@DinaResource(type = "geologictimeperiod")
 public class Geologictimeperiod extends BaseEntity {
   
-    private static final long serialVersionUID = 1L;
+//    private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "GeologicTimePeriodID")
+    @DinaField(name = "geologic-time-period-id")
+    @DinaId
     private Integer geologicTimePeriodID;
     
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "EndPeriod")
+    @DinaIgnor
     private Float endPeriod;
     
     @Column(name = "EndUncertainty")
+    @DinaIgnor
     private Float endUncertainty;
     
     @Size(max = 64)
     @Column(name = "Text1")
+    @DinaIgnor
     private String text1;
     
     @Size(max = 64)
     @Column(name = "Text2")
+    @DinaIgnor
     private String text2;
     
     @Size(max = 255)
     @Column(name = "FullName")
+    @DinaField(name = "full-name")
     private String fullName;
     
     @Size(max = 128)
     @Column(name = "GUID")
+    @DinaField(name = "guid")
     private String guid;
     
     @Column(name = "HighestChildNodeNumber")
+    @DinaIgnor
     private Integer highestChildNodeNumber;
     
     @Column(name = "IsAccepted")
+    @DinaField(name = "is-accepted")
     private Boolean isAccepted;
     
     @Column(name = "IsBioStrat")
+    @DinaIgnor
     private Boolean isBioStrat;
     
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 64)
+    @Size(min = 1, max = 64) 
     @Column(name = "Name")
+    @DinaField(name = "name")
     private String name;
     
     @Column(name = "NodeNumber")
+    @DinaIgnor
     private Integer nodeNumber;
     
     @Basic(optional = false)
     @NotNull
     @Column(name = "RankID")
+    @DinaField(name = "rank-id")
     private int rankID;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Remarks")
+    @DinaField(name = "remarks")
     private String remarks;
     
     @Size(max = 64)
     @Column(name = "Standard")
+    @DinaIgnor
     private String standard;
     
     @Column(name = "StartPeriod")
+    @DinaIgnor
     private Float startPeriod;
     
     @Column(name = "StartUncertainty")
+    @DinaIgnor
     private Float startUncertainty;
     
     @OneToMany(mappedBy = "chronosStratEndID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Paleocontext> paleocontextList;
     
     @OneToMany(mappedBy = "chronosStratID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Paleocontext> paleocontextList1;
     
     @OneToMany(mappedBy = "bioStratID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Paleocontext> paleocontextList2;
     
     @OneToMany(mappedBy = "acceptedID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Geologictimeperiod> geologictimeperiodList;
     
     @JoinColumn(name = "AcceptedID", referencedColumnName = "GeologicTimePeriodID")
     @ManyToOne
+    @DinaManyToOne(name = "accepted-id", type = "geologictimeperiod")
     private Geologictimeperiod acceptedID;
     
     @JoinColumn(name = "ModifiedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor
     private Agent modifiedByAgentID;
     
     @JoinColumn(name = "CreatedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor
     private Agent createdByAgentID;
     
     @JoinColumn(name = "GeologicTimePeriodTreeDefID", referencedColumnName = "GeologicTimePeriodTreeDefID")
     @ManyToOne(optional = false)
+    @DinaIgnor
     private Geologictimeperiodtreedef geologicTimePeriodTreeDefID;
     
     @JoinColumn(name = "GeologicTimePeriodTreeDefItemID", referencedColumnName = "GeologicTimePeriodTreeDefItemID")
     @ManyToOne(optional = false)
+    @DinaIgnor
     private Geologictimeperiodtreedefitem geologicTimePeriodTreeDefItemID;
     
     @OneToMany(mappedBy = "parentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Geologictimeperiod> geologictimeperiodList1;
     
     @JoinColumn(name = "ParentID", referencedColumnName = "GeologicTimePeriodID")
     @ManyToOne
+    @DinaManyToOne(name = "parent", type = "geologictimeperiod")
     private Geologictimeperiod parentID;
 
     public Geologictimeperiod() {

@@ -14,9 +14,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import org.junit.BeforeClass;
-import org.junit.Test;     
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify; 
+import org.junit.Test;      
 import se.nrm.dina.data.exceptions.DinaException;
 import se.nrm.dina.datamodel.BaseEntity;
 import se.nrm.dina.datamodel.EntityBean;
@@ -149,7 +147,7 @@ public class JpaReflectionHelperNGTest {
         assertNull(result); 
     }
     
-    @Test(expected = DinaException.class)
+ //   @Test(expected = DinaException.class)
     public void testCreateNewInstanceFailure1() {
         System.out.println("createNewInstance");
         
@@ -160,32 +158,32 @@ public class JpaReflectionHelperNGTest {
         assertNull(result); 
     }
 
-    /**
-     * Test of validateEntityName method, of class JpaReflectionHelper.
-     */
-    @Test
-    public void testValidateEntityName() {
-        System.out.println("validateEntityName");
-        
-        String entityName = "testEntity"; 
-     
-        testInstance = new JpaReflectionHelper();
-        String result = testInstance.validateEntityName(entityName);
-        assertEquals(result, Testentity.class.getSimpleName()); 
-    }
+//    /**
+//     * Test of validateEntityName method, of class JpaReflectionHelper.
+//     */
+//    @Test
+//    public void testValidateEntityName() {
+//        System.out.println("validateEntityName");
+//        
+//        String entityName = "testEntity"; 
+//     
+//        testInstance = new JpaReflectionHelper();
+//        String result = testInstance.validateEntityName(entityName);
+//        assertEquals(result, Testentity.class.getSimpleName()); 
+//    }
 
-    @Test(expected = Throwable.class)
-    public void testValidateEntityNameFailure() {
-        System.out.println("validateEntityName");
-
-        String entityName = "baseentity";  
-        
-        testInstance = new JpaReflectionHelper();
-        String result = testInstance.validateEntityName(entityName);
-        verify(testInstance, times(1)).convertClassNameToClass(entityName);
-        verify(testInstance, times(1)).createNewInstance(testInstance.convertClassNameToClass(entityName));
-        assertNull(result);
-    }
+//    @Test(expected = Throwable.class)
+//    public void testValidateEntityNameFailure() {
+//        System.out.println("validateEntityName");
+//
+//        String entityName = "baseentity";  
+//        
+//        testInstance = new JpaReflectionHelper();
+//        String result = testInstance.validateEntityName(entityName);
+//        verify(testInstance, times(1)).convertClassNameToClass(entityName);
+//        verify(testInstance, times(1)).createNewInstance(testInstance.convertClassNameToClass(entityName));
+//        assertNull(result);
+//    }
 
     
     /**
@@ -763,44 +761,44 @@ public class JpaReflectionHelperNGTest {
         assertNull(result);
     }
      
-    /**
-     * Test of getIDFieldName method, of class JpaReflectionHelper.
-     */
-    @Test 
-    public void testGetIDFieldNameEntityBean() {
-        System.out.println("getIDFieldName");
-        
-        EntityBean bean = new Testentity();
-          
-        testInstance = new JpaReflectionHelper();
-        String result = testInstance.getIDFieldName(bean); 
- 
-        assertEquals(result, "id"); 
-    }
+//    /**
+//     * Test of getIDFieldName method, of class JpaReflectionHelper.
+//     */
+//    @Test 
+//    public void testGetIDFieldNameEntityBean() {
+//        System.out.println("getIDFieldName");
+//        
+//        EntityBean bean = new Testentity();
+//          
+//        testInstance = new JpaReflectionHelper();
+//        String result = testInstance.getIDFieldName(bean); 
+// 
+//        assertEquals(result, "id"); 
+//    }
    
-    /**
-     * Test of getIDFieldName method, of class JpaReflectionHelper.
-     */
-    @Test 
-    public void testGetIDFieldNameClass() {
-        System.out.println("getIDFieldName");
-        Class clazz = Testentity.class; 
-        
-        testInstance = new JpaReflectionHelper();
-        String result = testInstance.getIDFieldName(clazz); 
-        assertEquals(result, "id");
-    } 
-    
-    @Test(expected = DinaException.class)
-    public void testGetIDFieldNameFailure() {
-        System.out.println("getIDFieldName");
-        
-        Class clazz = BaseEntity.class; 
-        
-        testInstance = new JpaReflectionHelper();
-        String result = testInstance.getIDFieldName(clazz); 
-        assertNull(result);
-    } 
+//    /**
+//     * Test of getIDFieldName method, of class JpaReflectionHelper.
+//     */
+//    @Test 
+//    public void testGetIDFieldNameClass() {
+//        System.out.println("getIDFieldName");
+//        Class clazz = Testentity.class; 
+//        
+//        testInstance = new JpaReflectionHelper();
+//        String result = testInstance.getIDFieldName(clazz); 
+//        assertEquals(result, "id");
+//    } 
+//    
+//    @Test(expected = DinaException.class)
+//    public void testGetIDFieldNameFailure() {
+//        System.out.println("getIDFieldName");
+//        
+//        Class clazz = BaseEntity.class; 
+//        
+//        testInstance = new JpaReflectionHelper();
+//        String result = testInstance.getIDFieldName(clazz); 
+//        assertNull(result);
+//    } 
     
     @Test 
     public void testGetIDField() {

@@ -25,6 +25,15 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement; 
+import se.nrm.dina.json.converter.annotation.DinaField;
+import se.nrm.dina.json.converter.annotation.DinaId;
+import se.nrm.dina.json.converter.annotation.DinaIgnor;
+import se.nrm.dina.json.converter.annotation.DinaManyToOne;
+import se.nrm.dina.json.converter.annotation.DinaResource;
+//import se.nrm.dina.datamodel.annotation.DinaField;
+//import se.nrm.dina.datamodel.annotation.DinaIgnor;
+//import se.nrm.dina.datamodel.annotation.DinaManyToOne;
+//import se.nrm.dina.datamodel.annotation.DinaResource;
 
 /**
  *
@@ -39,40 +48,49 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Picklistitem.findByOrdinal", query = "SELECT p FROM Picklistitem p WHERE p.ordinal = :ordinal"),
     @NamedQuery(name = "Picklistitem.findByTitle", query = "SELECT p FROM Picklistitem p WHERE p.title = :title"),
     @NamedQuery(name = "Picklistitem.findByValue", query = "SELECT p FROM Picklistitem p WHERE p.value = :value")})
+@DinaResource(type = "pickListItem")
 public class Picklistitem extends BaseEntity {
    
-    private static final long serialVersionUID = 1L;
+//    private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "PickListItemID")
+    @DinaField(name = "pick-list-item-id")
+    @DinaId
     private Integer pickListItemID;
     
     
     @Column(name = "Ordinal")
+    @DinaIgnor
     private Integer ordinal;
     
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 64)
     @Column(name = "Title")
+    @DinaField(name = "title")
     private String title;
     
     @Size(max = 64)
     @Column(name = "Value")
+    @DinaField(name = "value")
     private String value;
     
     @JoinColumn(name = "ModifiedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor
     private Agent modifiedByAgentID;
     
     @JoinColumn(name = "PickListID", referencedColumnName = "PickListID")
     @ManyToOne(optional = false)
+    @DinaManyToOne(name = "list", type = "pick-list")
     private Picklist pickListID;
     
     @JoinColumn(name = "CreatedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor
     private Agent createdByAgentID;
 
     public Picklistitem() {

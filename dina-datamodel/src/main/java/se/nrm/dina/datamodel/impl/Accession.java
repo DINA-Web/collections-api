@@ -33,7 +33,20 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;   
+import javax.xml.bind.annotation.XmlTransient;    
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import se.nrm.dina.json.converter.annotation.DinaField;
+import se.nrm.dina.json.converter.annotation.DinaId;
+import se.nrm.dina.json.converter.annotation.DinaIgnor;
+import se.nrm.dina.json.converter.annotation.DinaManyToOne;
+import se.nrm.dina.json.converter.annotation.DinaOneToMany;
+import se.nrm.dina.json.converter.annotation.DinaResource;
+//import se.nrm.dina.datamodel.annotation.DinaField;
+//import se.nrm.dina.datamodel.annotation.DinaIgnor;
+//import se.nrm.dina.datamodel.annotation.DinaManyToOne;
+//import se.nrm.dina.datamodel.annotation.DinaOneToMany;
+//import se.nrm.dina.datamodel.annotation.DinaResource;
 
 /**
  *
@@ -50,126 +63,159 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Accession.findByDateAcknowledged", query = "SELECT a FROM Accession a WHERE a.dateAcknowledged = :dateAcknowledged"),
     @NamedQuery(name = "Accession.findByDateReceived", query = "SELECT a FROM Accession a WHERE a.dateReceived = :dateReceived"), 
     @NamedQuery(name = "Accession.findByType", query = "SELECT a FROM Accession a WHERE a.type = :type") })
-//@JsonIgnoreProperties(ignoreUnknown = true) 
+//@JsonIgnoreProperties(ignoreUnknown = true)  
+@DinaResource(type = "accession")
 public class Accession extends BaseEntity {
      
-    private static final long serialVersionUID = 1L;
+//    private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "AccessionID")
+    @DinaField(name = "accession-id")
+    @DinaId
     private Integer accessionID;
      
     @Size(max = 255)
     @Column(name = "AccessionCondition")
+    @DinaIgnor
     private String accessionCondition;
     
     @Basic(optional = false)
     @NotNull(message="AccessNumber must be specified.")
     @Size(min = 1, max = 60)
     @Column(name = "AccessionNumber")
+    @DinaField(name = "accession-number")
     private String accessionNumber;
     
     @Column(name = "DateAccessioned")
     @Temporal(TemporalType.DATE)
+    @DinaField(name = "date-accessioned")
     private Date dateAccessioned;
     
     @Column(name = "DateAcknowledged")
     @Temporal(TemporalType.DATE)
+    @DinaField(name = "date-acknowledged")
     private Date dateAcknowledged;
     
     @Column(name = "DateReceived")
     @Temporal(TemporalType.DATE)
+    @DinaField(name = "date-received")
     private Date dateReceived;
     
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "Number1")
+    @DinaIgnor
     private Float number1;
     
     @Column(name = "Number2")
+    @DinaIgnor
     private Float number2;
     
     @Lob
     @Size(max = 65535)
-    @Column(name = "Remarks")
+    @Column(name = "Remarks")  
+    @DinaField(name = "remarks")
     private String remarks;
     
     @Size(max = 32)
     @Column(name = "Status")
+    @DinaField(name = "status")
     private String status;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Text1")
+    @DinaIgnor
     private String text1;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Text2")
+    @DinaIgnor
     private String text2;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Text3")
+    @DinaIgnor
     private String text3;
     
     @Column(name = "TotalValue")
+    @DinaIgnor
     private BigDecimal totalValue;
     
     @Size(max = 32)
     @Column(name = "Type")
+    @DinaField(name = "type")
     private String type;
     
     @Size(max = 50)
     @Column(name = "VerbatimDate")
+    @DinaIgnor
     private String verbatimDate;
     
     @Column(name = "YesNo1")
+    @DinaIgnor
     private Boolean yesNo1;
     
     @Column(name = "YesNo2")
+    @DinaIgnor
     private Boolean yesNo2;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "accessionID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Accessionattachment> accessionattachmentList;
     
     @OneToMany(mappedBy = "accessionID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Treatmentevent> treatmenteventList;
     
     @OneToMany(mappedBy = "accessionID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Collectionobject> collectionobjectList;
     
-    @OneToMany(mappedBy = "accessionID", cascade = CascadeType.ALL, fetch = FetchType.EAGER )
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "accessionID", cascade = CascadeType.ALL  )
+    @DinaOneToMany(name = "accession-agents", type = "accessionAgent")
     private List<Accessionagent> accessionagentList;
     
     @JoinColumn(name = "RepositoryAgreementID", referencedColumnName = "RepositoryAgreementID")
     @ManyToOne( fetch = FetchType.LAZY)
+    @DinaIgnor
     private Repositoryagreement repositoryAgreementID;
     
     @JoinColumn(name = "ModifiedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor
     private Agent modifiedByAgentID;
     
     @JoinColumn(name = "CreatedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor 
     private Agent createdByAgentID;
     
     @JoinColumn(name = "DivisionID", referencedColumnName = "UserGroupScopeId")
     @ManyToOne(optional = false,  fetch = FetchType.LAZY)
+    @DinaManyToOne(name = "division", type = "division")
     private Division divisionID;
     
     @JoinColumn(name = "AddressOfRecordID", referencedColumnName = "AddressOfRecordID")
     @ManyToOne( fetch = FetchType.LAZY)
+    @DinaIgnor
     private Addressofrecord addressOfRecordID;
     
     @OneToMany(mappedBy = "accessionID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Appraisal> appraisalList;
     
     @OneToMany(mappedBy = "accessionID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Accessionauthorization> accessionauthorizationList;
     
     @OneToMany(mappedBy = "accessionID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Deaccession> deaccessionList;
 
     public Accession() { 
@@ -258,7 +304,7 @@ public class Accession extends BaseEntity {
         this.dateReceived = dateReceived;
     }
 
-    
+    @JsonProperty("number1")
     public Float getNumber1() {
         return number1;
     }
@@ -267,6 +313,7 @@ public class Accession extends BaseEntity {
         this.number1 = number1;
     }
 
+    @JsonProperty("number2")
     public Float getNumber2() {
         return number2;
     }
@@ -275,6 +322,7 @@ public class Accession extends BaseEntity {
         this.number2 = number2;
     }
 
+    @JsonProperty("remarks")
     public String getRemarks() {
         return remarks;
     }
@@ -283,6 +331,7 @@ public class Accession extends BaseEntity {
         this.remarks = remarks;
     }
 
+    @JsonProperty("status")
     public String getStatus() {
         return status;
     }
@@ -291,6 +340,7 @@ public class Accession extends BaseEntity {
         this.status = status;
     }
 
+    @JsonProperty("text1")
     public String getText1() {
         return text1;
     }
@@ -299,6 +349,7 @@ public class Accession extends BaseEntity {
         this.text1 = text1;
     }
 
+    @JsonProperty("text2")
     public String getText2() {
         return text2;
     }
@@ -307,6 +358,7 @@ public class Accession extends BaseEntity {
         this.text2 = text2;
     }
 
+    @JsonProperty("text3")
     public String getText3() {
         return text3;
     }
@@ -324,6 +376,7 @@ public class Accession extends BaseEntity {
         this.totalValue = totalValue;
     }
 
+    @JsonProperty("type")
     public String getType() {
         return type;
     }
@@ -360,6 +413,7 @@ public class Accession extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("accessionattachments")
     public List<Accessionattachment> getAccessionattachmentList() {
         return accessionattachmentList;
     }
@@ -369,6 +423,7 @@ public class Accession extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("treatmentevents")
     public List<Treatmentevent> getTreatmenteventList() {
         return treatmenteventList;
     }
@@ -378,6 +433,7 @@ public class Accession extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("collectionobjects")
     public List<Collectionobject> getCollectionobjectList() {
         return collectionobjectList;
     }
@@ -389,6 +445,7 @@ public class Accession extends BaseEntity {
     @XmlIDREF
 //    @XmlElementWrapper(name = "accessionAgents")
 //    @XmlElement(name = "accessionAgent")
+    @JsonProperty("accessionagents")
     public List<Accessionagent> getAccessionagentList() {
         return accessionagentList;
     }
@@ -398,6 +455,7 @@ public class Accession extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("repository-agreement-id")
     public Repositoryagreement getRepositoryAgreementID() {
         return repositoryAgreementID;
     }
@@ -447,6 +505,7 @@ public class Accession extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("appraisals")
     public List<Appraisal> getAppraisalList() {
         return appraisalList;
     }
@@ -456,6 +515,7 @@ public class Accession extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("accessionauthorizations")
     public List<Accessionauthorization> getAccessionauthorizationList() {
         return accessionauthorizationList;
     }
@@ -465,6 +525,7 @@ public class Accession extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("deaccessions")
     public List<Deaccession> getDeaccessionList() {
         return deaccessionList;
     }

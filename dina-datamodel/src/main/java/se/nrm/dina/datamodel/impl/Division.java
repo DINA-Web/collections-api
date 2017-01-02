@@ -22,9 +22,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.Table; 
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.Table;  
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -32,6 +30,15 @@ import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient; 
+import se.nrm.dina.json.converter.annotation.DinaField;
+import se.nrm.dina.json.converter.annotation.DinaId;
+import se.nrm.dina.json.converter.annotation.DinaIgnor;
+import se.nrm.dina.json.converter.annotation.DinaManyToOne;
+import se.nrm.dina.json.converter.annotation.DinaResource;
+//import se.nrm.dina.datamodel.annotation.DinaField;
+//import se.nrm.dina.datamodel.annotation.DinaIgnor;
+//import se.nrm.dina.datamodel.annotation.DinaManyToOne;
+//import se.nrm.dina.datamodel.annotation.DinaResource;
 
 /**
  *
@@ -48,6 +55,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Division.findByIconURI", query = "SELECT d FROM Division d WHERE d.iconURI = :iconURI"),
     @NamedQuery(name = "Division.findByName", query = "SELECT d FROM Division d WHERE d.name = :name"), 
     @NamedQuery(name = "Division.findByUri", query = "SELECT d FROM Division d WHERE d.uri = :uri")})
+@DinaResource(type = "division")
 public class Division extends BaseEntity {
    
     private static final long serialVersionUID = 1L;
@@ -56,44 +64,55 @@ public class Division extends BaseEntity {
     @Basic(optional = false)
     @NotNull
     @Column(name = "UserGroupScopeId")
+    @DinaField(name = "user-group-scope-id")
+    @DinaId
     private Integer userGroupScopeId;
    
     
     @Size(max = 64)
     @Column(name = "Abbrev")
+    @DinaIgnor
     private String abbrev;
     
     @Size(max = 128)
     @Column(name = "AltName")
+    @DinaIgnor
     private String altName;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Description")
+    @DinaField(name = "description")
     private String description;
     
     @Size(max = 64)
     @Column(name = "DisciplineType")
+    @DinaField(name = "discipline-type")
     private String disciplineType;
     
     @Column(name = "divisionId")
+    @DinaField(name = "division-id")
     private Integer divisionId;
     
     @Size(max = 255)
     @Column(name = "IconURI")
+    @DinaIgnor
     private String iconURI;
     
     @Size(max = 255)
     @Column(name = "Name")
+    @DinaField(name = "name")
     private String name;
     
     @Size(max = 24)
     @Column(name = "RegNumber")
+    @DinaField(name = "reg-number")
     private String regNumber;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Remarks")
+    @DinaField(name = "remarks")
     private String remarks;
     
     @Size(max = 255)
@@ -103,9 +122,11 @@ public class Division extends BaseEntity {
         @JoinColumn(name = "DivisionID", referencedColumnName = "UserGroupScopeId")}, inverseJoinColumns = {
         @JoinColumn(name = "AutoNumberingSchemeID", referencedColumnName = "AutoNumberingSchemeID")})
     @ManyToMany(fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Autonumberingscheme> autonumberingschemeList;
     
     @OneToMany(mappedBy = "divisionID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Gift> giftList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "divisionID", fetch = FetchType.LAZY)
@@ -113,48 +134,62 @@ public class Division extends BaseEntity {
     
     @JoinColumn(name = "InstitutionID", referencedColumnName = "UserGroupScopeId")
     @ManyToOne(optional = false,  cascade = CascadeType.PERSIST )
+    @DinaManyToOne(name = "institution", type = "institution")
     private Institution institutionID;
     
     @JoinColumn(name = "AddressID", referencedColumnName = "AddressID")
     @ManyToOne
+    @DinaManyToOne(name = "address", type = "address")
     private Address addressID;
     
     @JoinColumn(name = "ModifiedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor
     private Agent modifiedByAgentID;
     
     @JoinColumn(name = "CreatedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor
     private Agent createdByAgentID;
     
     @OneToMany(mappedBy = "divisionID" , fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Conservdescription> conservdescriptionList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "divisionID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Exchangeout> exchangeoutList;
     
     @OneToMany(mappedBy = "divisionID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Treatmentevent> treatmenteventList;
     
     @OneToMany(mappedBy = "divisionID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Groupperson> grouppersonList;
     
     @OneToMany(mappedBy = "divisionID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Agent> agentList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "divisionID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Repositoryagreement> repositoryagreementList;
     
     @OneToMany(mappedBy = "divisionID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Loan> loanList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "divisionID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Accession> accessionList;
     
     @OneToMany(mappedBy = "divisionID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Collector> collectorList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "divisionID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Exchangein> exchangeinList;
 
     public Division() {

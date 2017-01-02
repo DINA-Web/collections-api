@@ -38,6 +38,19 @@ import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient; 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import se.nrm.dina.json.converter.annotation.DinaField;
+import se.nrm.dina.json.converter.annotation.DinaId;
+import se.nrm.dina.json.converter.annotation.DinaIgnor;
+import se.nrm.dina.json.converter.annotation.DinaManyToOne;
+import se.nrm.dina.json.converter.annotation.DinaOneToMany;
+import se.nrm.dina.json.converter.annotation.DinaResource;
+//import se.nrm.dina.datamodel.annotation.DinaField;
+//import se.nrm.dina.datamodel.annotation.DinaIgnor;
+//import se.nrm.dina.datamodel.annotation.DinaManyToOne;
+//import se.nrm.dina.datamodel.annotation.DinaOneToMany;
+//import se.nrm.dina.datamodel.annotation.DinaResource;
 
 /**
  *
@@ -59,272 +72,345 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Collectionobject.findByGuid", query = "SELECT c FROM Collectionobject c WHERE c.guid = :guid"), 
     @NamedQuery(name = "Collectionobject.findByProjectNumber", query = "SELECT c FROM Collectionobject c WHERE c.projectNumber = :projectNumber"), 
     @NamedQuery(name = "Collectionobject.findBySGRStatus", query = "SELECT c FROM Collectionobject c WHERE c.sGRStatus = :sGRStatus")}) 
-//@JsonInclude(Include.NON_NULL)
+@DinaResource(type = "collectionobject")
 public class Collectionobject extends BaseEntity {
      
-    private static final long serialVersionUID = 1L;
+//    private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
 //    @NotNull
-    @Column(name = "CollectionObjectID")
+    @Column(name = "CollectionObjectID") 
+    @DinaField(name = "collection-object-id")
+    @DinaId
     private Integer collectionObjectID;
      
     @Basic(optional = false)
     @NotNull
     @Min(value = 1, message = "collectionMemberID can not be null")
-    @Column(name = "CollectionMemberID")
+    @Column(name = "CollectionMemberID") 
+    @DinaField(name = "collection-member-id")
     private int collectionMemberID;
-     
-//    @JsonInclude(Include.NON_NULL)
-    
+       
     @Size(max = 32)
-    @Column(name = "AltCatalogNumber")
+    @Column(name = "AltCatalogNumber") 
+    @DinaIgnor
     private String altCatalogNumber;
     
     @Size(max = 32)
     @Column(name = "Availability")
+    @DinaIgnor
     private String availability;
-    
-  
+     
     @Size(max = 32)
-    @Column(name = "CatalogNumber")
+    @Column(name = "CatalogNumber") 
+    @DinaField(name = "catalog-number")
     private String catalogNumber;
     
     @Column(name = "CatalogedDate")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.DATE) 
+    @DinaField(name = "cataloged-date")
     private Date catalogedDate;
     
-    @Column(name = "CatalogedDatePrecision")
+    @Column(name = "CatalogedDatePrecision") 
+    @DinaIgnor
     private Short catalogedDatePrecision;
     
     @Size(max = 32)
-    @Column(name = "CatalogedDateVerbatim")
+    @Column(name = "CatalogedDateVerbatim") 
+    @DinaIgnor
     private String catalogedDateVerbatim;
     
-    @Column(name = "CountAmt")
+    @Column(name = "CountAmt") 
+    @DinaIgnor
     private Integer countAmt;
     
-    @Column(name = "Deaccessioned")
+    @Column(name = "Deaccessioned") 
+    @DinaField(name = "deaccessioned")
+    @DinaIgnor
     private Boolean deaccessioned;
     
     @Size(max = 255)
     @Column(name = "Description")
+    @DinaField(name = "description")
     private String description;
     
     @Size(max = 50)
-    @Column(name = "FieldNumber")
+    @Column(name = "FieldNumber") 
+    @DinaField(name = "field-number")
     private String fieldNumber;
     
     @Size(max = 128)
     @Column(name = "GUID")
+    @DinaField(name = "guid")
     private String guid;
     
     @Column(name = "InventoryDate")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.DATE) 
+    @DinaField(name = "inventory-date")
     private Date inventoryDate;
     
     @Size(max = 50)
     @Column(name = "Modifier")
+    @DinaIgnor
     private String modifier;
     
     @Size(max = 64)
     @Column(name = "Name")
+    @DinaField(name = "name")
     private String name;
     
     @Size(max = 32)
     @Column(name = "Notifications")
+    @DinaIgnor
     private String notifications;
     
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "Number1")
+    @DinaIgnor
     private Float number1;
     
     @Column(name = "Number2")
+    @DinaIgnor
     private Float number2;
     
     @Size(max = 64)
-    @Column(name = "ObjectCondition")
+    @Column(name = "ObjectCondition") 
+    @DinaIgnor
     private String objectCondition;
     
     @Size(max = 64)
-    @Column(name = "ProjectNumber")
+    @Column(name = "ProjectNumber") 
+    @DinaIgnor
     private String projectNumber;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Remarks")
+    @DinaField(name = "remarks")
     private String remarks;
     
     @Size(max = 32)
     @Column(name = "Restrictions")
+    @DinaIgnor
     private String restrictions;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Text1")
+    @DinaIgnor
     private String text1;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Text2")
+    @DinaIgnor
     private String text2;
     
-    @Column(name = "TotalValue")
+    @Column(name = "TotalValue") 
+    @DinaIgnor
     private BigDecimal totalValue;
     
     @Lob
     @Size(max = 65535)
-    @Column(name = "OCR")
+    @Column(name = "OCR") 
+    @DinaIgnor
     private String ocr;
     
     @Column(name = "Visibility")
+    @DinaIgnor
     private Short visibility;
     
-    @Column(name = "YesNo1")
+    @Column(name = "YesNo1") 
+    @DinaIgnor
     private Boolean yesNo1;
     
-    @Column(name = "YesNo2")
+    @Column(name = "YesNo2") 
+    @DinaIgnor
     private Boolean yesNo2;
     
-    @Column(name = "YesNo3")
+    @Column(name = "YesNo3") 
+    @DinaIgnor
     private Boolean yesNo3;
     
-    @Column(name = "YesNo4")
+    @Column(name = "YesNo4") 
+    @DinaIgnor
     private Boolean yesNo4;
     
-    @Column(name = "YesNo5")
+    @Column(name = "YesNo5") 
+    @DinaIgnor
     private Boolean yesNo5;
     
-    @Column(name = "YesNo6")
+    @Column(name = "YesNo6") 
+    @DinaIgnor
     private Boolean yesNo6;
     
-    @Column(name = "SGRStatus")
+    @Column(name = "SGRStatus") 
+    @DinaIgnor
     private Short sGRStatus;
     
     @Size(max = 128)
-    @Column(name = "ReservedText")
+    @Column(name = "ReservedText") 
+    @DinaField(name = "reserved-text")
     private String reservedText;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Text3")
+    @DinaIgnor
     private String text3;
     
     @Column(name = "Integer1")
+    @DinaIgnor
     private Integer integer1;
     
     @Column(name = "Integer2")
+    @DinaIgnor
     private Integer integer2;
     
-    @Column(name = "ReservedInteger3")
+    @Column(name = "ReservedInteger3") 
+    @DinaIgnor
     private Integer reservedInteger3;
     
-    @Column(name = "ReservedInteger4")
+    @Column(name = "ReservedInteger4") 
+    @DinaIgnor
     private Integer reservedInteger4;
     
     @Size(max = 128)
-    @Column(name = "ReservedText2")
+    @Column(name = "ReservedText2") 
+    @DinaIgnor
     private String reservedText2;
     
     @Size(max = 128)
-    @Column(name = "ReservedText3")
+    @Column(name = "ReservedText3") 
+    @DinaIgnor
     private String reservedText3;
     
     @JoinTable(name = "project_colobj", joinColumns = {
         @JoinColumn(name = "CollectionObjectID", referencedColumnName = "CollectionObjectID")}, inverseJoinColumns = {
         @JoinColumn(name = "ProjectID", referencedColumnName = "ProjectID")})
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY) 
+    @DinaIgnor
     private transient List<Project> projectList;
     
-    @OneToMany( cascade={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH}, orphanRemoval=true, mappedBy = "collectionObjectID", fetch = FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany( cascade={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.DETACH}, orphanRemoval=true, mappedBy = "collectionObjectID") 
+    @DinaOneToMany(name = "determinations", type = "determination")
     private List<Determination> determinationList;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "collectionObjectID", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "collectionObjectID", fetch = FetchType.LAZY) 
+    @DinaIgnor 
     private List<Exsiccataitem> exsiccataitemList;
     
-    @OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval=true, mappedBy = "collectionObjectID", fetch = FetchType.EAGER )
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST}, orphanRemoval=true, mappedBy = "collectionObjectID" ) 
+    @DinaOneToMany(name = "preparations", type = "preparation")
     private List<Preparation> preparationList;
     
-    @OneToMany(mappedBy = "collectionObjectID", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "collectionObjectID", fetch = FetchType.LAZY)  
+    @DinaIgnor
     private List<Conservdescription> conservdescriptionList;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "collectionObjectID", fetch = FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "collectionObjectID" ) 
+    @DinaOneToMany(name = "collectionobjectattachments", type = "collectionObjectAttachment")
     private List<Collectionobjectattachment> collectionobjectattachmentList;
     
-    @OneToMany(mappedBy = "collectionObjectID", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "collectionObjectID", fetch = FetchType.LAZY)  
+    @DinaIgnor
     private List<Treatmentevent> treatmenteventList;
     
     @JoinColumn(name = "VisibilitySetByID", referencedColumnName = "SpecifyUserID")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)  
+    @DinaIgnor
     private Specifyuser visibilitySetByID;
     
     @JoinColumn(name = "AccessionID", referencedColumnName = "AccessionID")
-    @ManyToOne 
+    @ManyToOne  
+    @DinaManyToOne(name = "accession", type="accession")
     private Accession accessionID;
     
     @JoinColumn(name = "CatalogerID", referencedColumnName = "AgentID")
-    @ManyToOne
+    @ManyToOne 
+    @DinaManyToOne(name = "cataloger", type="agent")
     private Agent catalogerID;
     
     @JoinColumn(name = "ModifiedByAgentID", referencedColumnName = "AgentID")
-    @ManyToOne
+    @ManyToOne 
+    @DinaManyToOne(name = "modified-by-agent-id", type="agent")
+    @DinaIgnor
     private Agent modifiedByAgentID;
     
     @JoinColumn(name = "FieldNotebookPageID", referencedColumnName = "FieldNotebookPageID")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY) 
+    @DinaManyToOne(name = "field-notebook-page", type="fieldNotebookPage")
+    @DinaIgnor
     private Fieldnotebookpage fieldNotebookPageID;
     
     @JoinColumn(name = "CreatedByAgentID", referencedColumnName = "AgentID")
-    @ManyToOne
+    @ManyToOne 
+    @DinaManyToOne(name = "created-by-agent", type="agent")
     private Agent createdByAgentID;
     
     @JoinColumn(name = "CollectionID", referencedColumnName = "UserGroupScopeId")
     @ManyToOne(optional = false)
-    @NotNull(message = "collectionID can not be null")
+    @NotNull(message = "collectionID can not be null") 
+    @DinaManyToOne(name = "collection", type = "collection")
     private Collection collectionID;
     
     @JoinColumn(name = "PaleoContextID", referencedColumnName = "PaleoContextID")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)  
+    @DinaIgnor
     private Paleocontext paleoContextID;
     
     @JoinColumn(name = "CollectingEventID", referencedColumnName = "CollectingEventID")
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.PERSIST) 
+    @DinaManyToOne(name = "collecting-event", type = "collectingEvent")
     private Collectingevent collectingEventID;
     
     @JoinColumn(name = "CollectionObjectAttributeID", referencedColumnName = "CollectionObjectAttributeID")
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)  
+    @DinaManyToOne(name = "collection-object-attribute", type="collectionObjectAttribute")
     private Collectionobjectattribute collectionObjectAttributeID;
     
     @JoinColumn(name = "ContainerOwnerID", referencedColumnName = "ContainerID")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)  
+    @DinaIgnor
     private Container containerOwnerID;
     
     @JoinColumn(name = "ContainerID", referencedColumnName = "ContainerID")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY) 
+    @DinaIgnor
     private Container containerID;
     
     @JoinColumn(name = "AppraisalID", referencedColumnName = "AppraisalID")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)  
+    @DinaIgnor
     private Appraisal appraisalID;
     
-    @OneToMany(mappedBy = "collectionObjectID", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "collectionObjectID", fetch = FetchType.LAZY)  
+    @DinaIgnor
     private List<Dnasequence> dnasequenceList;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "leftSideCollectionID", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "leftSideCollectionID", fetch = FetchType.LAZY)  
+    @DinaIgnor
     private List<Collectionrelationship> collectionrelationshipList;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "rightSideCollectionID", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "rightSideCollectionID", fetch = FetchType.LAZY)  
+    @DinaIgnor
     private List<Collectionrelationship> collectionrelationshipList1;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "collectionObjectID", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "collectionObjectID", fetch = FetchType.LAZY)  
+    @DinaIgnor
     private List<Collectionobjectcitation> collectionobjectcitationList;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "collectionObjectID", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "collectionObjectID", fetch = FetchType.LAZY)  
+    @DinaIgnor
     private List<Otheridentifier> otheridentifierList;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "collectionObjectID", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "collectionObjectID", fetch = FetchType.LAZY)  
+    @DinaIgnor
     private List<Collectionobjectattr> collectionobjectattrList;
 
     public Collectionobject() {
@@ -354,8 +440,7 @@ public class Collectionobject extends BaseEntity {
 //    }
     
     @XmlTransient
-    @Override
-    @JsonProperty("entity-id")
+    @Override 
     public int getEntityId() {
         return collectionObjectID == null ? 0 : collectionObjectID;
     }
@@ -387,6 +472,7 @@ public class Collectionobject extends BaseEntity {
         this.altCatalogNumber = altCatalogNumber;
     }
 
+    @JsonProperty("availability")
     public String getAvailability() {
         return availability;
     }
@@ -440,6 +526,7 @@ public class Collectionobject extends BaseEntity {
         this.countAmt = countAmt;
     }
 
+    @JsonProperty("deaccessioned")
     public Boolean getDeaccessioned() {
         return deaccessioned;
     }
@@ -448,6 +535,7 @@ public class Collectionobject extends BaseEntity {
         this.deaccessioned = deaccessioned;
     }
 
+    @JsonProperty("description")
     public String getDescription() {
         return description;
     }
@@ -465,6 +553,7 @@ public class Collectionobject extends BaseEntity {
         this.fieldNumber = fieldNumber;
     }
 
+    @JsonProperty("guid")
     public String getGuid() {
         return guid;
     }
@@ -482,6 +571,7 @@ public class Collectionobject extends BaseEntity {
         this.inventoryDate = inventoryDate;
     }
 
+    @JsonProperty("modifier")
     public String getModifier() {
         return modifier;
     }
@@ -490,6 +580,7 @@ public class Collectionobject extends BaseEntity {
         this.modifier = modifier;
     }
 
+    @JsonProperty("name")
     public String getName() {
         return name;
     }
@@ -498,6 +589,7 @@ public class Collectionobject extends BaseEntity {
         this.name = name;
     }
 
+    @JsonProperty("notifications")
     public String getNotifications() {
         return notifications;
     }
@@ -506,6 +598,7 @@ public class Collectionobject extends BaseEntity {
         this.notifications = notifications;
     }
 
+    @JsonProperty("number1")
     public Float getNumber1() {
         return number1;
     }
@@ -514,6 +607,7 @@ public class Collectionobject extends BaseEntity {
         this.number1 = number1;
     }
 
+    @JsonProperty("number2")
     public Float getNumber2() {
         return number2;
     }
@@ -540,6 +634,7 @@ public class Collectionobject extends BaseEntity {
         this.projectNumber = projectNumber;
     }
 
+    @JsonProperty("remarks")
     public String getRemarks() {
         return remarks;
     }
@@ -548,6 +643,7 @@ public class Collectionobject extends BaseEntity {
         this.remarks = remarks;
     }
 
+    @JsonProperty("restrictions")
     public String getRestrictions() {
         return restrictions;
     }
@@ -556,6 +652,7 @@ public class Collectionobject extends BaseEntity {
         this.restrictions = restrictions;
     }
 
+    @JsonProperty("text1")
     public String getText1() {
         return text1;
     }
@@ -564,6 +661,7 @@ public class Collectionobject extends BaseEntity {
         this.text1 = text1;
     }
 
+    @JsonProperty("text2")
     public String getText2() {
         return text2;
     }
@@ -581,6 +679,7 @@ public class Collectionobject extends BaseEntity {
         this.totalValue = totalValue;
     }
 
+    @JsonProperty("ocr")
     public String getOcr() {
         return ocr;
     }
@@ -589,6 +688,7 @@ public class Collectionobject extends BaseEntity {
         this.ocr = ocr;
     }
 
+    @JsonProperty("visibility")
     public Short getVisibility() {
         return visibility;
     }
@@ -651,7 +751,7 @@ public class Collectionobject extends BaseEntity {
         this.yesNo6 = yesNo6;
     }
 
-    @JsonProperty("s-gr-status")
+    @JsonProperty("sgr-status")
     public Short getSGRStatus() {
         return sGRStatus;
     }
@@ -669,6 +769,7 @@ public class Collectionobject extends BaseEntity {
         this.reservedText = reservedText;
     }
 
+    @JsonProperty("text3")
     public String getText3() {
         return text3;
     }
@@ -677,6 +778,7 @@ public class Collectionobject extends BaseEntity {
         this.text3 = text3;
     }
 
+    @JsonProperty("integer1")
     public Integer getInteger1() {
         return integer1;
     }
@@ -685,6 +787,7 @@ public class Collectionobject extends BaseEntity {
         this.integer1 = integer1;
     }
 
+    @JsonProperty("integer2")
     public Integer getInteger2() {
         return integer2;
     }
@@ -730,6 +833,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("projects")
     public List<Project> getProjectList() {
         return projectList;
     }
@@ -741,6 +845,7 @@ public class Collectionobject extends BaseEntity {
     @XmlIDREF
 //    @XmlElementWrapper(name="determinations")
 //    @XmlElement(name="determination") 
+    @JsonProperty("determinations")
     public List<Determination> getDeterminationList() {
         return determinationList;
     }
@@ -750,6 +855,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("exsicataitems")
     public List<Exsiccataitem> getExsiccataitemList() {
         return exsiccataitemList;
     }
@@ -761,6 +867,7 @@ public class Collectionobject extends BaseEntity {
     @XmlIDREF
 //    @XmlElementWrapper(name="preparations")
 //    @XmlElement(name="preparation") 
+    @JsonProperty("preparations")
     public List<Preparation> getPreparationList() {
         return preparationList;
     }
@@ -770,6 +877,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("conservdescriptions")
     public List<Conservdescription> getConservdescriptionList() {
         return conservdescriptionList;
     }
@@ -780,6 +888,7 @@ public class Collectionobject extends BaseEntity {
 
 //    @XmlTransient
     @XmlIDREF
+    @JsonProperty("collectionobjectattachments")
     public List<Collectionobjectattachment> getCollectionobjectattachmentList() {
         return collectionobjectattachmentList;
     }
@@ -789,6 +898,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("treatmentevents")
     public List<Treatmentevent> getTreatmenteventList() {
         return treatmenteventList;
     }
@@ -827,7 +937,7 @@ public class Collectionobject extends BaseEntity {
         this.catalogerID = catalogerID;
     }
 
-    @XmlIDREF
+    @XmlTransient
     @JsonProperty("modified-by-agent-id")
     public Agent getModifiedByAgentID() {
         return modifiedByAgentID;
@@ -927,7 +1037,8 @@ public class Collectionobject extends BaseEntity {
         this.appraisalID = appraisalID;
     }
 
-    @XmlTransient
+    @XmlTransient 
+    @JsonProperty("dnasequences")
     public List<Dnasequence> getDnasequenceList() {
         return dnasequenceList;
     }
@@ -937,6 +1048,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("colletionrelationships")
     public List<Collectionrelationship> getCollectionrelationshipList() {
         return collectionrelationshipList;
     }
@@ -946,6 +1058,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("collectionrelationships")
     public List<Collectionrelationship> getCollectionrelationshipList1() {
         return collectionrelationshipList1;
     }
@@ -955,6 +1068,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("collectionobjectcitations")
     public List<Collectionobjectcitation> getCollectionobjectcitationList() {
         return collectionobjectcitationList;
     }
@@ -964,6 +1078,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("otheridentifiers")
     public List<Otheridentifier> getOtheridentifierList() {
         return otheridentifierList;
     }
@@ -973,6 +1088,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlTransient
+    @JsonProperty("collectionobjectattrs")
     public List<Collectionobjectattr> getCollectionobjectattrList() {
         return collectionobjectattrList;
     }

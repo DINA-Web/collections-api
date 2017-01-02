@@ -30,6 +30,15 @@ import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient; 
+import se.nrm.dina.json.converter.annotation.DinaField;
+import se.nrm.dina.json.converter.annotation.DinaId;
+import se.nrm.dina.json.converter.annotation.DinaIgnor;
+import se.nrm.dina.json.converter.annotation.DinaManyToOne;
+//import se.nrm.dina.datamodel.annotation.DinaField;
+import se.nrm.dina.json.converter.annotation.DinaResource;
+//import se.nrm.dina.datamodel.annotation.DinaIgnor;
+//import se.nrm.dina.datamodel.annotation.DinaManyToOne;
+//import se.nrm.dina.datamodel.annotation.DinaResource;
 
 /**
  *
@@ -46,105 +55,131 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Lithostrat.findByHighestChildNodeNumber", query = "SELECT l FROM Lithostrat l WHERE l.highestChildNodeNumber = :highestChildNodeNumber"),
     @NamedQuery(name = "Lithostrat.findByIsAccepted", query = "SELECT l FROM Lithostrat l WHERE l.isAccepted = :isAccepted"),
     @NamedQuery(name = "Lithostrat.findByName", query = "SELECT l FROM Lithostrat l WHERE l.name = :name") })
+@DinaResource(type = "lithostrat")
 public class Lithostrat extends BaseEntity {
    
-    private static final long serialVersionUID = 1L;
+//    private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "LithoStratID")
+    @DinaField(name = "litho-strat-id")
+    @DinaId
     private Integer lithoStratID;
     
     
     @Size(max = 255)
     @Column(name = "FullName")
+    @DinaField(name = "full-name")
     private String fullName;
     
     @Size(max = 128)
     @Column(name = "GUID")
+    @DinaField(name = "guid")
     private String guid;
     
     @Column(name = "HighestChildNodeNumber")
+    @DinaIgnor
     private Integer highestChildNodeNumber;
     
     @Column(name = "IsAccepted")
+    @DinaField(name = "is-accepted")
     private Boolean isAccepted;
     
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 64)
     @Column(name = "Name")
+    @DinaField(name = "name")
     private String name;
     
     @Column(name = "NodeNumber")
+    @DinaIgnor
     private Integer nodeNumber;
     
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "Number1")
+    @DinaIgnor
     private Double number1;
     
     @Column(name = "Number2")
+    @DinaIgnor
     private Double number2;
     
     @Basic(optional = false)
     @NotNull
     @Column(name = "RankID")
+    @DinaField(name = "rank-id")
     private int rankID;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Remarks")
+    @DinaField(name = "remarks")
     private String remarks;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Text1")
+    @DinaIgnor
     private String text1;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Text2")
+    @DinaIgnor
     private String text2;
     
     @Column(name = "YesNo1")
+    @DinaIgnor
     private Boolean yesNo1;
     
     @Column(name = "YesNo2")
+    @DinaIgnor
     private Boolean yesNo2;
     
     
     @OneToMany(mappedBy = "lithoStratID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Paleocontext> paleocontextList;
     
     @JoinColumn(name = "ModifiedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor
     private Agent modifiedByAgentID;
     
     @JoinColumn(name = "LithoStratTreeDefID", referencedColumnName = "LithoStratTreeDefID")
     @ManyToOne(optional = false)
+    @DinaIgnor
     private Lithostrattreedef lithoStratTreeDefID;
     
     @JoinColumn(name = "CreatedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor
     private Agent createdByAgentID;
     
     @OneToMany(mappedBy = "acceptedID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Lithostrat> lithostratList;
     
     @JoinColumn(name = "AcceptedID", referencedColumnName = "LithoStratID")
     @ManyToOne
+    @DinaIgnor
     private Lithostrat acceptedID;
     
     @OneToMany(mappedBy = "parentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Lithostrat> lithostratList1;
     
     @JoinColumn(name = "ParentID", referencedColumnName = "LithoStratID")
     @ManyToOne
+    @DinaManyToOne(name = "parent", type = "lithostrat")
     private Lithostrat parentID;
     
     @JoinColumn(name = "LithoStratTreeDefItemID", referencedColumnName = "LithoStratTreeDefItemID")
     @ManyToOne(optional = false)
+    @DinaIgnor
     private Lithostrattreedefitem lithoStratTreeDefItemID;
 
     public Lithostrat() {

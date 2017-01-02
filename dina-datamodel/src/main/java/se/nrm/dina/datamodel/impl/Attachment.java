@@ -34,6 +34,13 @@ import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient; 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import se.nrm.dina.json.converter.annotation.DinaField;
+import se.nrm.dina.json.converter.annotation.DinaId;
+import se.nrm.dina.json.converter.annotation.DinaIgnor;
+import se.nrm.dina.json.converter.annotation.DinaResource;
+//import se.nrm.dina.datamodel.annotation.DinaField;
+//import se.nrm.dina.datamodel.annotation.DinaIgnor;
+//import se.nrm.dina.datamodel.annotation.DinaResource;
 
 /**
  *
@@ -54,162 +61,207 @@ import org.codehaus.jackson.annotate.JsonIgnore;
     @NamedQuery(name = "Attachment.findByGuid", query = "SELECT a FROM Attachment a WHERE a.guid = :guid"),
     @NamedQuery(name = "Attachment.findByVisibility", query = "SELECT a FROM Attachment a WHERE a.visibility = :visibility"),
     @NamedQuery(name = "Attachment.findByAttachmentImageAttributeID", query = "SELECT a FROM Attachment a WHERE a.attachmentImageAttributeID = :attachmentImageAttributeID")})
+@DinaResource(type = "attachment")
 public class Attachment extends BaseEntity {
    
-    private static final long serialVersionUID = 1L;
+//    private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "AttachmentID")
+    @DinaField(name = "attachment-id")
+    @DinaId
     private Integer attachmentID;
     
     
     @Size(max = 128)
     @Column(name = "AttachmentLocation")
+    @DinaIgnor
     private String attachmentLocation;
     
     @Size(max = 64)
     @Column(name = "CopyrightDate")
+    @DinaIgnor
     private String copyrightDate;
     
     @Size(max = 64)
     @Column(name = "CopyrightHolder")
+    @DinaIgnor
     private String copyrightHolder;
     
     @Size(max = 64)
     @Column(name = "Credit")
+    @DinaIgnor
     private String credit;
     
     @Size(max = 64)
     @Column(name = "DateImaged")
+    @DinaIgnor
     private String dateImaged;
     
     @Column(name = "FileCreatedDate")
     @Temporal(TemporalType.DATE)
+    @DinaIgnor
     private Date fileCreatedDate;
     
     @Size(max = 64)
     @Column(name = "License")
+    @DinaField(name = "license")
     private String license;
     
     @Size(max = 64)
     @Column(name = "MimeType")
+    @DinaIgnor
     private String mimeType;
     
     @Size(max = 20000)
     @Column(name = "origFilename")
+    @DinaField(name = "orig-fiename")
     private String origFilename;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Remarks")
+    @DinaField(name = "remarks")
     private String remarks;
     
     @Size(max = 255)
     @Column(name = "title")
+    @DinaField(name = "title")
     private String title;
     
     @Basic(optional = false)
     @Column(name = "TableID")
+    @DinaField(name = "table")
     private Short tableID;
     
     
     @Column(name = "ScopeID")
+    @DinaIgnor
     private Integer scopeID;
     
     @Column(name = "ScopeType")
+    @DinaIgnor
     private Short scopeType;
     
     @Size(max = 128)
     @Column(name = "GUID")
+    @DinaField(name = "guid")
     private String guid;
     
     @Column(name = "Visibility")
+    @DinaIgnor
     private Short visibility;
     
     @Column(name = "AttachmentImageAttributeID")
+    @DinaIgnor
     private Integer attachmentImageAttributeID;
     
     @Basic(optional = false)
     @NotNull
     @Column(name = "IsPublic")
+    @DinaField(name = "is-public")
     private boolean isPublic;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "attachmentID")
+    @DinaIgnor
     private List<Treatmenteventattachment> treatmenteventattachmentList;
     
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "attachmentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Collectingeventattachment> collectingeventattachmentList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "attachmentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Preparationattachment> preparationattachmentList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "attachmentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Repositoryagreementattachment> repositoryagreementattachmentList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "attachmentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Agentattachment> agentattachmentList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "attachmentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Permitattachment> permitattachmentList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "attachmentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Accessionattachment> accessionattachmentList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "attachmentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Dnasequenceattachment> dnasequenceattachmentList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "attachmentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Collectionobjectattachment> collectionobjectattachmentList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "attachmentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Storageattachment> storageattachmentList;
     
     @OneToMany(mappedBy = "attachmentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Attachmentmetadata> attachmentmetadataList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "attachmentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Taxonattachment> taxonattachmentList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "attachmentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Conserveventattachment> conserveventattachmentList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "attachmentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Localityattachment> localityattachmentList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "attachmentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Conservdescriptionattachment> conservdescriptionattachmentList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "attachmentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Fieldnotebookpageattachment> fieldnotebookpageattachmentList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "attachmentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Fieldnotebookattachment> fieldnotebookattachmentList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "attachmentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Attachmenttag> attachmenttagList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "attachmentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Dnasequencerunattachment> dnasequencerunattachmentList;
     
-    @JoinColumn(name = "ModifiedByAgentID", referencedColumnName = "AgentID")
+    @JoinColumn(name = "ModifiedByAgentID", referencedColumnName = "AgentID") 
     @ManyToOne
+    @DinaIgnor
     private Agent modifiedByAgentID;
     
     @JoinColumn(name = "CreatedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor
     private Agent createdByAgentID;
     
     @JoinColumn(name = "VisibilitySetByID", referencedColumnName = "SpecifyUserID")
     @ManyToOne
+    @DinaIgnor
     private Specifyuser visibilitySetByID;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "attachmentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Fieldnotebookpagesetattachment> fieldnotebookpagesetattachmentList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "attachmentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Loanattachment> loanattachmentList;
 
     public Attachment() {

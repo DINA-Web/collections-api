@@ -19,9 +19,7 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.Table; 
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.Table;  
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -29,59 +27,78 @@ import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient; 
+import se.nrm.dina.json.converter.annotation.DinaField;
+import se.nrm.dina.json.converter.annotation.DinaId;
+import se.nrm.dina.json.converter.annotation.DinaIgnor;
+import se.nrm.dina.json.converter.annotation.DinaManyToOne;
+import se.nrm.dina.json.converter.annotation.DinaResource;
+//import se.nrm.dina.datamodel.annotation.DinaField;
+//import se.nrm.dina.datamodel.annotation.DinaIgnor;
+//import se.nrm.dina.datamodel.annotation.DinaManyToOne;
+//import se.nrm.dina.datamodel.annotation.DinaResource;
 
 /**
  *
  * @author idali
  */
 @Entity
-@Table(name = "preparationattachment")
+@Table(name = "preparationAttachment")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Preparationattachment.findAll", query = "SELECT p FROM Preparationattachment p"),
     @NamedQuery(name = "Preparationattachment.findByPreparationAttachmentID", query = "SELECT p FROM Preparationattachment p WHERE p.preparationAttachmentID = :preparationAttachmentID"), 
     @NamedQuery(name = "Preparationattachment.findByCollectionMemberID", query = "SELECT p FROM Preparationattachment p WHERE p.collectionMemberID = :collectionMemberID"),
     @NamedQuery(name = "Preparationattachment.findByOrdinal", query = "SELECT p FROM Preparationattachment p WHERE p.ordinal = :ordinal")})
+@DinaResource(type = "preparationAttachment")
 public class Preparationattachment extends BaseEntity {
    
-    private static final long serialVersionUID = 1L;
+//    private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "PreparationAttachmentID")
+    @DinaField(name = "preparation-attachment-id")
+    @DinaId
     private Integer preparationAttachmentID;
     
     
     @Basic(optional = false)
     @NotNull
     @Column(name = "CollectionMemberID")
+    @DinaField(name = "collection-member-id")
     private int collectionMemberID;
     
     @Basic(optional = false)
     @NotNull
     @Column(name = "Ordinal")
+    @DinaIgnor
     private int ordinal;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Remarks")
+    @DinaField(name = "remarks")
     private String remarks;
     
     @JoinColumn(name = "PreparationID", referencedColumnName = "PreparationID")
     @ManyToOne(optional = false)
+    @DinaManyToOne(name = "preparation", type = "preparation")
     private Preparation preparationID;
     
     @JoinColumn(name = "ModifiedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor
     private Agent modifiedByAgentID;
     
     @JoinColumn(name = "CreatedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor
     private Agent createdByAgentID;
     
     @JoinColumn(name = "AttachmentID", referencedColumnName = "AttachmentID")
     @ManyToOne(optional = false)
+    @DinaManyToOne(name = "attachment", type = "attachment")
     private Attachment attachmentID;
 
     public Preparationattachment() {

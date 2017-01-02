@@ -35,18 +35,17 @@ public class NamedQueries {
 
 
     /**
-     * Creates a query string
-     * @param entityName
+     * Creates a query string 
      * @param clazz 
      * @param sort
      * @param orderBy 
      * @return String
      */
-    public String createQueryFindAll(String entityName, Class clazz, String sort, List<String> orderBy ) {
+    public String createQueryFindAll(Class clazz, String sort, List<String> orderBy ) {
   
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT e From ");
-        sb.append(entityName);
+        sb.append(clazz.getSimpleName());
         sb.append(" e ");
           
         try {
@@ -75,8 +74,7 @@ public class NamedQueries {
      * @param criteria
      * @return String
      */
-    public String createQueryFindAllWithSearchCriteria(String entityName,
-                                                        Class clazz,  
+    public String createQueryFindAllWithSearchCriteria(Class clazz,  
                                                         String sort,
                                                         List<String> orderBy,
                                                         boolean isExact,
@@ -84,13 +82,12 @@ public class NamedQueries {
   
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT e From ");
-        sb.append(entityName);
+        sb.append(clazz.getSimpleName());
         sb.append(" e ");
 
         try {
-            if (criteria != null && !criteria.isEmpty()) { 
-                String buildCriteria = " WHERE "; 
-                sb.append(buildCriteria);
+            if (criteria != null && !criteria.isEmpty()) {  
+                sb.append(" WHERE ");
                 sb.append(buildSearchCriteria(clazz, criteria, isExact));
             }
             
@@ -123,7 +120,8 @@ public class NamedQueries {
                         sb.append(entry.getKey());
                         if (JpaReflectionHelper.getInstance().isEntity(clazz, entry.getKey())) {
                             sb.append(".");
-                            sb.append(JpaReflectionHelper.getInstance().getIDFieldName(JpaReflectionHelper.getInstance().getEntity(clazz, entry.getKey())));
+//                            sb.append(JpaReflectionHelper.getInstance().getIDFieldName(JpaReflectionHelper.getInstance().getEntity(clazz, entry.getKey())));
+                            sb.append(JpaReflectionHelper.getInstance().getSubEntityIdFieldName(clazz, entry.getKey())); 
                             sb.append(" = :");
                             sb.append(entry.getKey());
                         } else if (JpaReflectionHelper.getInstance().isBigDecimal(clazz, entry.getKey()) || JpaReflectionHelper.getInstance().isDate(clazz, entry.getKey())) {

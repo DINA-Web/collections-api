@@ -4,10 +4,10 @@
  * and open the template in the editor.
  */
 package se.nrm.dina.data.exceptions;
- 
+  
+import java.util.ArrayList;
 import java.util.List;
-import javax.ejb.ApplicationException;
-import se.nrm.dina.data.vo.ErrorBean;
+import javax.ejb.ApplicationException; 
 
 /**
  *
@@ -15,44 +15,40 @@ import se.nrm.dina.data.vo.ErrorBean;
  */
 @ApplicationException
 public class DinaException extends RuntimeException  {
+    
+    private final int errorCode;
+    private final String errorType; 
+    private List<String> errorMessages; 
+    
+    public DinaException(int errorCode, String errorType, String errorMessage) {
+        super(errorMessage);
+        this.errorCode = errorCode;
+        this.errorType = errorType; 
+    }
         
-    private int errorCode;
-    private ErrorBean errorBean;
-    private List<ErrorBean> errorBeans;
-    
-    public DinaException() {
-    }
-
-    public DinaException(String s) {
-        super(s);
-    }
- 
-    public DinaException(String s, int errorCode) {
-        super(s);
+    public DinaException(int errorCode, String errorType, List<String> errorMessages) {
         this.errorCode = errorCode;
+        this.errorType = errorType;
+        this.errorMessages = errorMessages;
     }
     
-    public DinaException(ErrorBean errorBean, int errorCode) { 
-        this.errorBean = errorBean;
-        this.errorCode = errorCode;
-    }
-    
-    public DinaException(List<ErrorBean> errorBeans, int errorCode) { 
-        this.errorBeans = errorBeans;
-        this.errorCode = errorCode;
-    }
-
     public int getErrorCode() {
         return errorCode;
-    } 
+    }
 
-    public ErrorBean getErrorBean() {
-        return errorBean;
-    } 
-
-    public List<ErrorBean> getErrorBeans() {
-        return errorBeans;
+    public String getErrorType() {
+        return errorType;
+    }
+  
+    public List<String> getErrorMessages() {
+        return errorMessages;
     }
     
-    
+    public List<String> getErrorMessageList() {
+        if(errorMessages == null || errorMessages.isEmpty()) { 
+            errorMessages = new ArrayList<>();
+            errorMessages.add(getMessage());  
+        }
+        return errorMessages;
+    }
 }

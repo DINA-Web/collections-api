@@ -27,6 +27,15 @@ import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient; 
+import se.nrm.dina.json.converter.annotation.DinaField;
+import se.nrm.dina.json.converter.annotation.DinaId;
+import se.nrm.dina.json.converter.annotation.DinaIgnor;
+import se.nrm.dina.json.converter.annotation.DinaManyToOne;
+import se.nrm.dina.json.converter.annotation.DinaResource;
+//import se.nrm.dina.datamodel.annotation.DinaField;
+//import se.nrm.dina.datamodel.annotation.DinaIgnor;
+//import se.nrm.dina.datamodel.annotation.DinaManyToOne;
+//import se.nrm.dina.datamodel.annotation.DinaResource;
 
 /**
  *
@@ -39,6 +48,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Accessionagent.findAll", query = "SELECT a FROM Accessionagent a"),
     @NamedQuery(name = "Accessionagent.findByAccessionAgentID", query = "SELECT a FROM Accessionagent a WHERE a.accessionAgentID = :accessionAgentID"),  
     @NamedQuery(name = "Accessionagent.findByRole", query = "SELECT a FROM Accessionagent a WHERE a.role = :role")})
+@DinaResource(type = "accessionAgent")
 public class Accessionagent extends BaseEntity {
  
     private static final long serialVersionUID = 1L;
@@ -47,37 +57,46 @@ public class Accessionagent extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "AccessionAgentID")
+    @DinaField(name = "accession-agent-id")
+    @DinaId
     private Integer accessionAgentID;
      
     @Lob
     @Size(max = 65535)
     @Column(name = "Remarks")
+    @DinaField(name = "remarks")
     private String remarks;
     
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "Role")
+    @DinaField(name = "role")
     private String role;
     
     @JoinColumn(name = "AgentID", referencedColumnName = "AgentID")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @DinaManyToOne(name = "agent", type = "agent")
     private Agent agentID;
     
     @JoinColumn(name = "AccessionID", referencedColumnName = "AccessionID")
     @ManyToOne
+    @DinaManyToOne(name = "accession", type = "accession")
     private Accession accessionID;
     
     @JoinColumn(name = "RepositoryAgreementID", referencedColumnName = "RepositoryAgreementID")
     @ManyToOne
+    @DinaIgnor
     private Repositoryagreement repositoryAgreementID;
     
     @JoinColumn(name = "ModifiedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor
     private Agent modifiedByAgentID;
     
     @JoinColumn(name = "CreatedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor
     private Agent createdByAgentID;
 
     public Accessionagent() {

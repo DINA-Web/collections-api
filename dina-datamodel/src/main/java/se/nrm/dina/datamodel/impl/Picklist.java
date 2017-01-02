@@ -30,6 +30,11 @@ import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient; 
+import se.nrm.dina.json.converter.annotation.DinaField;
+import se.nrm.dina.json.converter.annotation.DinaId;
+import se.nrm.dina.json.converter.annotation.DinaIgnor;
+import se.nrm.dina.json.converter.annotation.DinaOneToMany;
+import se.nrm.dina.json.converter.annotation.DinaResource; 
 
 /**
  *
@@ -48,77 +53,95 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Picklist.findBySortType", query = "SELECT p FROM Picklist p WHERE p.sortType = :sortType"),
     @NamedQuery(name = "Picklist.findByTableName", query = "SELECT p FROM Picklist p WHERE p.tableName = :tableName"),
     @NamedQuery(name = "Picklist.findByType", query = "SELECT p FROM Picklist p WHERE p.type = :type")})
+@DinaResource(type = "pickList")
 public class Picklist extends BaseEntity {
   
-    private static final long serialVersionUID = 1L;
+//    private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "PickListID")
+    @DinaField(name = "pick-list-id")
+    @DinaId
     private Integer pickListID;
     
     
     @Size(max = 64)
     @Column(name = "FieldName")
+    @DinaField(name = "field-name")
     private String fieldName;
     
     @Size(max = 32)
     @Column(name = "FilterFieldName")
+    @DinaIgnor
     private String filterFieldName;
     
     @Size(max = 32)
     @Column(name = "FilterValue")
+    @DinaIgnor
     private String filterValue;
     
     @Size(max = 64)
     @Column(name = "Formatter")
+    @DinaIgnor
     private String formatter;
     
     @Basic(optional = false)
     @NotNull
     @Column(name = "IsSystem")
+    @DinaIgnor
     private boolean isSystem;
     
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 64)
     @Column(name = "Name")
+    @DinaField(name = "name")
     private String name;
     
     @Basic(optional = false)
     @NotNull
     @Column(name = "ReadOnly")
+    @DinaIgnor
     private boolean readOnly;
     
     @Column(name = "SizeLimit")
+    @DinaIgnor
     private Integer sizeLimit;
     
     @Column(name = "SortType")
+    @DinaIgnor
     private Short sortType;
     
     @Size(max = 64)
     @Column(name = "TableName")
+    @DinaIgnor
     private String tableName;
     
     @Basic(optional = false)
     @NotNull
     @Column(name = "Type")
+    @DinaField(name = "type")
     private short type;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pickListID", fetch = FetchType.LAZY)
+    @DinaOneToMany(name = "items", type = "pickListItem")
     private List<Picklistitem> picklistitemList;
     
     @JoinColumn(name = "ModifiedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor
     private Agent modifiedByAgentID;
     
     @JoinColumn(name = "CreatedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor
     private Agent createdByAgentID;
     
     @JoinColumn(name = "CollectionID", referencedColumnName = "UserGroupScopeId")
     @ManyToOne(optional = false)
+    @DinaIgnor
     private Collection collectionID;
 
     public Picklist() {

@@ -1,0 +1,5 @@
+<jboss-deployment-structure>
+    <dependencies> 
+        <module name="org.dom4j"/> 
+    </dependencies>
+</jboss-deployment-structure>

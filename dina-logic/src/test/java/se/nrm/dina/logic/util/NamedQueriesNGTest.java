@@ -78,7 +78,7 @@ public class NamedQueriesNGTest {
         
         instance = new NamedQueries();
         String expResult = "SELECT e From Testentity e  ORDER BY e.version asc";
-        String result = instance.createQueryFindAll(entityName, clazz, sort, orderBy);
+        String result = instance.createQueryFindAll(clazz, sort, orderBy);
         assertEquals(result, expResult); 
     }
     
@@ -99,7 +99,7 @@ public class NamedQueriesNGTest {
         
         instance = new NamedQueries();
         String expResult = "SELECT e From Testentity e  ORDER BY e.id asc";
-        String result = instance.createQueryFindAll(entityName, clazz, sort, orderBy);
+        String result = instance.createQueryFindAll(clazz, sort, orderBy);
         assertEquals(result, expResult); 
     }
     
@@ -120,7 +120,7 @@ public class NamedQueriesNGTest {
         
         instance = new NamedQueries();
         String expResult = "SELECT e From Testentity e  ORDER BY e.id asc";
-        String result = instance.createQueryFindAll(entityName, clazz, sort, orderBy);
+        String result = instance.createQueryFindAll(clazz, sort, orderBy);
         assertEquals(result, expResult); 
     }
     
@@ -135,7 +135,7 @@ public class NamedQueriesNGTest {
         Class clazz = BaseEntity.class;
           
         instance = new NamedQueries(); 
-        instance.createQueryFindAll(entityName, clazz, "asc", null); 
+        instance.createQueryFindAll(clazz, "asc", null); 
         
     }
 
@@ -157,7 +157,7 @@ public class NamedQueriesNGTest {
         Map<String, String> criteria = null;
         instance = new NamedQueries();
         String expResult = "SELECT e From Testentity e  ORDER BY e.id asc";
-        String result = instance.createQueryFindAllWithSearchCriteria(entityName, clazz, sort, orderBy, isExact, criteria);
+        String result = instance.createQueryFindAllWithSearchCriteria(clazz, sort, orderBy, isExact, criteria);
         assertEquals(result, expResult); 
     }
 
@@ -174,7 +174,7 @@ public class NamedQueriesNGTest {
         Map<String, String> criteria = new HashMap();
         instance = new NamedQueries();
         String expResult = "SELECT e From Testentity e  ORDER BY e.id asc";
-        String result = instance.createQueryFindAllWithSearchCriteria(entityName, clazz, sort, orderBy, isExact, criteria);
+        String result = instance.createQueryFindAllWithSearchCriteria(clazz, sort, orderBy, isExact, criteria);
         assertEquals(result, expResult); 
     }
     
@@ -198,7 +198,7 @@ public class NamedQueriesNGTest {
         criteria.put("timestampCreated", "2000-01-01");
          
         instance = new NamedQueries(); 
-        String result = instance.createQueryFindAllWithSearchCriteria(entityName, clazz, sort, orderBy, isExact, criteria);
+        String result = instance.createQueryFindAllWithSearchCriteria(clazz, sort, orderBy, isExact, criteria);
         assertTrue(result.contains("WHERE"));
     }
     
@@ -223,7 +223,7 @@ public class NamedQueriesNGTest {
         criteria.put("timestampCreated", "between(2000-01-01,2003-01-01");
          
         instance = new NamedQueries(); 
-        String result = instance.createQueryFindAllWithSearchCriteria(entityName, clazz, sort, orderBy, isExact, criteria);
+        String result = instance.createQueryFindAllWithSearchCriteria(clazz, sort, orderBy, isExact, criteria);
         assertTrue(result.contains("WHERE"));
         assertTrue(result.contains(" BETWEEN ")); 
     }
@@ -248,7 +248,7 @@ public class NamedQueriesNGTest {
         criteria.put("timestampCreated", "lt(2003-01-01");
          
         instance = new NamedQueries(); 
-        String result = instance.createQueryFindAllWithSearchCriteria(entityName, clazz, sort, orderBy, isExact, criteria);
+        String result = instance.createQueryFindAllWithSearchCriteria(clazz, sort, orderBy, isExact, criteria);
         assertTrue(result.contains("WHERE"));
         assertTrue(result.contains(" <= :")); 
     }
@@ -273,7 +273,7 @@ public class NamedQueriesNGTest {
         criteria.put("timestampCreated", "gt(2000-01-01");
          
         instance = new NamedQueries(); 
-        String result = instance.createQueryFindAllWithSearchCriteria(entityName, clazz, sort, orderBy, isExact, criteria);
+        String result = instance.createQueryFindAllWithSearchCriteria(clazz, sort, orderBy, isExact, criteria);
         assertTrue(result.contains("WHERE"));
         assertTrue(result.contains(">= :")); 
     }
@@ -295,7 +295,7 @@ public class NamedQueriesNGTest {
         criteria.put("s", "2");
          
         instance = new NamedQueries(); 
-        instance.createQueryFindAllWithSearchCriteria(entityName, clazz, sort, orderBy, isExact, criteria); 
+        instance.createQueryFindAllWithSearchCriteria(clazz, sort, orderBy, isExact, criteria); 
     }
     
     

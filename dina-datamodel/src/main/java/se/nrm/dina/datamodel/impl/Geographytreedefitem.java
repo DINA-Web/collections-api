@@ -31,13 +31,22 @@ import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient; 
+import se.nrm.dina.json.converter.annotation.DinaField;
+import se.nrm.dina.json.converter.annotation.DinaId;
+import se.nrm.dina.json.converter.annotation.DinaIgnor;
+import se.nrm.dina.json.converter.annotation.DinaManyToOne;
+import se.nrm.dina.json.converter.annotation.DinaResource;
+//import se.nrm.dina.datamodel.annotation.DinaField;
+//import se.nrm.dina.datamodel.annotation.DinaIgnor;
+//import se.nrm.dina.datamodel.annotation.DinaManyToOne;
+//import se.nrm.dina.datamodel.annotation.DinaResource;
 
 /**
  *
  * @author idali
  */
 @Entity
-@Table(name = "geographytreedefitem")
+@Table(name = "geographyTreedefItem")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Geographytreedefitem.findAll", query = "SELECT g FROM Geographytreedefitem g"),
@@ -48,74 +57,94 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Geographytreedefitem.findByName", query = "SELECT g FROM Geographytreedefitem g WHERE g.name = :name"),
     @NamedQuery(name = "Geographytreedefitem.findByRankID", query = "SELECT g FROM Geographytreedefitem g WHERE g.rankID = :rankID"), 
     @NamedQuery(name = "Geographytreedefitem.findByTitle", query = "SELECT g FROM Geographytreedefitem g WHERE g.title = :title")})
+@DinaResource(type = "geographytreedefitem")
 public class Geographytreedefitem extends BaseEntity {
    
-    private static final long serialVersionUID = 1L;
+//    private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "GeographyTreeDefItemID")
+    @DinaField(name = "geography-treedef-item-id")
+    @DinaId
     private Integer geographyTreeDefItemID;
     
     
     @Size(max = 32)
     @Column(name = "FullNameSeparator")
+    @DinaIgnor
     private String fullNameSeparator;
-    
+     
     @Column(name = "IsEnforced")
+    @DinaIgnor
     private Boolean isEnforced;
     
     @Column(name = "IsInFullName")
+    @DinaIgnor
     private Boolean isInFullName;
     
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 64)
     @Column(name = "Name")
+    @DinaField(name = "name")
     private String name;
     
     @Basic(optional = false)
     @NotNull
     @Column(name = "RankID")
+    @DinaField(name = "rank-id")
     private int rankID;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Remarks")
+    @DinaField(name = "remarks")
     private String remarks;
     
     @Size(max = 64)
     @Column(name = "TextAfter")
+    @DinaIgnor
     private String textAfter;
     
     @Size(max = 64)
     @Column(name = "TextBefore")
+    @DinaIgnor
     private String textBefore;
     
     @Size(max = 64)
     @Column(name = "Title")
+    @DinaField(name = "title")
     private String title;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "geographyTreeDefItemID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Geography> geographyList;
     
     @JoinColumn(name = "ModifiedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor
     private Agent modifiedByAgentID;
     
     @JoinColumn(name = "CreatedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor
     private Agent createdByAgentID;
     
     @OneToMany(mappedBy = "parentItemID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Geographytreedefitem> geographytreedefitemList;
     
     @JoinColumn(name = "ParentItemID", referencedColumnName = "GeographyTreeDefItemID")
     @ManyToOne
+    @DinaManyToOne(name = "parent-item-id", type = "geographytreedefitem")
     private Geographytreedefitem parentItemID;
     
     @JoinColumn(name = "GeographyTreeDefID", referencedColumnName = "GeographyTreeDefID")
     @ManyToOne(optional = false)
+    @DinaManyToOne(name = "geography-tree-def", type = "geographytreedef")
+    @DinaIgnor
     private Geographytreedef geographyTreeDefID;
 
     public Geographytreedefitem() {

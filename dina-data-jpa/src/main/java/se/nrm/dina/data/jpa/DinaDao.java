@@ -6,7 +6,7 @@
 package se.nrm.dina.data.jpa;
 
 import java.util.List;
-import java.util.Map;  
+import java.util.Map;   
 import se.nrm.dina.datamodel.EntityBean;
 
 /**
@@ -80,6 +80,8 @@ public interface DinaDao<T extends EntityBean> {
      * @return a <code>List</code> of all the entities in the database.
      */
     public List<T> findAll(Class<T> clazz);
+    
+    public List<T> findAll(String entityName, String idField, List<Integer> ids);
 
     /**
      * Finds all the instances of an entity in the database by the search

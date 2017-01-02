@@ -27,6 +27,15 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement; 
+import se.nrm.dina.json.converter.annotation.DinaField;
+import se.nrm.dina.json.converter.annotation.DinaId;
+import se.nrm.dina.json.converter.annotation.DinaIgnor;
+import se.nrm.dina.json.converter.annotation.DinaManyToOne;
+import se.nrm.dina.json.converter.annotation.DinaResource;
+//import se.nrm.dina.datamodel.annotation.DinaField;
+//import se.nrm.dina.datamodel.annotation.DinaIgnor;
+//import se.nrm.dina.datamodel.annotation.DinaManyToOne;
+//import se.nrm.dina.datamodel.annotation.DinaResource;
 
 /**
  *
@@ -40,6 +49,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Collector.findByCollectorID", query = "SELECT c FROM Collector c WHERE c.collectorID = :collectorID"), 
     @NamedQuery(name = "Collector.findByIsPrimary", query = "SELECT c FROM Collector c WHERE c.isPrimary = :isPrimary"),
     @NamedQuery(name = "Collector.findByOrderNumber", query = "SELECT c FROM Collector c WHERE c.orderNumber = :orderNumber")})
+@DinaResource(type = "collector")
 public class Collector extends BaseEntity {
   
     private static final long serialVersionUID = 1L;
@@ -48,42 +58,52 @@ public class Collector extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "CollectorID")
+    @DinaField(name = "collector-id")
+    @DinaId
     private Integer collectorID;
     
     
     @Basic(optional = false)
     @NotNull
     @Column(name = "IsPrimary")
+    @DinaField(name = "is-primary")
     private boolean isPrimary;
     
     @Basic(optional = false)
     @NotNull
     @Column(name = "OrderNumber")
+    @DinaField(name = "order-number")
     private int orderNumber;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Remarks")
+    @DinaField(name = "remarks")
     private String remarks;
     
     @JoinColumn(name = "AgentID", referencedColumnName = "AgentID")
     @ManyToOne(optional = false)
+    @DinaManyToOne(name = "agent", type = "agent")
     private Agent agentID;
     
     @JoinColumn(name = "ModifiedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor
     private Agent modifiedByAgentID;
     
     @JoinColumn(name = "CreatedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor
     private Agent createdByAgentID;
     
     @JoinColumn(name = "DivisionID", referencedColumnName = "UserGroupScopeId")
     @ManyToOne
+    @DinaIgnor
     private Division divisionID;
     
     @JoinColumn(name = "CollectingEventID", referencedColumnName = "CollectingEventID")
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @DinaManyToOne(name = "collecting-event", type = "collectingevent")
     private Collectingevent collectingEventID;
 
     public Collector() {

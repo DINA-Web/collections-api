@@ -10,7 +10,7 @@ import java.util.List;
 import javax.persistence.Id; 
 import javax.xml.bind.annotation.XmlTransient;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import se.nrm.dina.datamodel.BaseEntity; 
+import se.nrm.dina.datamodel.BaseEntity;  
 
 /**
  *

@@ -33,6 +33,15 @@ import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient; 
+import se.nrm.dina.json.converter.annotation.DinaField;
+import se.nrm.dina.json.converter.annotation.DinaId;
+import se.nrm.dina.json.converter.annotation.DinaIgnor;
+import se.nrm.dina.json.converter.annotation.DinaManyToOne;
+import se.nrm.dina.json.converter.annotation.DinaResource;
+//import se.nrm.dina.datamodel.annotation.DinaField;
+//import se.nrm.dina.datamodel.annotation.DinaIgnor;
+//import se.nrm.dina.datamodel.annotation.DinaManyToOne;
+//import se.nrm.dina.datamodel.annotation.DinaResource;
 
 /**
  *
@@ -52,131 +61,166 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Preparation.findBySampleNumber", query = "SELECT p FROM Preparation p WHERE p.sampleNumber = :sampleNumber"),
     @NamedQuery(name = "Preparation.findByStatus", query = "SELECT p FROM Preparation p WHERE p.status = :status"),
     @NamedQuery(name = "Preparation.findByStorageLocation", query = "SELECT p FROM Preparation p WHERE p.storageLocation = :storageLocation"), })
+@DinaResource(type = "preparation")
 public class Preparation extends BaseEntity {
   
-    private static final long serialVersionUID = 1L;
+//    private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "PreparationID")
+    @DinaField(name = "preparation-id")
+    @DinaId
     private Integer preparationID;
     
     @Basic(optional = false)
     @NotNull
     @Column(name = "CollectionMemberID")
+    @DinaField(name = "collection-member-id")
     private int collectionMemberID;
     
     @Column(name = "CountAmt")
+    @DinaField(name = "count-amt")
     private Integer countAmt;
     
     @Size(max = 255)
     @Column(name = "Description")
+    @DinaField(name = "description")
     private String description;
     
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "Number1")
+    @DinaIgnor
     private Float number1;
     
     @Column(name = "Number2")
+    @DinaIgnor
     private Float number2;
     
     @Column(name = "PreparedDate")
     @Temporal(TemporalType.DATE)
+    @DinaField(name = "prepared-date")
     private Date preparedDate;
     
     @Column(name = "PreparedDatePrecision")
+    @DinaIgnor
     private Short preparedDatePrecision;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Remarks")
+    @DinaField(name = "remarks")
     private String remarks;
     
     @Size(max = 32)
     @Column(name = "SampleNumber")
+    @DinaField(name = "sample-number")
     private String sampleNumber;
     
     @Size(max = 32)
     @Column(name = "Status")
+    @DinaField(name = "status")
     private String status;
     
     @Size(max = 50)
     @Column(name = "StorageLocation")
+    @DinaField(name = "storage-location")
     private String storageLocation;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Text1")
+    @DinaIgnor
     private String text1;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Text2")
+    @DinaIgnor
     private String text2;
     
     @Column(name = "YesNo1")
+    @DinaIgnor
     private Boolean yesNo1;
     
     @Column(name = "YesNo2")
+    @DinaIgnor
     private Boolean yesNo2;
     
     @Column(name = "YesNo3")
+    @DinaIgnor
     private Boolean yesNo3;
     
     @Column(name = "Integer1")
+    @DinaIgnor
     private Integer integer1;
     
     @Column(name = "Integer2")
+    @DinaIgnor
     private Integer integer2;
     
     @Column(name = "ReservedInteger3")
+    @DinaIgnor
     private Integer reservedInteger3;
     
     @Column(name = "ReservedInteger4")
+    @DinaIgnor
     private Integer reservedInteger4;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "preparationID", fetch = FetchType.EAGER)
+    @DinaIgnor
     private List<Preparationattachment> preparationattachmentList;
     
     @JoinColumn(name = "PreparationAttributeID", referencedColumnName = "PreparationAttributeID")
     @ManyToOne
+    @DinaIgnor
     private Preparationattribute preparationAttributeID;
     
     @JoinColumn(name = "ModifiedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor
     private Agent modifiedByAgentID;
     
     @JoinColumn(name = "PrepTypeID", referencedColumnName = "PrepTypeID")
     @ManyToOne(optional = false)
+    @DinaManyToOne(name = "preparation-type", type = "prepType")
     private Preptype prepTypeID;
     
     @JoinColumn(name = "CollectionObjectID", referencedColumnName = "CollectionObjectID")
     @ManyToOne(optional = false,  cascade = CascadeType.ALL,  fetch = FetchType.LAZY)
+    @DinaManyToOne(name = "collection-object", type = "collectionobject")
     private Collectionobject collectionObjectID;
     
     @JoinColumn(name = "CreatedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor
     private Agent createdByAgentID;
     
     @JoinColumn(name = "StorageID", referencedColumnName = "StorageID")
     @ManyToOne
+    @DinaManyToOne(name = "storage", type = "storage")
     private Storage storageID;
     
     @JoinColumn(name = "PreparedByID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaManyToOne(name = "prepared-by", type = "agent")
     private Agent preparedByID;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "preparationId", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Preparationattr> preparationattrList;
     
     @OneToMany(mappedBy = "preparationID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Loanpreparation> loanpreparationList;
     
     @OneToMany(mappedBy = "preparationID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Giftpreparation> giftpreparationList;
     
     @OneToMany(mappedBy = "preparationID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Deaccessionpreparation> deaccessionpreparationList;
 
     public Preparation() {

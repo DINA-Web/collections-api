@@ -34,6 +34,15 @@ import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient; 
+import se.nrm.dina.json.converter.annotation.DinaField;
+import se.nrm.dina.json.converter.annotation.DinaId;
+import se.nrm.dina.json.converter.annotation.DinaIgnor;
+import se.nrm.dina.json.converter.annotation.DinaManyToOne;
+import se.nrm.dina.json.converter.annotation.DinaResource;
+//import se.nrm.dina.datamodel.annotation.DinaField;
+//import se.nrm.dina.datamodel.annotation.DinaIgnor;
+//import se.nrm.dina.datamodel.annotation.DinaManyToOne;
+//import se.nrm.dina.datamodel.annotation.DinaResource;
 
 /**
  *
@@ -54,132 +63,164 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Determination.findByQualifier", query = "SELECT d FROM Determination d WHERE d.qualifier = :qualifier"), 
     @NamedQuery(name = "Determination.findByTypeStatusName", query = "SELECT d FROM Determination d WHERE d.typeStatusName = :typeStatusName"), 
     @NamedQuery(name = "Determination.findByGuid", query = "SELECT d FROM Determination d WHERE d.guid = :guid")})
+@DinaResource(type = "determination")
 public class Determination extends BaseEntity {
   
-    private static final long serialVersionUID = 1L;
+//    private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "DeterminationID")
+    @DinaField(name = "determination-id")
+    @DinaId
     private Integer determinationID;
     
     @Basic(optional = false)
     @NotNull
     @Min(value = 1, message = "collectionMemberID can not be null")
     @Column(name = "CollectionMemberID")
+    @DinaField(name = "collection-member")
     private int collectionMemberID;
  
     
     @Size(max = 16)
     @Column(name = "Addendum")
+    @DinaIgnor
     private String addendum;
     
     @Size(max = 128)
     @Column(name = "AlternateName")
+    @DinaIgnor
     private String alternateName;
     
     @Size(max = 50)
     @Column(name = "Confidence")
+    @DinaField(name = "confidence")
     private String confidence;
     
     @Column(name = "DeterminedDate")
     @Temporal(TemporalType.DATE)
+    @DinaField(name = "determined-date")
     private Date determinedDate;
     
     @Column(name = "DeterminedDatePrecision")
+    @DinaField(name = "determined-date-precision")
     private Short determinedDatePrecision;
     
     @Size(max = 50)
     @Column(name = "FeatureOrBasis")
+    @DinaIgnor
     private String featureOrBasis;
     
     @Basic(optional = false)
     @NotNull(message = "IsCurrent can not be null")
     @Column(name = "IsCurrent")
+    @DinaField(name = "is-current")
     private boolean isCurrent;
     
     @Size(max = 50)
     @Column(name = "Method")
+    @DinaField(name = "method")
     private String method;
     
     @Size(max = 64)
     @Column(name = "NameUsage")
+    @DinaIgnor
     private String nameUsage;
     
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "Number1")
+    @DinaIgnor
     private Float number1;
     
     @Column(name = "Number2")
+    @DinaIgnor
     private Float number2;
     
     @Size(max = 16)
     @Column(name = "Qualifier")
+    @DinaIgnor
     private String qualifier;
      
     @Size(max = 16)
     @Column(name = "SubSpQualifier")
+    @DinaIgnor
     private String subSpQualifier;
     
     @Size(max = 16)
     @Column(name = "VarQualifier")
+    @DinaIgnor
     private String varQualifier;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Remarks")
+    @DinaField(name = "remarks")
     private String remarks;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Text1")
+    @DinaIgnor
     private String text1;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Text2")
+    @DinaIgnor
     private String text2;
     
     @Size(max = 50)
     @Column(name = "TypeStatusName")
+    @DinaField(name = "type-status")
     private String typeStatusName;
     
     @Column(name = "YesNo1")
+    @DinaIgnor
     private Boolean yesNo1;
     
     @Column(name = "YesNo2")
+    @DinaIgnor
     private Boolean yesNo2;
     
     @Size(max = 128)
     @Column(name = "GUID")
+    @DinaField(name = "guid")
     private String guid;
     
     @JoinColumn(name = "TaxonID", referencedColumnName = "TaxonID")
     @ManyToOne
+    @DinaManyToOne(name = "taxon", type = "taxon")
     private Taxon taxonID;
     
     @JoinColumn(name = "PreferredTaxonID", referencedColumnName = "TaxonID")
     @ManyToOne
+    @DinaManyToOne(name = "preferred-taxon", type = "taxon")
     private Taxon preferredTaxonID;
     
     @JoinColumn(name = "ModifiedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor
     private Agent modifiedByAgentID;
     
     @JoinColumn(name = "CollectionObjectID", referencedColumnName = "CollectionObjectID")
     @ManyToOne(optional = false, cascade= CascadeType.ALL,  fetch = FetchType.LAZY)
+    @DinaManyToOne(name = "collection-object-id", type = "collectionobject")
     private Collectionobject collectionObjectID;
     
     @JoinColumn(name = "CreatedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor
     private Agent createdByAgentID;
     
     @JoinColumn(name = "DeterminerID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaManyToOne(name = "determiner", type = "agent")
     private Agent determinerID;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "determinationID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Determinationcitation> determinationcitationList;
 
     public Determination() {

@@ -29,6 +29,17 @@ import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient; 
+import se.nrm.dina.json.converter.annotation.DinaField;
+import se.nrm.dina.json.converter.annotation.DinaId;
+import se.nrm.dina.json.converter.annotation.DinaIgnor;
+import se.nrm.dina.json.converter.annotation.DinaManyToOne;
+import se.nrm.dina.json.converter.annotation.DinaOneToMany;
+import se.nrm.dina.json.converter.annotation.DinaResource;
+//import se.nrm.dina.datamodel.annotation.DinaField;
+//import se.nrm.dina.datamodel.annotation.DinaIgnor;
+//import se.nrm.dina.datamodel.annotation.DinaManyToOne;
+//import se.nrm.dina.datamodel.annotation.DinaOneToMany;
+//import se.nrm.dina.datamodel.annotation.DinaResource;
 
 /**
  *
@@ -53,163 +64,204 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Institution.findByIsReleaseManagedGlobally", query = "SELECT i FROM Institution i WHERE i.isReleaseManagedGlobally = :isReleaseManagedGlobally"),
     @NamedQuery(name = "Institution.findByMinimumPwdLength", query = "SELECT i FROM Institution i WHERE i.minimumPwdLength = :minimumPwdLength"),
     @NamedQuery(name = "Institution.findByGuid", query = "SELECT i FROM Institution i WHERE i.guid = :guid")})
+@DinaResource(type = "institution")
 public class Institution extends BaseEntity {
      
-    private static final long serialVersionUID = 1L;
+//    private static final long serialVersionUID = 1L;
     
     @Id
     @Basic(optional = false)
     @NotNull
-    @Column(name = "UserGroupScopeId")
+    @Column(name = "UserGroupScopeId") 
+    @DinaField(name = "user-group-scope-id")
+    @DinaId
     private Integer userGroupScopeId;
     
     
     @Size(max = 128)
     @Column(name = "AltName")
+    @DinaIgnor
     private String altName;
     
     @Size(max = 64)
     @Column(name = "Code")
+    @DinaField(name = "code")
     private String code;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Copyright")
+    @DinaIgnor
     private String copyright;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Description")
+    @DinaField(name = "description")
     private String description;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Disclaimer")
+    @DinaIgnor
     private String disclaimer;
     
     @Column(name = "HasBeenAsked")
+    @DinaIgnor
     private Boolean hasBeenAsked;
     
     @Size(max = 255)
     @Column(name = "IconURI")
+    @DinaIgnor
     private String iconURI;
     
     @Column(name = "institutionId")
+    @DinaField(name = "institution-id")
     private Integer institutionId;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Ipr")
+    @DinaIgnor
     private String ipr;
     
     @Basic(optional = false)
     @NotNull
     @Column(name = "IsAccessionsGlobal")
+    @DinaIgnor
     private boolean isAccessionsGlobal;
     
     @Column(name = "IsAnonymous")
+    @DinaIgnor
     private Boolean isAnonymous;
     
     @Basic(optional = false)
     @NotNull
     @Column(name = "IsSecurityOn")
+    @DinaIgnor
     private boolean isSecurityOn;
     
     @Basic(optional = false)
     @NotNull
     @Column(name = "IsServerBased")
+    @DinaIgnor
     private boolean isServerBased;
     
     @Column(name = "IsSingleGeographyTree")
+    @DinaIgnor
     private Boolean isSingleGeographyTree;
     
     @Column(name = "IsSharingLocalities")
+    @DinaIgnor
     private Boolean isSharingLocalities;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "License")
+    @DinaIgnor
     private String license;
     
     @Size(max = 64)
     @Column(name = "LsidAuthority")
+    @DinaIgnor
     private String lsidAuthority;
     
     @Size(max = 255)
     @Column(name = "Name")
+    @DinaField(name = "name")
     private String name;
     
     @Size(max = 24)
     @Column(name = "RegNumber")
+    @DinaField(name = "reg-number")
     private String regNumber;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Remarks")
+    @DinaField(name = "remarks")
     private String remarks;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "TermsOfUse")
+    @DinaIgnor
     private String termsOfUse;
     
     @Size(max = 255)
     @Column(name = "Uri")
+    @DinaField(name = "uri")
     private String uri;
     
     @Size(max = 8)
     @Column(name = "CurrentManagedRelVersion")
+    @DinaIgnor
     private String currentManagedRelVersion;
     
     @Size(max = 8)
     @Column(name = "CurrentManagedSchemaVersion")
+    @DinaIgnor
     private String currentManagedSchemaVersion;
     
     @Column(name = "IsReleaseManagedGlobally")
+    @DinaIgnor
     private Boolean isReleaseManagedGlobally;
     
     @Column(name = "MinimumPwdLength")
+    @DinaIgnor
     private Short minimumPwdLength;
     
     @Size(max = 128)
     @Column(name = "GUID")
+    @DinaField(name = "guid")
     private String guid;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "institutionID", fetch = FetchType.LAZY)
+    @DinaOneToMany(name = "divisions", type = "division")
     private List<Division> divisionList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "institutionID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Journal> journalList;
     
     @OneToMany(mappedBy = "institutionCCID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Agent> agentList;
     
     @OneToMany(mappedBy = "institutionTCID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Agent> agentList1;
     
     @JoinColumn(name = "StorageTreeDefID", referencedColumnName = "StorageTreeDefID")
     @ManyToOne
+    @DinaIgnor
     private Storagetreedef storageTreeDefID;
     
     @JoinColumn(name = "AddressID", referencedColumnName = "AddressID")
     @ManyToOne
+    @DinaManyToOne(name = "address", type = "address")
     private Address addressID;
     
     @JoinColumn(name = "ModifiedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor
     private Agent modifiedByAgentID;
     
     @JoinColumn(name = "CreatedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor
     private Agent createdByAgentID;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "institutionID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Referencework> referenceworkList;
     
     @OneToMany(mappedBy = "institutionNetworkID", fetch = FetchType.LAZY)
+    @DinaOneToMany(name = "collections", type = "collection")
     private List<Collection> collectionList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "institutionID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Permit> permitList;
 
     public Institution() {

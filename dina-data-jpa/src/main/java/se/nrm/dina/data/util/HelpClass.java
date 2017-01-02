@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;  
-import se.nrm.dina.data.exceptions.DinaException;
+import se.nrm.dina.data.exceptions.DinaException; 
 
 /**
  *
@@ -43,7 +43,7 @@ public class HelpClass {
         try {
             return formatter.parse(strDate);
         } catch (ParseException ex) {
-            throw new DinaException("Error.  " + ex.getMessage());
+            throw new DinaException(400, "ParseException", ex.getMessage());
         }
     }
     

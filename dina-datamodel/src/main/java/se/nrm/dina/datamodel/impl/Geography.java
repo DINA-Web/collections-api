@@ -34,6 +34,15 @@ import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient; 
+import se.nrm.dina.json.converter.annotation.DinaField;
+import se.nrm.dina.json.converter.annotation.DinaId;
+import se.nrm.dina.json.converter.annotation.DinaIgnor;
+import se.nrm.dina.json.converter.annotation.DinaManyToOne;
+import se.nrm.dina.json.converter.annotation.DinaResource;
+//import se.nrm.dina.datamodel.annotation.DinaField;
+//import se.nrm.dina.datamodel.annotation.DinaIgnor;
+//import se.nrm.dina.datamodel.annotation.DinaManyToOne;
+//import se.nrm.dina.datamodel.annotation.DinaResource;
 
 /**
  *
@@ -57,128 +66,162 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Geography.findByIsCurrent", query = "SELECT g FROM Geography g WHERE g.isCurrent = :isCurrent"),
     @NamedQuery(name = "Geography.findByName", query = "SELECT g FROM Geography g WHERE g.name = :name"), 
     @NamedQuery(name = "Geography.findByRankID", query = "SELECT g FROM Geography g WHERE g.rankID = :rankID") })
+@DinaResource(type = "geography")
 public class Geography extends BaseEntity {
    
-    private static final long serialVersionUID = 1L;
+//    private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "GeographyID")
+    @DinaField(name = "geography-id")
+    @DinaId
     private Integer geographyID;
-    
-    
+     
     @Size(max = 16)
     @Column(name = "Abbrev")
+    @DinaField(name = "abbrev")
     private String abbrev;
     
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "CentroidLat")
+    @DinaField(name = "centroid-lat")
     private BigDecimal centroidLat;
     
     @Column(name = "CentroidLon")
+    @DinaField(name = "centroid-lon")
     private BigDecimal centroidLon;
     
     @Size(max = 128)
     @Column(name = "CommonName")
+    @DinaField(name = "common-name")
     private String commonName;
     
     @Size(max = 255)
     @Column(name = "FullName")
+    @DinaField(name = "full-name")
     private String fullName;
     
     @Size(max = 24)
     @Column(name = "GeographyCode")
+    @DinaField(name = "geography-code")
     private String geographyCode;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "GML")
+    @DinaIgnor
     private String gml;
     
     @Size(max = 128)
     @Column(name = "GUID")
+    @DinaIgnor
     private String guid;
     
     @Column(name = "HighestChildNodeNumber")
+    @DinaIgnor
     private Integer highestChildNodeNumber;
     
     @Column(name = "IsAccepted")
+    @DinaIgnor
     private Boolean isAccepted;
     
     @Column(name = "IsCurrent")
+    @DinaField(name = "is-current")
     private Boolean isCurrent;
     
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 64)
     @Column(name = "Name")
+    @DinaField(name = "name")
     private String name;
     
     @Column(name = "NodeNumber")
+    @DinaIgnor
     private Integer nodeNumber;
     
+    
     @Column(name = "Number1")
+    @DinaIgnor
     private Integer number1;
     
     @Column(name = "Number2")
+    @DinaIgnor
     private Integer number2;
     
     @Basic(optional = false)
     @NotNull
     @Column(name = "RankID")
+    @DinaField(name = "rank-id")
     private int rankID;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Remarks")
+    @DinaField(name = "remarks")
     private String remarks;
     
     @Size(max = 32)
     @Column(name = "Text1")
+    @DinaIgnor
     private String text1;
     
     @Size(max = 32)
     @Column(name = "Text2")
+    @DinaIgnor
     private String text2;
     
     @Column(name = "TimestampVersion")
     @Temporal(TemporalType.TIMESTAMP)
+    @DinaIgnor
     private Date timestampVersion;
     
     @JoinColumn(name = "ModifiedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor
     private Agent modifiedByAgentID;
     
     @JoinColumn(name = "CreatedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor
     private Agent createdByAgentID;
+    
     @OneToMany(mappedBy = "parentID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Geography> geographyList;
     
     @JoinColumn(name = "ParentID", referencedColumnName = "GeographyID")
     @ManyToOne
+    @DinaManyToOne(name = "parent", type = "geography")
     private Geography parentID;
     
     @JoinColumn(name = "GeographyTreeDefID", referencedColumnName = "GeographyTreeDefID")
     @ManyToOne(optional = false)
+    @DinaIgnor
     private Geographytreedef geographyTreeDefID;
     
     @JoinColumn(name = "GeographyTreeDefItemID", referencedColumnName = "GeographyTreeDefItemID")
     @ManyToOne(optional = false)
+    @DinaManyToOne(name = "tree-def", type = "geographyTreedefItem")
     private Geographytreedefitem geographyTreeDefItemID;
     
     @OneToMany(mappedBy = "acceptedID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Geography> geographyList1;
     
     @JoinColumn(name = "AcceptedID", referencedColumnName = "GeographyID")
     @ManyToOne
+    @DinaManyToOne(name = "accepted", type = "geography")
     private Geography acceptedID;
     
     @OneToMany(mappedBy = "geographyID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Locality> localityList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "geographyID", fetch = FetchType.LAZY)
+    @DinaIgnor
     private List<Agentgeography> agentgeographyList;
 
     public Geography() {

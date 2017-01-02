@@ -14,7 +14,8 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
-import javax.xml.bind.annotation.XmlAttribute; 
+import javax.xml.bind.annotation.XmlAttribute;  
+import se.nrm.dina.json.converter.annotation.DinaField;
 
 /**
  *
@@ -31,6 +32,7 @@ public abstract class BaseEntity implements Serializable, EntityBean {
     @Basic(optional = false) 
     @Column(name = "TimestampCreated")
     @Temporal(TemporalType.TIMESTAMP)
+    @DinaField(name = "timestamp-created")
     protected Date timestampCreated;
 
     @Column(name = "TimestampModified")

@@ -5,7 +5,7 @@
  */
 
 package se.nrm.dina.data.jpa.impl;
- 
+  
 import java.io.Serializable;    
 import java.util.ArrayList;
 import java.util.List; 
@@ -16,6 +16,7 @@ import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;  
 import javax.persistence.LockModeType;   
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.OptimisticLockException; 
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query; 
@@ -26,12 +27,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;  
 import se.nrm.dina.data.exceptions.DinaConstraintViolationException;
 import se.nrm.dina.data.exceptions.DinaDatabaseException;
-import se.nrm.dina.data.exceptions.DinaException;  
-import se.nrm.dina.data.exceptions.ErrorMsg;
+import se.nrm.dina.data.exceptions.DinaException;   
 import se.nrm.dina.data.jpa.DinaDao; 
-import se.nrm.dina.data.util.HelpClass; 
-import se.nrm.dina.data.vo.ErrorBean;
-import se.nrm.dina.datamodel.EntityBean;  
+import se.nrm.dina.datamodel.EntityBean;
+import se.nrm.dina.data.util.HelpClass;  
 
 /**
  * CRUD operations to database
@@ -75,7 +74,7 @@ public class DinaDaoImpl<T extends EntityBean> implements DinaDao<T>, Serializab
     
     @Override
     public List<T> findAll(Class<T> clazz, String jpql, int limit, Map<String, String> conditions, boolean isExact, int offset) {
-//        logger.info("findAll : {} -- {}", jpql, conditions);
+        logger.info("findAll : {} -- {}", jpql, conditions);
          
         try {
             query = entityManager.createQuery(jpql);   
@@ -88,14 +87,30 @@ public class DinaDaoImpl<T extends EntityBean> implements DinaDao<T>, Serializab
             query.setMaxResults(HelpClass.getInstance().maxLimit(limit));
             return query.getResultList();  
         } catch (Exception e) { 
-            throw new DinaException(e.getMessage(), 500);
+            logger.error("e : {}", e.getMessage());
+            throw new DinaException(400, getRootCauseName(e), e.getMessage());
         }
     }
     
-    
-    
-    
-    
+    @Override
+    public List<T> findAll(String entityName, String idFieldName, List<Integer> ids) {
+         
+        logger.info("findAll : {}", ids);
+        StringBuilder sb = new StringBuilder();
+        sb.append("SELECT e FROM ");
+        sb.append(entityName);
+        sb.append(" e WHERE e.");
+        sb.append(idFieldName);
+        sb.append(" in :ids");
+        
+//        String namedQuery = entityName + ".findAllByIDs";
+//        query = entityManager.createNamedQuery(namedQuery);
+        
+        query = entityManager.createQuery(sb.toString()); 
+        query.setParameter("ids", ids);
+        return query.getResultList(); 
+    }
+     
   
     @Override
     public T findById(int id, Class<T> clazz, boolean isVersioned) {
@@ -112,9 +127,9 @@ public class DinaDaoImpl<T extends EntityBean> implements DinaDao<T>, Serializab
             return tmp; 
         } catch (OptimisticLockException ex) { 
             entityManager.refresh(tmp); 
-            throw new DinaDatabaseException(new ErrorBean(clazz.getSimpleName(), ex.getMessage()), 400);
-        } catch(Exception ex) {
-            throw new DinaDatabaseException(new ErrorBean(clazz.getSimpleName(), ex.getMessage()), 400);
+            throw new DinaDatabaseException(400, "OptimisticLockException", ex.getMessage());
+        } catch(Exception ex) { 
+            throw new DinaDatabaseException(400, getRootCauseName(ex), ex.getMessage());
         }   
     }
  
@@ -128,9 +143,9 @@ public class DinaDaoImpl<T extends EntityBean> implements DinaDao<T>, Serializab
             entityManager.flush();
         } catch (OptimisticLockException ex) { 
             entityManager.refresh(tmp);
-            throw new DinaDatabaseException(new ErrorBean(clazz.getSimpleName(), ex.getMessage()), 400);
+            throw new DinaDatabaseException(400, "OptimisticLockException", ex.getMessage());
         } catch(Exception ex) {
-            throw new DinaDatabaseException(new ErrorBean(clazz.getSimpleName(), ex.getMessage()), 400);
+            throw new DinaDatabaseException(400, getRootCauseName(ex), ex.getMessage());
         }  
         return tmp; 
     }
@@ -151,13 +166,13 @@ public class DinaDaoImpl<T extends EntityBean> implements DinaDao<T>, Serializab
             entityManager.flush(); 
         } catch (javax.persistence.PersistenceException ex) {  
             if (ex.getCause() instanceof  org.hibernate.exception.ConstraintViolationException) {  
-                org.hibernate.exception.ConstraintViolationException e = (org.hibernate.exception.ConstraintViolationException) ex.getCause();
-                throw new DinaConstraintViolationException(handleHibernateConstraintViolation(e, entity.getClass().getSimpleName()), 400);
+                org.hibernate.exception.ConstraintViolationException e = (org.hibernate.exception.ConstraintViolationException) ex.getCause(); 
+                throw new DinaConstraintViolationException(400, "ConstraintViolationException", handleHibernateConstraintViolation(e)); 
             }
         } catch(ConstraintViolationException e) {
-            throw new DinaConstraintViolationException(handleConstraintViolations(e), 400);  
+            throw new DinaConstraintViolationException(400, "ConstraintViolationException", handleConstraintViolations(e)); 
         } catch (Exception e) {  
-            throw new DinaException(e.getMessage(), 400);  
+            throw new DinaDatabaseException(400, getRootCauseName(e), e.getMessage());
         }
         return tmp;
     }
@@ -172,10 +187,9 @@ public class DinaDaoImpl<T extends EntityBean> implements DinaDao<T>, Serializab
             tmp = entityManager.merge(entity); 
             entityManager.flush();                              // this one used for throwing OptimisticLockException if method called with web service
         } catch (OptimisticLockException e) { 
-            logger.warn(e.getMessage());
-        } catch (ConstraintViolationException e) { 
-            logger.warn(e.getMessage());
-            throw new DinaException(handleConstraintViolation(e));
+            throw new DinaException(400, "OptimisticLockException", e.getMessage());
+        } catch (ConstraintViolationException e) {  
+            throw new DinaConstraintViolationException(400, "ConstraintViolationException", handleConstraintViolations(e)); 
         } catch (Exception e) {  
             logger.warn(e.getMessage());
         }  
@@ -200,8 +214,8 @@ public class DinaDaoImpl<T extends EntityBean> implements DinaDao<T>, Serializab
             return (T) query.getSingleResult();
         } catch (javax.persistence.NoResultException ex) {
             return null;
-        } catch ( javax.persistence.NonUniqueResultException ex) {
-            throw new DinaDatabaseException(ex.getMessage(), ErrorMsg.getInstance().getNonUniqueErrorCode());
+        } catch (NonUniqueResultException ex) {
+            throw new DinaDatabaseException(400, "NonUniqueResultException", ex.getMessage());
         } 
     }
  
@@ -229,9 +243,9 @@ public class DinaDaoImpl<T extends EntityBean> implements DinaDao<T>, Serializab
             entityManager.remove(entity);
             entityManager.flush();                              // this is needed for throwing internal exception
         } catch (ConstraintViolationException e) {
-            logger.warn(e.getMessage());
+            throw new DinaConstraintViolationException(400, "ConstraintViolationException", handleConstraintViolations(e));  
         } catch (Exception e) {
-            logger.warn(e.getMessage());
+            throw new DinaException(400, getRootCauseName(e), e.getMessage());  
         }
     }
 
@@ -240,14 +254,16 @@ public class DinaDaoImpl<T extends EntityBean> implements DinaDao<T>, Serializab
  
 
     
+    private String getRootCauseName(final Throwable throwable) {
+        return getRootCause(throwable).getClass().getSimpleName();
+    }
     
-    
-    public static Throwable getRootCause(final Throwable throwable) {
+    private Throwable getRootCause(final Throwable throwable) {
         final List<Throwable> list = getThrowableList(throwable);
         return list.size() < 2 ? null : (Throwable) list.get(list.size() - 1);
     }
 
-    public static List<Throwable> getThrowableList(Throwable throwable) {
+    private List<Throwable> getThrowableList(Throwable throwable) {
         final List<Throwable> list = new ArrayList<>();
         while (throwable != null && list.contains(throwable) == false) {
             list.add(throwable);
@@ -256,89 +272,92 @@ public class DinaDaoImpl<T extends EntityBean> implements DinaDao<T>, Serializab
         return list;
     }
     
-    private List<ErrorBean> handleHibernateConstraintViolation(org.hibernate.exception.ConstraintViolationException e, String entityName) {
-        ErrorBean errorBean = new ErrorBean();
-        errorBean.setErrorMsg(getRootCause(e).getMessage());
-        errorBean.setEntityName(entityName);
-        List<ErrorBean> errorBeans = new ArrayList<>();
-        errorBeans.add(errorBean);
-        return errorBeans;
+    private String handleHibernateConstraintViolation(org.hibernate.exception.ConstraintViolationException e) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getRootCause(e).getMessage());
+        sb.append(" [");
+        sb.append(getRootCause(e).getClass().getSimpleName());
+        sb.append("]");
+        return sb.toString();
     }
- 
-    private List<ErrorBean> handleConstraintViolations(ConstraintViolationException e) { 
+     
+    private List<String> handleConstraintViolations(ConstraintViolationException e) { 
         logger.error("handleConstraintViolations"); 
 
-        List<ErrorBean> errorBeans = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
+        List<String> msgs = new ArrayList<>();
         Set<ConstraintViolation<?>> cvs = e.getConstraintViolations();
 
         if (cvs != null) {
             cvs.stream().forEach(cv -> {
-                ErrorBean errorBean = new ErrorBean();
-                errorBean.setViolation(cv.getMessage());
-                errorBean.setEntityName(cv.getRootBeanClass().getSimpleName());
-                errorBean.setErrorMsg(cv.getMessage());
-                errorBean.setConstrianKey(cv.getPropertyPath().toString());
-                errorBean.setInvalidValue(cv.getInvalidValue() == null ? null : cv.getInvalidValue().toString());
-                errorBeans.add(errorBean);
+                sb.append(cv.getMessage());
+                sb.append(": ");
+                sb.append(cv.getRootBeanClass().getSimpleName());
+                sb.append(" [Constrian Key:");
+                sb.append(cv.getPropertyPath().toString());
+                sb.append(" Value: ");
+                sb.append(cv.getInvalidValue() == null ? null : cv.getInvalidValue().toString());
+                sb.append("]");
+                msgs.add(sb.toString()); 
             });
         } 
-        return errorBeans;
+        return msgs;
     }
 
 
     
-    /**
-     * Method handles ConstraintViolationException. It logs exception messages,
-     * entity properties with invalid values.
-     *
-     * @param e
-     * @return
-     */
-    private String handleConstraintViolation(ConstraintViolationException e) {
-        logger.error("handleConstraintViolation : {}", e.getMessage());
-        StringBuilder sb = new StringBuilder();
-
-        Set<ConstraintViolation<?>> cvs = e.getConstraintViolations();
-        if (cvs != null) { 
-            cvs.stream().map((cv) -> {
-                logger.info("------------------------------------------------");
-                return cv;
-            }).map((cv) -> {
-                logger.info("Violation: {}", cv.getMessage());
-                return cv;
-            }).map((cv) -> {
-                sb.append("Violation:");
-                sb.append(cv.getMessage());
-                return cv;
-            }).map((cv) -> {
-                logger.info("Entity: {}", cv.getRootBeanClass().getSimpleName());
-                return cv;
-            }).map((cv) -> {
-                sb.append(" - Entity: ");
-                sb.append(cv.getRootBeanClass().getSimpleName());
-                return cv;
-            }).map((cv) -> {
-                if (cv.getLeafBean() != null && cv.getRootBean() != cv.getLeafBean()) {
-                    logger.info("Embeddable: {}", cv.getLeafBean().getClass().getSimpleName());
-                    sb.append(" - Embeddable: ");
-                    sb.append(cv.getLeafBean().getClass().getSimpleName());
-                }
-                return cv;
-            }).map((cv) -> {
-                logger.info("Attribute: {}", cv.getPropertyPath());
-                return cv;
-            }).map((cv) -> {
-                sb.append(" - Attribute: ");
-                sb.append(cv.getPropertyPath());
-                return cv;
-            }).map((cv) -> {
-                logger.info("Invalid value: {}", cv.getInvalidValue());
-                return cv;
-            }).forEach((cv) -> {
-                sb.append(" - Invalid value: ");
-                sb.append(cv.getInvalidValue());
-            });
-        }
-        return sb.toString();
-    }
+//    /**
+//     * Method handles ConstraintViolationException. It logs exception messages,
+//     * entity properties with invalid values.
+//     *
+//     * @param e
+//     * @return
+//     */
+//    private String handleConstraintViolation(ConstraintViolationException e) {
+//        logger.error("handleConstraintViolation : {}", e.getMessage());
+//        StringBuilder sb = new StringBuilder();
+//
+//        Set<ConstraintViolation<?>> cvs = e.getConstraintViolations();
+//        if (cvs != null) { 
+//            cvs.stream().map((cv) -> {
+//                logger.info("------------------------------------------------");
+//                return cv;
+//            }).map((cv) -> {
+//                logger.info("Violation: {}", cv.getMessage());
+//                return cv;
+//            }).map((cv) -> {
+//                sb.append("Violation:");
+//                sb.append(cv.getMessage());
+//                return cv;
+//            }).map((cv) -> {
+//                logger.info("Entity: {}", cv.getRootBeanClass().getSimpleName());
+//                return cv;
+//            }).map((cv) -> {
+//                sb.append(" - Entity: ");
+//                sb.append(cv.getRootBeanClass().getSimpleName());
+//                return cv;
+//            }).map((cv) -> {
+//                if (cv.getLeafBean() != null && cv.getRootBean() != cv.getLeafBean()) {
+//                    logger.info("Embeddable: {}", cv.getLeafBean().getClass().getSimpleName());
+//                    sb.append(" - Embeddable: ");
+//                    sb.append(cv.getLeafBean().getClass().getSimpleName());
+//                }
+//                return cv;
+//            }).map((cv) -> {
+//                logger.info("Attribute: {}", cv.getPropertyPath());
+//                return cv;
+//            }).map((cv) -> {
+//                sb.append(" - Attribute: ");
+//                sb.append(cv.getPropertyPath());
+//                return cv;
+//            }).map((cv) -> {
+//                logger.info("Invalid value: {}", cv.getInvalidValue());
+//                return cv;
+//            }).forEach((cv) -> {
+//                sb.append(" - Invalid value: ");
+//                sb.append(cv.getInvalidValue());
+//            });
+//        }
+//        return sb.toString();
+//    }
 }

@@ -29,6 +29,15 @@ import javax.xml.bind.annotation.XmlID;
 import javax.xml.bind.annotation.XmlIDREF;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient; 
+import se.nrm.dina.json.converter.annotation.DinaField;
+import se.nrm.dina.json.converter.annotation.DinaId;
+import se.nrm.dina.json.converter.annotation.DinaIgnor;
+import se.nrm.dina.json.converter.annotation.DinaManyToOne;
+import se.nrm.dina.json.converter.annotation.DinaResource;
+//import se.nrm.dina.datamodel.annotation.DinaField;
+//import se.nrm.dina.datamodel.annotation.DinaIgnor;
+//import se.nrm.dina.datamodel.annotation.DinaManyToOne;
+//import se.nrm.dina.datamodel.annotation.DinaResource;
 
 /**
  *
@@ -42,46 +51,55 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Collectionobjectattachment.findByCollectionObjectAttachmentID", query = "SELECT c FROM Collectionobjectattachment c WHERE c.collectionObjectAttachmentID = :collectionObjectAttachmentID"),
      @NamedQuery(name = "Collectionobjectattachment.findByCollectionMemberID", query = "SELECT c FROM Collectionobjectattachment c WHERE c.collectionMemberID = :collectionMemberID"),
     @NamedQuery(name = "Collectionobjectattachment.findByOrdinal", query = "SELECT c FROM Collectionobjectattachment c WHERE c.ordinal = :ordinal")})
+@DinaResource(type = "collectionObjectAttachment")
 public class Collectionobjectattachment extends BaseEntity {
   
-    private static final long serialVersionUID = 1L;
+//    private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "CollectionObjectAttachmentID")
+    @DinaField(name = "collection-object-attachment-id")
+    @DinaId
     private Integer collectionObjectAttachmentID;
-    
-    
+     
     @Basic(optional = false)
     @NotNull
     @Column(name = "CollectionMemberID")
+    @DinaField(name = "collection-member-id")
     private int collectionMemberID;
     
     @Basic(optional = false)
     @NotNull
     @Column(name = "Ordinal")
+    @DinaField(name = "ordinal")
     private int ordinal;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Remarks")
+    @DinaField(name = "remarks")
     private String remarks;
     
     @JoinColumn(name = "ModifiedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor
     private Agent modifiedByAgentID;
     
     @JoinColumn(name = "CollectionObjectID", referencedColumnName = "CollectionObjectID")
     @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @DinaIgnor
     private Collectionobject collectionObjectID;
     
     @JoinColumn(name = "CreatedByAgentID", referencedColumnName = "AgentID")
     @ManyToOne
+    @DinaIgnor
     private Agent createdByAgentID;
     
     @JoinColumn(name = "AttachmentID", referencedColumnName = "AttachmentID")
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @DinaManyToOne(name = "attachment", type = "attachment")
     private Attachment attachmentID;
 
     public Collectionobjectattachment() {
