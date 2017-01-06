@@ -79,7 +79,7 @@ public class Preparation extends BaseEntity {
     @Column(name = "CountAmt")
     @DinaField(name = "count-amt")
     private Integer countAmt;
-    
+ 
     @Size(max = 255)
     @Column(name = "Description")
     @DinaField(name = "description")

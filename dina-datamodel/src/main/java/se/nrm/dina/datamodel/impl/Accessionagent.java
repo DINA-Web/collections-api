@@ -31,11 +31,7 @@ import se.nrm.dina.json.converter.annotation.DinaField;
 import se.nrm.dina.json.converter.annotation.DinaId;
 import se.nrm.dina.json.converter.annotation.DinaIgnor;
 import se.nrm.dina.json.converter.annotation.DinaManyToOne;
-import se.nrm.dina.json.converter.annotation.DinaResource;
-//import se.nrm.dina.datamodel.annotation.DinaField;
-//import se.nrm.dina.datamodel.annotation.DinaIgnor;
-//import se.nrm.dina.datamodel.annotation.DinaManyToOne;
-//import se.nrm.dina.datamodel.annotation.DinaResource;
+import se.nrm.dina.json.converter.annotation.DinaResource; 
 
 /**
  *
@@ -51,7 +47,7 @@ import se.nrm.dina.json.converter.annotation.DinaResource;
 @DinaResource(type = "accessionAgent")
 public class Accessionagent extends BaseEntity {
  
-    private static final long serialVersionUID = 1L;
+ //   private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

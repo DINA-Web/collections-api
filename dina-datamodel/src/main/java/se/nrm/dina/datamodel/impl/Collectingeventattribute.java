@@ -41,7 +41,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Collectingeventattribute.findByCollectingEventAttributeID", query = "SELECT c FROM Collectingeventattribute c WHERE c.collectingEventAttributeID = :collectingEventAttributeID") })
 public class Collectingeventattribute extends BaseEntity {
     
-    private static final long serialVersionUID = 1L;
+ //   private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)

@@ -58,7 +58,7 @@ import se.nrm.dina.json.converter.annotation.DinaResource;
 @DinaResource(type = "division")
 public class Division extends BaseEntity {
    
-    private static final long serialVersionUID = 1L;
+ //   private static final long serialVersionUID = 1L;
     
     @Id
     @Basic(optional = false)

@@ -280,8 +280,13 @@ public class DinaDataLogic<T extends EntityBean> implements Serializable {
         bean = null;
         try {
             bean = (EntityBean) mapper.readValue(json, JpaReflectionHelper.getInstance().convertClassNameToClass(entityName));
-        } catch (IOException ex) { 
-            throw new DinaException(400, ex.getCause().getClass().getSimpleName(), ex.getMessage());
+        } catch (IOException ex) {  
+            if(ex.getCause() != null) {
+                throw new DinaException(400, ex.getCause().getClass().getSimpleName(), ex.getMessage());
+            } else {
+                throw new DinaException(400, null, ex.getMessage());
+            }
+            
         }
         return bean;
     }

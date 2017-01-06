@@ -136,6 +136,38 @@ public class JsonConverterImpl implements JsonConverter, Serializable {
     }
     
     
+    // TODO:
+    /*
+    
+    {
+        "errors": [
+          {
+            "detail": "This username is already taken!",
+            "source": {
+              "pointer": "data/attributes/username"
+            }
+          }, {
+            "detail": "Doesn't look like a valid email.",
+            "source": {
+              "pointer": "data/attributes/email"
+            }
+          }
+        ]
+   }
+    
+    
+    
+    {
+        "errors": [
+            {
+                "detail": "Some generic non property error message",
+                "source": {
+                    "pointer": "data"
+                }
+            }
+        ]
+    }
+    */
      
     @Override
     public JsonObject convert(Map<String, Object> meta, List<String> errorMsgs, 
@@ -158,8 +190,8 @@ public class JsonConverterImpl implements JsonConverter, Serializable {
                 .forEach(l -> {
                     arrBuilder.add(l);
                 });
-        errorBuilder.add("details", arrBuilder); 
-        jsonBuilder.add("error", errorBuilder);
+        errorBuilder.add("detail", arrBuilder); 
+        jsonBuilder.add("errors", errorBuilder);
 
         return jsonBuilder.build();
     }

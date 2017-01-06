@@ -48,7 +48,7 @@ import se.nrm.dina.json.converter.annotation.DinaResource;
 @DinaResource(type = "collector")
 public class Collector extends BaseEntity {
   
-    private static final long serialVersionUID = 1L;
+//    private static final long serialVersionUID = 1L;
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
