@@ -144,10 +144,10 @@ public class Helpclass {
         if (map == null || map.isEmpty()) {
             return null;
         } else {
-            StringBuilder sb = new StringBuilder();
-            sb.append("&");
+            StringBuilder sb = new StringBuilder(); 
             map.entrySet().stream()
                     .forEach(e -> {
+                        sb.append("&");
                         sb.append(e.getKey());
                         sb.append("=");
                         sb.append(e.getValue());

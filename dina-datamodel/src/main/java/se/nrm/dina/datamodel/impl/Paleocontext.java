@@ -143,7 +143,7 @@ public class Paleocontext extends BaseEntity {
     
     @JoinColumn(name = "ChronosStratEndID", referencedColumnName = "GeologicTimePeriodID")
     @ManyToOne
-    @DinaManyToOne(name = "chronos-strat", type = "geologictimeperiod")
+    @DinaIgnor 
     private Geologictimeperiod chronosStratEndID;
     
     @JoinColumn(name = "DisciplineID", referencedColumnName = "UserGroupScopeId")

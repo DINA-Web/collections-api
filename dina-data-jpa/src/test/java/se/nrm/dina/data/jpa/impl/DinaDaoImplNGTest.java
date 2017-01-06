@@ -38,8 +38,7 @@ import se.nrm.dina.data.exceptions.DinaDatabaseException;
 import se.nrm.dina.data.exceptions.DinaException;
 import se.nrm.dina.data.jpa.DinaDao;
 import se.nrm.dina.datamodel.EntityBean;
-import se.nrm.dina.datamodel.impl.Testentity;
-import se.nrm.dina.data.util.HelpClass;  
+import se.nrm.dina.datamodel.impl.Testentity; 
 
 /**
  *

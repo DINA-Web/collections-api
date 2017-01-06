@@ -275,11 +275,12 @@ public class DinaDataLogic<T extends EntityBean> implements Serializable {
     }
 
     private EntityBean mappObject(String entityName, String json) {
+        logger.info("mappObject : {} -- {}", entityName, json);
  
         bean = null;
         try {
             bean = (EntityBean) mapper.readValue(json, JpaReflectionHelper.getInstance().convertClassNameToClass(entityName));
-        } catch (IOException ex) {
+        } catch (IOException ex) { 
             throw new DinaException(400, ex.getCause().getClass().getSimpleName(), ex.getMessage());
         }
         return bean;
@@ -350,10 +351,10 @@ public class DinaDataLogic<T extends EntityBean> implements Serializable {
     private void setChildrenToBean(EntityBean parent, Field field) { 
         try {
             field.setAccessible(true);
-            List<EntityBean> children = (List) field.get(parent);
+            List<EntityBean> children = (List) field.get(parent); 
             Field[] fields;
             if (children != null && !children.isEmpty()) {
-                for (EntityBean child : children) {
+                for (EntityBean child : children) { 
                     setTimeStampCreated(child);
                     setCreatedByUser(child, createdByUserBean);
                     fields = child.getClass().getDeclaredFields(); 
@@ -411,6 +412,8 @@ public class DinaDataLogic<T extends EntityBean> implements Serializable {
      
     
     private void setTimeStampCreated(EntityBean bean) {
+        
+ //       logger.info("setTimeStampCreated bean : {}", bean);
         Field field = JpaReflectionHelper.getInstance().getTimestampCreated(bean.getClass());
         if (field != null) {
             try {

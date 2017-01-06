@@ -4,8 +4,7 @@
  * and open the template in the editor.
  */
 package se.nrm.dina.datamodel.impl;
- 
-import com.fasterxml.jackson.annotation.JsonProperty;
+  
 import se.nrm.dina.datamodel.BaseEntity;
 import java.util.Date;
 import java.util.List;
@@ -76,7 +75,7 @@ public class Collectingevent extends BaseEntity {
     private Date endDate;
     
     @Column(name = "EndDatePrecision")
-    @DinaIgnor
+    @DinaField(name = "end-date-precision")
     private Short endDatePrecision;
     
     @Size(max = 50)
@@ -105,7 +104,7 @@ public class Collectingevent extends BaseEntity {
     private Date startDate;
     
     @Column(name = "StartDatePrecision")
-    @DinaIgnor
+    @DinaField(name = "start-date-precision")
     private Short startDatePrecision;
     
     @Size(max = 50)
@@ -124,13 +123,13 @@ public class Collectingevent extends BaseEntity {
     
     @Size(max = 50)
     @Column(name = "VerbatimDate")
-    @DinaIgnor
+    @DinaField(name = "verbatim-date")
     private String verbatimDate;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "VerbatimLocality")
-    @DinaIgnor
+    @DinaField(name = "verbatim-locality")
     private String verbatimLocality;
     
     @Column(name = "Visibility")
@@ -175,13 +174,13 @@ public class Collectingevent extends BaseEntity {
     @Lob
     @Size(max = 65535)
     @Column(name = "Text1")
-    @DinaIgnor
+    @DinaField(name = "text1")
     private String text1;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Text2")
-    @DinaIgnor
+    @DinaField(name = "text2")
     private String text2;
      
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "collectingEventID", fetch = FetchType.EAGER )
@@ -266,13 +265,11 @@ public class Collectingevent extends BaseEntity {
 //        return Util.getInstance().getURLLink(this.getClass().getSimpleName()) + collectingEventID;
 //    }
 
-    @Override
-    @JsonProperty("entity-id")
+    @Override 
     public int getEntityId() {
         return collectingEventID;
     }
-    
-    @JsonProperty("collecting-event-id")
+     
     public Integer getCollectingEventID() {
         return collectingEventID;
     }
@@ -280,8 +277,7 @@ public class Collectingevent extends BaseEntity {
     public void setCollectingEventID(Integer collectingEventID) {
         this.collectingEventID = collectingEventID;
     }
- 
-    @JsonProperty("end-date")
+  
     public Date getEndDate() {
         return endDate;
     }
@@ -289,8 +285,7 @@ public class Collectingevent extends BaseEntity {
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
-
-    @JsonProperty("end-date-precision")
+ 
     public Short getEndDatePrecision() {
         return endDatePrecision;
     }
@@ -298,8 +293,7 @@ public class Collectingevent extends BaseEntity {
     public void setEndDatePrecision(Short endDatePrecision) {
         this.endDatePrecision = endDatePrecision;
     }
-
-    @JsonProperty("end-date-verbatim")
+ 
     public String getEndDateVerbatim() {
         return endDateVerbatim;
     }
@@ -307,8 +301,7 @@ public class Collectingevent extends BaseEntity {
     public void setEndDateVerbatim(String endDateVerbatim) {
         this.endDateVerbatim = endDateVerbatim;
     }
-
-    @JsonProperty("end-time")
+ 
     public Short getEndTime() {
         return endTime;
     }
@@ -332,8 +325,7 @@ public class Collectingevent extends BaseEntity {
     public void setRemarks(String remarks) {
         this.remarks = remarks;
     }
-
-    @JsonProperty("start-date")
+ 
     public Date getStartDate() {
         return startDate;
     }
@@ -341,8 +333,7 @@ public class Collectingevent extends BaseEntity {
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
-
-    @JsonProperty("start-date-precision")
+ 
     public Short getStartDatePrecision() {
         return startDatePrecision;
     }
@@ -350,8 +341,7 @@ public class Collectingevent extends BaseEntity {
     public void setStartDatePrecision(Short startDatePrecision) {
         this.startDatePrecision = startDatePrecision;
     }
-
-    @JsonProperty("start-date-verbatim")
+ 
     public String getStartDateVerbatim() {
         return startDateVerbatim;
     }
@@ -359,8 +349,7 @@ public class Collectingevent extends BaseEntity {
     public void setStartDateVerbatim(String startDateVerbatim) {
         this.startDateVerbatim = startDateVerbatim;
     }
-
-    @JsonProperty("start-time")
+ 
     public Short getStartTime() {
         return startTime;
     }
@@ -368,8 +357,7 @@ public class Collectingevent extends BaseEntity {
     public void setStartTime(Short startTime) {
         this.startTime = startTime;
     }
-
-    @JsonProperty("station-field-number")
+ 
     public String getStationFieldNumber() {
         return stationFieldNumber;
     }
@@ -377,8 +365,7 @@ public class Collectingevent extends BaseEntity {
     public void setStationFieldNumber(String stationFieldNumber) {
         this.stationFieldNumber = stationFieldNumber;
     }
-
-    @JsonProperty("verbatim-date")
+ 
     public String getVerbatimDate() {
         return verbatimDate;
     }
@@ -386,8 +373,7 @@ public class Collectingevent extends BaseEntity {
     public void setVerbatimDate(String verbatimDate) {
         this.verbatimDate = verbatimDate;
     }
-
-    @JsonProperty("verbatim-locality")
+ 
     public String getVerbatimLocality() {
         return verbatimLocality;
     }
@@ -403,8 +389,7 @@ public class Collectingevent extends BaseEntity {
     public void setVisibility(Short visibility) {
         this.visibility = visibility;
     }
-
-    @JsonProperty("s-gr-status")
+ 
     public Short getSGRStatus() {
         return sGRStatus;
     }
@@ -436,8 +421,7 @@ public class Collectingevent extends BaseEntity {
     public void setInteger2(Integer integer2) {
         this.integer2 = integer2;
     }
-
-    @JsonProperty("reserved-integer3")
+ 
     public Integer getReservedInteger3() {
         return reservedInteger3;
     }
@@ -445,8 +429,7 @@ public class Collectingevent extends BaseEntity {
     public void setReservedInteger3(Integer reservedInteger3) {
         this.reservedInteger3 = reservedInteger3;
     }
-
-    @JsonProperty("reserved-integer4")
+ 
     public Integer getReservedInteger4() {
         return reservedInteger4;
     }
@@ -454,8 +437,7 @@ public class Collectingevent extends BaseEntity {
     public void setReservedInteger4(Integer reservedInteger4) {
         this.reservedInteger4 = reservedInteger4;
     }
-
-    @JsonProperty("reserved-text1")
+ 
     public String getReservedText1() {
         return reservedText1;
     }
@@ -463,8 +445,7 @@ public class Collectingevent extends BaseEntity {
     public void setReservedText1(String reservedText1) {
         this.reservedText1 = reservedText1;
     }
-
-    @JsonProperty("reserved-text2")
+ 
     public String getReservedText2() {
         return reservedText2;
     }
@@ -508,8 +489,7 @@ public class Collectingevent extends BaseEntity {
         this.collectionobjectList = collectionobjectList;
     }
 
-    @XmlIDREF
-    @JsonProperty("discipline-id")
+    @XmlIDREF 
     public Discipline getDisciplineID() {
         return disciplineID;
     }
@@ -518,8 +498,7 @@ public class Collectingevent extends BaseEntity {
         this.disciplineID = disciplineID;
     }
 
-    @XmlIDREF
-    @JsonProperty("modified-by-agent-id")
+    @XmlIDREF 
     public Agent getModifiedByAgentID() {
         return modifiedByAgentID;
     }
@@ -528,8 +507,7 @@ public class Collectingevent extends BaseEntity {
         this.modifiedByAgentID = modifiedByAgentID;
     }
 
-    @XmlIDREF
-    @JsonProperty("collecting-trip-id")
+    @XmlIDREF 
     public Collectingtrip getCollectingTripID() {
         return collectingTripID;
     }
@@ -538,8 +516,7 @@ public class Collectingevent extends BaseEntity {
         this.collectingTripID = collectingTripID;
     }
 
-    @XmlIDREF
-    @JsonProperty("created-by-agent-id")
+    @XmlIDREF 
     public Agent getCreatedByAgentID() {
         return createdByAgentID;
     }
@@ -548,8 +525,7 @@ public class Collectingevent extends BaseEntity {
         this.createdByAgentID = createdByAgentID;
     }
 
-    @XmlIDREF
-    @JsonProperty("visibility-set-by-id")
+    @XmlIDREF 
     public Specifyuser getVisibilitySetByID() {
         return visibilitySetByID;
     }
@@ -558,8 +534,7 @@ public class Collectingevent extends BaseEntity {
         this.visibilitySetByID = visibilitySetByID;
     }
 
-    @XmlIDREF
-    @JsonProperty("paleo-context-id")
+    @XmlIDREF 
     public Paleocontext getPaleoContextID() {
         return paleoContextID;
     }
@@ -568,8 +543,7 @@ public class Collectingevent extends BaseEntity {
         this.paleoContextID = paleoContextID;
     }
 
-    @XmlIDREF
-    @JsonProperty("locality-id")
+    @XmlIDREF 
     public Locality getLocalityID() {
         return localityID;
     }
@@ -578,8 +552,7 @@ public class Collectingevent extends BaseEntity {
         this.localityID = localityID;
     }
 
-    @XmlIDREF
-    @JsonProperty("collecting-event-attribute-id")
+    @XmlIDREF 
     public Collectingeventattribute getCollectingEventAttributeID() {
         return collectingEventAttributeID;
     }
