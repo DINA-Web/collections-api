@@ -245,6 +245,8 @@ public class JsonConverterImpl implements JsonConverter, Serializable {
             attBuilder.add(key, (BigDecimal) value);
         } else if (value instanceof Boolean) {
             attBuilder.add(key, (Boolean) value);
+        } else if (value instanceof Double) {
+            attBuilder.add(key, (Double) value);
         } else {
             attBuilder.add(key, (String) value);
         }
