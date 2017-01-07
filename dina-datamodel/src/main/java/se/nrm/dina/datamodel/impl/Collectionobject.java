@@ -366,7 +366,7 @@ public class Collectionobject extends BaseEntity {
     
     @JoinColumn(name = "CollectionObjectAttributeID", referencedColumnName = "CollectionObjectAttributeID")
     @ManyToOne(cascade = CascadeType.ALL)  
-    @DinaManyToOne(name = "collection-object-attribute", type="collectionObjectAttribute")
+    @DinaManyToOne(name = "object-attribute", type="collectionObjectAttribute")
     private Collectionobjectattribute collectionObjectAttributeID;
     
     @JoinColumn(name = "ContainerOwnerID", referencedColumnName = "ContainerID")

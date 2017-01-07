@@ -237,7 +237,7 @@ public class JsonConverterImpl implements JsonConverter, Serializable {
             attBuilder.add(key, (int) value);
         } else if (value instanceof Short) {
             attBuilder.add(key, (Short) value);
-        } else if (value instanceof Date) { 
+        } else if (value instanceof Date) {
             attBuilder.add(key, Util.getInstance().dateToString((Date) value));
         } else if (value instanceof java.util.Date) {
             attBuilder.add(key, Util.getInstance().dateToString((java.util.Date) value));
@@ -247,6 +247,8 @@ public class JsonConverterImpl implements JsonConverter, Serializable {
             attBuilder.add(key, (Boolean) value);
         } else if (value instanceof Double) {
             attBuilder.add(key, (Double) value);
+        } else if (value instanceof Float) {
+            attBuilder.add(key, (Float) value);
         } else {
             attBuilder.add(key, (String) value);
         }
