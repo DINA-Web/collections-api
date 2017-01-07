@@ -87,7 +87,7 @@ public class Collectionobjectattribute extends BaseEntity {
     
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "Number1")
-    @DinaIgnor
+    @DinaField(name = "total-count")
     private Float number1;
     
     @Column(name = "Number10")
@@ -263,12 +263,12 @@ public class Collectionobjectattribute extends BaseEntity {
     @Lob
     @Size(max = 65535)
     @Column(name = "Text1")
-    @DinaField(name = "sex")
+    @DinaField(name = "life-stage")
     private String text1;
     
     @Size(max = 50)
     @Column(name = "Text10")
-    @DinaIgnor
+    @DinaField(name = "description")
     private String text10;
     
     @Size(max = 50)
@@ -299,43 +299,43 @@ public class Collectionobjectattribute extends BaseEntity {
     @Lob
     @Size(max = 65535)
     @Column(name = "Text2")
-    @DinaIgnor
+    @DinaField(name = "sex")
     private String text2;
     
     @Lob
     @Size(max = 65535)
     @Column(name = "Text3")
-    @DinaIgnor
+    @DinaField(name = "condition")
     private String text3;
     
     @Size(max = 50)
     @Column(name = "Text4")
-    @DinaField(name = "life-stage")
+    @DinaField(name = "type")
     private String text4;
     
     @Size(max = 50)
     @Column(name = "Text5")
-    @DinaIgnor
+    @DinaField(name = "placement")
     private String text5;
     
     @Size(max = 100)
     @Column(name = "Text6")
-    @DinaIgnor
+    @DinaField(name = "rack-number")
     private String text6;
     
     @Size(max = 100)
     @Column(name = "Text7")
-    @DinaIgnor
+    @DinaField(name = "measurements")
     private String text7;
     
     @Size(max = 50)
     @Column(name = "Text8")
-    @DinaIgnor
+    @DinaField(name = "preservation-stage")
     private String text8;
     
     @Size(max = 50)
     @Column(name = "Text9")
-    @DinaIgnor
+    @DinaField(name = "age")
     private String text9;
     
     @Column(name = "YesNo1")

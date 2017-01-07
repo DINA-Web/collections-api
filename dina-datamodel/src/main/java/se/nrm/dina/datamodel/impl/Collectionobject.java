@@ -5,7 +5,7 @@
  */
 package se.nrm.dina.datamodel.impl;
   
-import com.fasterxml.jackson.annotation.JsonProperty;
+//import com.fasterxml.jackson.annotation.JsonProperty;
 import se.nrm.dina.datamodel.BaseEntity;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -440,7 +440,7 @@ public class Collectionobject extends BaseEntity {
         return collectionObjectID == null ? 0 : collectionObjectID;
     }
 
-    @JsonProperty("collection-object-id")
+//    @JsonProperty("collection-object-id")
     public Integer getCollectionObjectID() {
         return collectionObjectID;
     }
@@ -449,7 +449,7 @@ public class Collectionobject extends BaseEntity {
         this.collectionObjectID = collectionObjectID;
     }
  
-    @JsonProperty("collection-member-id")
+//    @JsonProperty("collection-member-id")
     public int getCollectionMemberID() {
         return collectionMemberID;
     }
@@ -458,7 +458,7 @@ public class Collectionobject extends BaseEntity {
         this.collectionMemberID = collectionMemberID;
     }
 
-    @JsonProperty("alt-catalog-number")
+//    @JsonProperty("alt-catalog-number")
     public String getAltCatalogNumber() {
         return altCatalogNumber;
     }
@@ -467,7 +467,7 @@ public class Collectionobject extends BaseEntity {
         this.altCatalogNumber = altCatalogNumber;
     }
 
-    @JsonProperty("availability")
+//    @JsonProperty("availability")
     public String getAvailability() {
         return availability;
     }
@@ -476,7 +476,7 @@ public class Collectionobject extends BaseEntity {
         this.availability = availability;
     }
 
-    @JsonProperty("catalog-number")
+//    @JsonProperty("catalog-number")
     public String getCatalogNumber() {
         return catalogNumber;
     }
@@ -485,7 +485,7 @@ public class Collectionobject extends BaseEntity {
         this.catalogNumber = catalogNumber;
     }
 
-    @JsonProperty("cataloged-date")
+//    @JsonProperty("cataloged-date")
     public Date getCatalogedDate() {
         return catalogedDate;
     }
@@ -494,7 +494,7 @@ public class Collectionobject extends BaseEntity {
         this.catalogedDate = catalogedDate;
     }
 
-    @JsonProperty("cataloged-date-precision")
+//    @JsonProperty("cataloged-date-precision")
     public Short getCatalogedDatePrecision() {
         return catalogedDatePrecision;
     }
@@ -503,7 +503,7 @@ public class Collectionobject extends BaseEntity {
         this.catalogedDatePrecision = catalogedDatePrecision;
     }
 
-    @JsonProperty("cataloged-date-verbatim")
+//    @JsonProperty("cataloged-date-verbatim")
     public String getCatalogedDateVerbatim() {
         return catalogedDateVerbatim;
     }
@@ -512,7 +512,7 @@ public class Collectionobject extends BaseEntity {
         this.catalogedDateVerbatim = catalogedDateVerbatim;
     }
 
-    @JsonProperty("count-amt")
+//    @JsonProperty("count-amt")
     public Integer getCountAmt() {
         return countAmt;
     }
@@ -521,7 +521,7 @@ public class Collectionobject extends BaseEntity {
         this.countAmt = countAmt;
     }
 
-    @JsonProperty("deaccessioned")
+//    @JsonProperty("deaccessioned")
     public Boolean getDeaccessioned() {
         return deaccessioned;
     }
@@ -530,7 +530,7 @@ public class Collectionobject extends BaseEntity {
         this.deaccessioned = deaccessioned;
     }
 
-    @JsonProperty("description")
+//    @JsonProperty("description")
     public String getDescription() {
         return description;
     }
@@ -539,7 +539,7 @@ public class Collectionobject extends BaseEntity {
         this.description = description;
     }
 
-    @JsonProperty("field-number")
+//    @JsonProperty("field-number")
     public String getFieldNumber() {
         return fieldNumber;
     }
@@ -548,7 +548,7 @@ public class Collectionobject extends BaseEntity {
         this.fieldNumber = fieldNumber;
     }
 
-    @JsonProperty("guid")
+//    @JsonProperty("guid")
     public String getGuid() {
         return guid;
     }
@@ -557,7 +557,7 @@ public class Collectionobject extends BaseEntity {
         this.guid = guid;
     }
 
-    @JsonProperty("inventory-date")
+//    @JsonProperty("inventory-date")
     public Date getInventoryDate() {
         return inventoryDate;
     }
@@ -566,7 +566,7 @@ public class Collectionobject extends BaseEntity {
         this.inventoryDate = inventoryDate;
     }
 
-    @JsonProperty("modifier")
+//    @JsonProperty("modifier")
     public String getModifier() {
         return modifier;
     }
@@ -575,7 +575,7 @@ public class Collectionobject extends BaseEntity {
         this.modifier = modifier;
     }
 
-    @JsonProperty("name")
+//    @JsonProperty("name")
     public String getName() {
         return name;
     }
@@ -584,7 +584,7 @@ public class Collectionobject extends BaseEntity {
         this.name = name;
     }
 
-    @JsonProperty("notifications")
+//    @JsonProperty("notifications")
     public String getNotifications() {
         return notifications;
     }
@@ -593,7 +593,7 @@ public class Collectionobject extends BaseEntity {
         this.notifications = notifications;
     }
 
-    @JsonProperty("number1")
+//    @JsonProperty("number1")
     public Float getNumber1() {
         return number1;
     }
@@ -602,7 +602,7 @@ public class Collectionobject extends BaseEntity {
         this.number1 = number1;
     }
 
-    @JsonProperty("number2")
+//    @JsonProperty("number2")
     public Float getNumber2() {
         return number2;
     }
@@ -611,7 +611,7 @@ public class Collectionobject extends BaseEntity {
         this.number2 = number2;
     }
 
-    @JsonProperty("object-condition")
+//    @JsonProperty("object-condition")
     public String getObjectCondition() {
         return objectCondition;
     }
@@ -620,7 +620,7 @@ public class Collectionobject extends BaseEntity {
         this.objectCondition = objectCondition;
     }
 
-    @JsonProperty("project-number")
+//    @JsonProperty("project-number")
     public String getProjectNumber() {
         return projectNumber;
     }
@@ -629,7 +629,7 @@ public class Collectionobject extends BaseEntity {
         this.projectNumber = projectNumber;
     }
 
-    @JsonProperty("remarks")
+//    @JsonProperty("remarks")
     public String getRemarks() {
         return remarks;
     }
@@ -638,7 +638,7 @@ public class Collectionobject extends BaseEntity {
         this.remarks = remarks;
     }
 
-    @JsonProperty("restrictions")
+//    @JsonProperty("restrictions")
     public String getRestrictions() {
         return restrictions;
     }
@@ -647,7 +647,7 @@ public class Collectionobject extends BaseEntity {
         this.restrictions = restrictions;
     }
 
-    @JsonProperty("text1")
+//    @JsonProperty("text1")
     public String getText1() {
         return text1;
     }
@@ -656,7 +656,7 @@ public class Collectionobject extends BaseEntity {
         this.text1 = text1;
     }
 
-    @JsonProperty("text2")
+//    @JsonProperty("text2")
     public String getText2() {
         return text2;
     }
@@ -665,7 +665,7 @@ public class Collectionobject extends BaseEntity {
         this.text2 = text2;
     }
 
-    @JsonProperty("total-value")
+//    @JsonProperty("total-value")
     public BigDecimal getTotalValue() {
         return totalValue;
     }
@@ -674,7 +674,7 @@ public class Collectionobject extends BaseEntity {
         this.totalValue = totalValue;
     }
 
-    @JsonProperty("ocr")
+//    @JsonProperty("ocr")
     public String getOcr() {
         return ocr;
     }
@@ -683,7 +683,7 @@ public class Collectionobject extends BaseEntity {
         this.ocr = ocr;
     }
 
-    @JsonProperty("visibility")
+//    @JsonProperty("visibility")
     public Short getVisibility() {
         return visibility;
     }
@@ -692,7 +692,7 @@ public class Collectionobject extends BaseEntity {
         this.visibility = visibility;
     }
 
-    @JsonProperty("yes-no1")
+//    @JsonProperty("yes-no1")
     public Boolean getYesNo1() {
         return yesNo1;
     }
@@ -701,7 +701,7 @@ public class Collectionobject extends BaseEntity {
         this.yesNo1 = yesNo1;
     }
 
-    @JsonProperty("yes-no2")
+//    @JsonProperty("yes-no2")
     public Boolean getYesNo2() {
         return yesNo2;
     }
@@ -710,7 +710,7 @@ public class Collectionobject extends BaseEntity {
         this.yesNo2 = yesNo2;
     }
 
-    @JsonProperty("yes-no3")
+//    @JsonProperty("yes-no3")
     public Boolean getYesNo3() {
         return yesNo3;
     }
@@ -719,7 +719,7 @@ public class Collectionobject extends BaseEntity {
         this.yesNo3 = yesNo3;
     }
 
-    @JsonProperty("yes-no4")
+//    @JsonProperty("yes-no4")
     public Boolean getYesNo4() {
         return yesNo4;
     }
@@ -728,7 +728,7 @@ public class Collectionobject extends BaseEntity {
         this.yesNo4 = yesNo4;
     }
 
-    @JsonProperty("yes-no5")
+//    @JsonProperty("yes-no5")
     public Boolean getYesNo5() {
         return yesNo5;
     }
@@ -737,7 +737,7 @@ public class Collectionobject extends BaseEntity {
         this.yesNo5 = yesNo5;
     }
 
-    @JsonProperty("yes-no6")
+//    @JsonProperty("yes-no6")
     public Boolean getYesNo6() {
         return yesNo6;
     }
@@ -746,7 +746,7 @@ public class Collectionobject extends BaseEntity {
         this.yesNo6 = yesNo6;
     }
 
-    @JsonProperty("sgr-status")
+//    @JsonProperty("sgr-status")
     public Short getSGRStatus() {
         return sGRStatus;
     }
@@ -755,7 +755,7 @@ public class Collectionobject extends BaseEntity {
         this.sGRStatus = sGRStatus;
     }
 
-    @JsonProperty("reserved-text")
+//    @JsonProperty("reserved-text")
     public String getReservedText() {
         return reservedText;
     }
@@ -764,7 +764,7 @@ public class Collectionobject extends BaseEntity {
         this.reservedText = reservedText;
     }
 
-    @JsonProperty("text3")
+//    @JsonProperty("text3")
     public String getText3() {
         return text3;
     }
@@ -773,7 +773,7 @@ public class Collectionobject extends BaseEntity {
         this.text3 = text3;
     }
 
-    @JsonProperty("integer1")
+//    @JsonProperty("integer1")
     public Integer getInteger1() {
         return integer1;
     }
@@ -782,7 +782,7 @@ public class Collectionobject extends BaseEntity {
         this.integer1 = integer1;
     }
 
-    @JsonProperty("integer2")
+//    @JsonProperty("integer2")
     public Integer getInteger2() {
         return integer2;
     }
@@ -791,7 +791,7 @@ public class Collectionobject extends BaseEntity {
         this.integer2 = integer2;
     }
 
-    @JsonProperty("reserved-integer3")
+//    @JsonProperty("reserved-integer3")
     public Integer getReservedInteger3() {
         return reservedInteger3;
     }
@@ -800,7 +800,7 @@ public class Collectionobject extends BaseEntity {
         this.reservedInteger3 = reservedInteger3;
     }
 
-    @JsonProperty("reserved-integer4")
+//    @JsonProperty("reserved-integer4")
     public Integer getReservedInteger4() {
         return reservedInteger4;
     }
@@ -809,7 +809,7 @@ public class Collectionobject extends BaseEntity {
         this.reservedInteger4 = reservedInteger4;
     }
 
-    @JsonProperty("reserved-text2")
+//    @JsonProperty("reserved-text2")
     public String getReservedText2() {
         return reservedText2;
     }
@@ -818,7 +818,7 @@ public class Collectionobject extends BaseEntity {
         this.reservedText2 = reservedText2;
     }
 
-    @JsonProperty("reserved-text3")
+//    @JsonProperty("reserved-text3")
     public String getReservedText3() {
         return reservedText3;
     }
@@ -828,7 +828,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlTransient
-    @JsonProperty("projects")
+//    @JsonProperty("projects")
     public List<Project> getProjectList() {
         return projectList;
     }
@@ -840,7 +840,7 @@ public class Collectionobject extends BaseEntity {
     @XmlIDREF
 //    @XmlElementWrapper(name="determinations")
 //    @XmlElement(name="determination") 
-    @JsonProperty("determinations")
+//    @JsonProperty("determinations")
     public List<Determination> getDeterminationList() {
         return determinationList;
     }
@@ -850,7 +850,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlTransient
-    @JsonProperty("exsicataitems")
+//    @JsonProperty("exsicataitems")
     public List<Exsiccataitem> getExsiccataitemList() {
         return exsiccataitemList;
     }
@@ -862,7 +862,7 @@ public class Collectionobject extends BaseEntity {
     @XmlIDREF
 //    @XmlElementWrapper(name="preparations")
 //    @XmlElement(name="preparation") 
-    @JsonProperty("preparations")
+//    @JsonProperty("preparations")
     public List<Preparation> getPreparationList() {
         return preparationList;
     }
@@ -872,7 +872,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlTransient
-    @JsonProperty("conservdescriptions")
+//    @JsonProperty("conservdescriptions")
     public List<Conservdescription> getConservdescriptionList() {
         return conservdescriptionList;
     }
@@ -883,7 +883,7 @@ public class Collectionobject extends BaseEntity {
 
 //    @XmlTransient
     @XmlIDREF
-    @JsonProperty("collectionobjectattachments")
+//    @JsonProperty("collectionobjectattachments")
     public List<Collectionobjectattachment> getCollectionobjectattachmentList() {
         return collectionobjectattachmentList;
     }
@@ -893,7 +893,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlTransient
-    @JsonProperty("treatmentevents")
+//    @JsonProperty("treatmentevents")
     public List<Treatmentevent> getTreatmenteventList() {
         return treatmenteventList;
     }
@@ -903,7 +903,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlTransient
-    @JsonProperty("visibility-set-by-id")
+//    @JsonProperty("visibility-set-by-id")
     public Specifyuser getVisibilitySetByID() {
         return visibilitySetByID;
     }
@@ -913,7 +913,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlIDREF
-    @JsonProperty("accession-id")
+//    @JsonProperty("accession-id")
     public Accession getAccessionID() {
         return accessionID;
     }
@@ -923,7 +923,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlIDREF
-    @JsonProperty("cataloger-id")
+//    @JsonProperty("cataloger-id")
     public Agent getCatalogerID() {
         return catalogerID;
     }
@@ -933,7 +933,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlTransient
-    @JsonProperty("modified-by-agent-id")
+//    @JsonProperty("modified-by-agent-id")
     public Agent getModifiedByAgentID() {
         return modifiedByAgentID;
     }
@@ -943,7 +943,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlTransient
-    @JsonProperty("field-notebook-page-id")
+//    @JsonProperty("field-notebook-page-id")
     public Fieldnotebookpage getFieldNotebookPageID() {
         return fieldNotebookPageID;
     }
@@ -953,7 +953,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlIDREF
-    @JsonProperty("created-by-agent-id")
+//    @JsonProperty("created-by-agent-id")
     public Agent getCreatedByAgentID() {
         return createdByAgentID;
     }
@@ -963,7 +963,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlIDREF
-    @JsonProperty("collection-id")
+//    @JsonProperty("collection-id")
     public Collection getCollectionID() {
         return collectionID;
     }
@@ -973,7 +973,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlTransient
-    @JsonProperty("paleo-context-id")
+//    @JsonProperty("paleo-context-id")
     public Paleocontext getPaleoContextID() {
         return paleoContextID;
     }
@@ -983,7 +983,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlIDREF
-    @JsonProperty("collecting-event-id")
+//    @JsonProperty("collecting-event-id")
     public Collectingevent getCollectingEventID() {
         return collectingEventID;
     }
@@ -993,7 +993,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlIDREF
-    @JsonProperty("collection-object-attribute-id")
+//    @JsonProperty("collection-object-attribute-id")
     public Collectionobjectattribute getCollectionObjectAttributeID() {
         return collectionObjectAttributeID;
     }
@@ -1003,7 +1003,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlTransient
-    @JsonProperty("container-owner-id")
+//    @JsonProperty("container-owner-id")
     public Container getContainerOwnerID() {
         return containerOwnerID;
     }
@@ -1013,7 +1013,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlTransient
-    @JsonProperty("container-id")
+//    @JsonProperty("container-id")
     public Container getContainerID() {
         return containerID;
     }
@@ -1023,7 +1023,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlTransient
-    @JsonProperty("appraisal-id")
+//    @JsonProperty("appraisal-id")
     public Appraisal getAppraisalID() {
         return appraisalID;
     }
@@ -1033,7 +1033,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlTransient 
-    @JsonProperty("dnasequences")
+//    @JsonProperty("dnasequences")
     public List<Dnasequence> getDnasequenceList() {
         return dnasequenceList;
     }
@@ -1043,7 +1043,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlTransient
-    @JsonProperty("colletionrelationships")
+//    @JsonProperty("colletionrelationships")
     public List<Collectionrelationship> getCollectionrelationshipList() {
         return collectionrelationshipList;
     }
@@ -1053,7 +1053,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlTransient
-    @JsonProperty("collectionrelationships")
+//    @JsonProperty("collectionrelationships")
     public List<Collectionrelationship> getCollectionrelationshipList1() {
         return collectionrelationshipList1;
     }
@@ -1063,7 +1063,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlTransient
-    @JsonProperty("collectionobjectcitations")
+//    @JsonProperty("collectionobjectcitations")
     public List<Collectionobjectcitation> getCollectionobjectcitationList() {
         return collectionobjectcitationList;
     }
@@ -1073,7 +1073,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlTransient
-    @JsonProperty("otheridentifiers")
+//    @JsonProperty("otheridentifiers")
     public List<Otheridentifier> getOtheridentifierList() {
         return otheridentifierList;
     }
@@ -1083,7 +1083,7 @@ public class Collectionobject extends BaseEntity {
     }
 
     @XmlTransient
-    @JsonProperty("collectionobjectattrs")
+//    @JsonProperty("collectionobjectattrs")
     public List<Collectionobjectattr> getCollectionobjectattrList() {
         return collectionobjectattrList;
     }
